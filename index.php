@@ -17,5 +17,6 @@
         <?php
         // code here
         ?>
+		<?php include("menu.php"); ?>
     </body>
 </html>
