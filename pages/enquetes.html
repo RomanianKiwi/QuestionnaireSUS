@@ -15,19 +15,24 @@
 
             $(document).ready(function () {
 
+                var choixSysteme = "GPS";
+
                 $.ajax({
                     type: "POST",
-                    url: "listeUtilisateurs.php",
+                    url: "enquetes.php",
+                    data: {nomSyst: "'" + choixSysteme + "'"},
                     async: false,
                     dataType: 'json',
                     success: function (data)
                     {
                         if (data.length == 0)
-                            $('#listeUtilisateurs').append("<p>Aucun utilisateurs enregistrés</p>");
+                            $('#listeEnquetes').append("<p>Aucun questionnaire remplie</p>");
                         else {
                             console.log(data);
+                            var cpt = 0;
                             for (var i = 0; i < data.length; i++) {
-                                $('#listeUtilisateurs').append("<p> Utilisateur n°" + data[i].IdUser + " , Questionnaire répondu : " + data[i].IdQuest + ", Note : " + data[i].Note + "</p>");
+                                cpt++;
+                                $('#listeEnquetes').append("<p> Version : " + cpt + " , Nom Système : " + data[i].nomSysteme + ", Total Score : " + data[i].Moyenne + "</p>");
                             }
                         }
                     }
@@ -48,7 +53,7 @@
 
     <body>
 
-        <div id="listeUtilisateurs">
+        <div id="listeEnquetes">
         </div>
 
     </body>
