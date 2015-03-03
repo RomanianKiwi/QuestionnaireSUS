@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Accueil Administrateur</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+        <script src="../js/fonctionsUtiles.js"></script>
+
+
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+
+                $.ajax({
+                    type: "POST",
+                    url: "listeUtilisateurs.php",
+                    async: false,
+                    dataType: 'json',
+                    success: function (data)
+                    {
+                        //Mauvais identifiants
+                        if(data.length == 0)
+                            $('#listeUtilisateurs').append("<p>Aucun utilisateurs enregistrés</p>");
+                        //Bons identifiants
+                        else{
+                            console.log(data);
+                            for(var i=0; i<data.length; i++){
+                                $('#listeUtilisateurs').append("<p> Utilisateur n°"+data[i].IdUser+" , Questionnaire répondu : "+data[i].IdQuest+", Note : "+data[i].Note+"</p>");
+                            }
+                        }
+                    }
+                });
+
+
+            });
+
+        </script>
+
+        <style>
+            .container {
+                width:50%;
+            }
+        </style>
+
+    </head>
+
+    <body>
+
+        <div id="listeUtilisateurs">
+        </div>
+
+    </body>
+</html>
