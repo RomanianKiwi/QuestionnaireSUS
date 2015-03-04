@@ -1,5 +1,6 @@
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 		<script type="text/javascript">
 		$(document).ready(function() {
 			function toggleNavbarMethod() {
@@ -25,6 +26,8 @@
 
 =======
 >>>>>>> 7c09b6e5a153851865199c73cc6f39a4f8e9fca7
+=======
+>>>>>>> interfaces_maxime
 		<nav class="navbar navbar-default" role="navigation">
 					<div class="container">
 						<div class="navbar-header">
@@ -34,6 +37,7 @@
 								<span class="icon-bar"></span>
 								<span class="icon-bar"></span>
 <<<<<<< HEAD
+<<<<<<< HEAD
 							</button>
 							<a class="navbar-brand hidden-md hidden-lg" href="#">Menu</a>
 =======
@@ -41,10 +45,16 @@
 							</button>
 							<a class="navbar-brand" href="#">Menu</a>
 >>>>>>> 7c09b6e5a153851865199c73cc6f39a4f8e9fca7
+=======
+								<span class="icon-bar"></span>
+							</button>
+							<a class="navbar-brand" href="#">Menu</a>
+>>>>>>> interfaces_maxime
 						</div>
 
 						<div class="collapse navbar-collapse" id="main-menu">
 							<ul class="nav navbar-nav">
+<<<<<<< HEAD
 <<<<<<< HEAD
 								<li class="dropdown">
 									<a id ="ajoutQuest" href="/pages/AjoutQuestionnaire.php" class="dropdown-toggle" data-toggle="dropdown">Nouveau Formulaire </a>
@@ -64,6 +74,8 @@
 					</div>
 		</nav>
 =======
+=======
+>>>>>>> interfaces_maxime
 								<li>
 									<a id ="ajoutQuest" href="AjoutQuestionnaire.php">Nouvelle enquête</a>
 									
@@ -81,4 +93,7 @@
 						</div> 
 					</div>
 		</nav>
+<<<<<<< HEAD
 >>>>>>> 7c09b6e5a153851865199c73cc6f39a4f8e9fca7
+=======
+>>>>>>> interfaces_maxime
