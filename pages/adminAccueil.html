@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Accueil Administrateur</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+        <script src="../js/fonctionsUtiles.js"></script>
+
+
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+
+                $.ajax({
+                    type: "POST",
+                    url: "adminAccueil.php",
+                    data : { login : "'Marco'", mdp : "'test'"},
+
+                    async: false,
+                    dataType: 'json',
+                    success: function (data)
+                    {
+                        //Mauvais identifiants
+                        if(data.length == 0)
+                            $('#accueil').append("<p>Mauvais identifiants </p>");
+                        //Bons identifiants
+                        else{
+                            console.log(data);
+                            $('#accueil').append("<p>"+data[0].UserName+" , mdp : "+data[0].Password+"</p>");
+                        }
+                    }
+                });
+
+
+            });
+
+        </script>
+
+        <style>
+            .container {
+                width:50%;
+            }
+        </style>
+
+    </head>
+
+    <body>
+
+        <div id="accueil">
+        </div>
+
+    </body>
+</html>

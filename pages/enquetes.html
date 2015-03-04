@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Accueil Administrateur</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+        <script src="../js/fonctionsUtiles.js"></script>
+
+
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+
+                var choixSysteme = "GPS";
+
+                $.ajax({
+                    type: "POST",
+                    url: "enquetes.php",
+                    data: {nomSyst: "'" + choixSysteme + "'"},
+                    async: false,
+                    dataType: 'json',
+                    success: function (data)
+                    {
+                        if (data.length == 0)
+                            $('#listeEnquetes').append("<p>Aucun questionnaire remplie</p>");
+                        else {
+                            console.log(data);
+                            var cpt = 0;
+                            for (var i = 0; i < data.length; i++) {
+                                cpt++;
+                                $('#listeEnquetes').append("<p> Version : " + cpt + " , Nom Système : " + data[i].nomSysteme + ", Total Score : " + data[i].Moyenne + "</p>");
+                            }
+                        }
+                    }
+                });
+
+
+            });
+
+        </script>
+
+        <style>
+            .container {
+                width:50%;
+            }
+        </style>
+
+    </head>
+
+    <body>
+
+        <div id="listeEnquetes">
+        </div>
+
+    </body>
+</html>
