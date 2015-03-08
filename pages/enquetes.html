@@ -15,12 +15,11 @@
 
             $(document).ready(function () {
 
-                var choixSysteme = "GPS";
+                //var choixSysteme = "GPS";
 
                 $.ajax({
                     type: "POST",
                     url: "enquetes.php",
-                    data: {nomSyst: "'" + choixSysteme + "'"},
                     async: false,
                     dataType: 'json',
                     success: function (data)
@@ -32,7 +31,7 @@
                             var cpt = 0;
                             for (var i = 0; i < data.length; i++) {
                                 cpt++;
-                                $('#listeEnquetes').append("<p> Version : " + cpt + " , Nom Système : " + data[i].nom + ", Total Score : " + data[i].Moyenne + "</p>");
+                                $('#listeEnquetes').append("<p> Version : " + data[i].VersionSysteme + " , Nom Système : " + data[i].nom + ", Total Score : " + data[i].Moyenne + "</p>");
                             }
                         }
                     }
