@@ -20,6 +20,10 @@
                 $.ajax({
                     type: "POST",
                     url: "enquetes.php",
+<<<<<<< HEAD
+=======
+                    data: {Nom: "'" + choixSysteme + "'"},
+>>>>>>> f4c7453a785582f7ea9f24dfc6c1728fb12dbbf9
                     async: false,
                     dataType: 'json',
                     success: function (data)
@@ -31,7 +35,11 @@
                             var cpt = 0;
                             for (var i = 0; i < data.length; i++) {
                                 cpt++;
+<<<<<<< HEAD
                                 $('#listeEnquetes').append("<p> Version : " + data[i].VersionSysteme + " , Nom Système : " + data[i].nom + ", Total Score : " + data[i].Moyenne + "</p>");
+=======
+                                $('#listeEnquetes').append("<p> Version : " + cpt + " , Nom Système : " + data[i].Nom + ", Total Score : " + data[i].Moyenne + "</p>");
+>>>>>>> f4c7453a785582f7ea9f24dfc6c1728fb12dbbf9
                             }
                         }
                     }
