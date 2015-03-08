@@ -8,7 +8,6 @@ try {
 
 $reponse = $bdd->query("SELECT P.IdQuest, Q.Nom, round(avg(Note),2) as Moyenne FROM participant P, questionnaire Q
                         WHERE P.IdQuest = Q.IdQuest
-                        AND Nom=" . $_POST['Nom'] . " 
                         GROUP BY IdQuest;  ");
 
 echo json_encode($reponse->fetchAll(PDO::FETCH_ASSOC));

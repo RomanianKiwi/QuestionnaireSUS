@@ -9,9 +9,7 @@
 		
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<<<<<<< HEAD
-		
-=======
+		<style>
 		.bs-example{
 				margin: 20px;
 			}
@@ -19,7 +17,7 @@
 			li:hover {
 				 background-color: #D8D8D8;
 			}
->>>>>>> interfaces_maxime
+		</style>
 	</head>
 	
 	<body>
