@@ -6,9 +6,10 @@ try {
     die('Erreur : ' . $e->getMessage());
 }
 
-$reponse = $bdd->query("SELECT P.IdQuest, Q.Nom, round(avg(Note),2) as Moyenne FROM participant P, questionnaire Q
-                        WHERE P.IdQuest = Q.IdQuest
-                        GROUP BY IdQuest;  ");
+$reponse = $bdd->query("SELECT P.IdQuest, Q.nom, VersionSysteme, round(avg(Note),2) as Moyenne
+FROM participant P, questionnaire Q
+WHERE P.IdQuest = Q.IdQuest
+group by P.IdQuest, VersionSysteme;");
 
 echo json_encode($reponse->fetchAll(PDO::FETCH_ASSOC));
 
