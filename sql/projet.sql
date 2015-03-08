@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 04 Mars 2015 à 14:57
+-- Généré le :  Dim 08 Mars 2015 à 10:58
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `participant` (
   `IdUser` int(6) NOT NULL DEFAULT '0',
   `IdQuest` int(6) NOT NULL DEFAULT '0',
   `Note` int(3) DEFAULT NULL,
-  `VersonSysteme` int(6) DEFAULT NULL,
+  `VersionSysteme` int(6) DEFAULT NULL,
   PRIMARY KEY (`IdUser`,`IdQuest`),
   KEY `IdQuest` (`IdQuest`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -59,17 +59,13 @@ CREATE TABLE IF NOT EXISTS `participant` (
 -- Contenu de la table `participant`
 --
 
-INSERT INTO `participant` (`IdUser`, `IdQuest`, `Note`, `VersonSysteme`) VALUES
+INSERT INTO `participant` (`IdUser`, `IdQuest`, `Note`, `VersionSysteme`) VALUES
 (1, 1, 50, 1),
 (2, 1, 55, 1),
 (3, 1, 70, 1),
 (4, 1, 80, 1),
 (5, 2, 62, 1),
-(6, 2, 90, 1),
-(7, 3, 40, 1),
-(8, 3, 47, 1),
-(9, 4, 97, 1),
-(10, 4, 100, 1);
+(6, 2, 90, 1);
 
 -- --------------------------------------------------------
 
@@ -83,6 +79,7 @@ CREATE TABLE IF NOT EXISTS `questionnaire` (
   `IdCreateur` int(6) DEFAULT NULL,
   `DateCreation` datetime DEFAULT NULL,
   `url` varchar(100) DEFAULT NULL,
+  `listeVersion` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`IdQuest`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -90,11 +87,9 @@ CREATE TABLE IF NOT EXISTS `questionnaire` (
 -- Contenu de la table `questionnaire`
 --
 
-INSERT INTO `questionnaire` (`IdQuest`, `Nom`, `IdCreateur`, `DateCreation`, `url`) VALUES
-(1, 'Parions Sport', 1, '2015-02-26 00:00:00', 'http://localhost/projet_SUS_test/questionnaire.php?nomSysteme=Parions Sport'),
-(2, 'Parions Sport', 1, '2015-03-03 00:00:00', 'http://localhost/projet_SUS_test/questionnaire.php?nomSysteme=Parions Sport'),
-(3, 'GPS', 1, '2015-03-02 00:00:00', 'http://localhost/QuestionnaireSUS/pages/questionnaire.php?nomSysteme=GPS'),
-(4, 'GPS', 1, '2015-03-02 05:20:00', 'http://localhost/QuestionnaireSUS/pages/questionnaire.php?nomSysteme=GPS');
+INSERT INTO `questionnaire` (`IdQuest`, `Nom`, `IdCreateur`, `DateCreation`, `url`, `listeVersion`) VALUES
+(1, 'Parions Sport', 1, '2015-02-26 00:00:00', 'http://localhost/projet_SUS_test/questionnaire.php', '1'),
+(2, 'GPS', 1, '2015-03-03 00:00:00', 'http://localhost/projet_SUS_test/questionnaire.php', '1');
 
 --
 -- Contraintes pour les tables exportées
