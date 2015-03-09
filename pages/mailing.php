@@ -19,6 +19,35 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 		
 	</head>
+        
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+
+                function afficherListeQuestionnaires() {
+                    $.ajax({
+                        type: "POST",
+                        url: "requeteListeQuestionnaire.php",
+                        async: false,
+                        dataType: 'json',
+                        success: function (data)
+                        {
+                                if(data.length == 0)
+                                    $('#choixQuestionnaire').append("<option value='choix1'>Aucun Questionnaire</option>");
+                                else{
+                                    for(var i=0; i<data.length; i++)
+                                        $('#choixQuestionnaire').append("<option value='choix"+i+"'>"+data[i].Nom+"</option>");
+                                }
+                        }
+                    });
+                }
+                
+                afficherListeQuestionnaires();
+                
+            });
+
+        </script>
+        
 	<body>			
 		<?php include("menu.php"); ?>
 		<h1>Invitation de participants</h1>
@@ -36,10 +65,10 @@
 					<label for="choixQuestionnaire" class="col-sm-3 control-label">Choix Questionnaire: </label>
 					<div class="col-sm-4">
 						<select id="choixQuestionnaire" class="form-control" required>
-						<option value="choix1">Choix questionnnaire 1</option>
+						<!--<option value="choix1">Choix questionnnaire 1</option>
 						<option value="choix2">Choix questionnnaire 2</option>
 						<option value="choix3">Choix questionnnaire 3</option>
-						<option value="choix4">Choix questionnnaire 4</option>
+						<option value="choix4">Choix questionnnaire 4</option>-->
 						</select>
 					</div>
 				</div>
