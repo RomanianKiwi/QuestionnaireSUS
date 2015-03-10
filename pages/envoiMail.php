@@ -10,6 +10,8 @@
 			$entete = 'From: equipetix@gmail.com'."\n".'Reply-To: equipetix@gmail.com'."\n";
 			if (mail($destinataire,$sujet,$message,$entete)){
 				echo 'Message envoyé';
+				echo '</br>';
+				echo '<a href="mailing.php">Retour page invitation</a>';
 			} else {
 				echo "Une erreur est survenue lors de l'envoi du formulaire par email";
 			}
