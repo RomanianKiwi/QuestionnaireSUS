@@ -2,13 +2,38 @@
 <html>
 	<head>
 	
-		<meta charset="utf-8" />
-		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<title>Accueil Administrateur</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+        <script src="../js/fonctionsUtiles.js"></script>
 		
-		<!-- Latest compiled and minified JavaScript -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+		
+		<script type="text/javascript">
+			$(document).ready(function(){
+				function ajoutAdmin(nom, mdp) {
+					$.ajax({
+					type: "POST",
+					url: "requeteAjoutAdmin.php",
+					data: {NomU: "'" + nom + "'", MdpU: "'" + mdp + "'"},
+					async: false,
+					dataType: 'json',
+					success: function (data)
+					{
+						console.log("insertion réussie");
+					}
+					});
+				}
+				
+				$('#formAjout').on('submit', function(e) {
+					ajoutAdmin($('#nom').val(),$('#mdp').val());
+				});
+			});
+		</script>
+		
 		
 		<style type="text/css">
 			.bs-example{
@@ -70,6 +95,13 @@
 								<option>évaluateur</option>
 								<option>admin</option>
 							</select>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label id="dateId" for="date" class="col-sm-3 control-label">Mot de Passe</label>
+						<div class="col-sm-4">
+							<input id="mdp"  class="form-control" placeholder="Mot de Passe">
 						</div>
 					</div>
 					

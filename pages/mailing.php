@@ -18,6 +18,29 @@
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 		
+		<script type="text/javascript">
+		$(document).ready(function () {
+			function afficherListeQuestionnaires() {
+				$.ajax({
+				type: "POST",
+				url: "requeteListeQuestionnaire.php",
+				async: false,
+				dataType: 'json',
+				success: function (data)
+				{
+					if(data.length == 0)
+						$('#choixQuestionnaire').append("<option value='choix1'>Aucun Questionnaire</option>");
+					else{
+						for(var i=0; i<data.length; i++)
+							$('#choixQuestionnaire').append("<option value='choix"+i+"'>"+data[i].Nom+"</option>");
+					}
+				}
+				});
+			}
+			afficherListeQuestionnaires();
+		});
+</script>
+		
 	</head>
 	<body>			
 		<?php include("menu.php"); ?>
