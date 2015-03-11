@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<questions>
-        <question>Je pense que j’utiliserai ce système souvent et avec plaisir.</question>
-        <question>J'ai trouvé le système inutilement complexe.</question>
-        <question>J'ai trouvé le système facile à utiliser.</question>
-        <question>J’utiliserai ce système avec l’aide d’une personne techniquement expérimentée.</question>
-        <question>J'ai trouvé que les différentes fonctions du système ont été très bien intégrés.</question>
-        <question>J'ai trouvé que, dans ce système, trop d'incohérence règne (irrégularités).</question>
-        <question>Je suppose que les gens apprendront vite à utiliser ce système.</question>
-        <question>J'ai trouvé l'utilisation du système très lourd.</question>
-        <question>Je me sentais en sécurité en utilisant le système.</question>
-        <question>J’aurai beaucoup de chose à apprendre avant de maîtriser le système.</question>
-</questions>
+<questionnaire>
+	<answers>
+		<answer>Tout à fait d'accord</answer>
+		<answer>Plutôt d'accord</answer>
+		<answer>Partiellement d'accord</answer>
+		<answer>Un peu d'accord</answer>
+		<answer>Pas du tout d'accord</answer>
+	</answers>
+	<questions>
+			<question>Je pense que j’utiliserai ce système souvent et avec plaisir.</question>
+			<question>J'ai trouvé le système inutilement complexe.</question>
+			<question>J'ai trouvé le système facile à utiliser.</question>
+			<question>J’utiliserai ce système avec l’aide d’une personne techniquement expérimentée.</question>
+			<question>J'ai trouvé que les différentes fonctions du système ont été très bien intégrés.</question>
+			<question>J'ai trouvé que, dans ce système, trop d'incohérence règne (irrégularités).</question>
+			<question>Je suppose que les gens apprendront vite à utiliser ce système.</question>
+			<question>J'ai trouvé l'utilisation du système très lourd.</question>
+			<question>Je me sentais en sécurité en utilisant le système.</question>
+			<question>J’aurai beaucoup de chose à apprendre avant de maîtriser le système.</question>
+	</questions>
+</questionnaire>

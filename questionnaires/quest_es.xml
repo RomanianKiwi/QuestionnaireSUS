@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<questions>
-	    <question>Creo que me gustará visitar con frecuencia este sistema.</question>
-        <question>Encontré el sistema innecesariamente complejo.</question>
-        <question>Pensé que era fácil utilizar el sistema.</question>
-        <question>Creo que necesitaría del apoyo de un experto para recorrer el sistema.</question>
-        <question>Encontré las diversas posibilidades del sistema bastante bien integradas.</question>
-        <question>Pensé que había demasiada inconsistencia en el sistema.</question>
-        <question>Imagino que la mayoría de las personas aprenderían muy rápidamente a utilizar el sistema.</question>
-        <question>Encontré el sistema muy grande al recorrerlo.</question>
-        <question>Me sentí muy confiado en el manejo del sistema.</question>
-        <question>Necesito aprender muchas cosas antes de manejarme en el sistema.</question>
-</questions>
+<questionnaire>
+	<answers>
+		<answer>Completamente de acuerdo</answer>
+		<answer>Más bien</answer>
+		<answer>Parcialmente</answer>
+		<answer>Poco</answer>
+		<answer>En completo desacuerdo</answer>
+	</answers>
+	<questions>
+			<question>Creo que me gustará visitar con frecuencia este sistema.</question>
+			<question>Encontré el sistema innecesariamente complejo.</question>
+			<question>Pensé que era fácil utilizar el sistema.</question>
+			<question>Creo que necesitaría del apoyo de un experto para recorrer el sistema.</question>
+			<question>Encontré las diversas posibilidades del sistema bastante bien integradas.</question>
+			<question>Pensé que había demasiada inconsistencia en el sistema.</question>
+			<question>Imagino que la mayoría de las personas aprenderían muy rápidamente a utilizar el sistema.</question>
+			<question>Encontré el sistema muy grande al recorrerlo.</question>
+			<question>Me sentí muy confiado en el manejo del sistema.</question>
+			<question>Necesito aprender muchas cosas antes de manejarme en el sistema.</question>
+	</questions>
+</questionnaire>

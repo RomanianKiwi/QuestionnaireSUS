@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<questions>
-        <question>I think that I would like to use this system frequently.</question>
-        <question>I found the system unnecessarily complex.</question>
-        <question>I thought the system was easy to use.</question>
-        <question>I think that I would need the support of a technical person to be able to use this system.</question>
-        <question>I found the various functions in this system were well integrated.</question>
-        <question>I thought there was too much inconsistency in this system.</question>
-        <question>I would imagine that most people would learn to use this system very quickly.</question>
-        <question>I found the system very cumbersome to use.</question>
-        <question>I felt very confident using the system.</question>
-        <question>I needed to learn a lot of things before I could get going with this system.</question>
-</questions>
+<questionnaire>
+	<answers>
+		<answer>Strongly agree</answer>
+		<answer>Plutôt d'accord</answer>
+		<answer>Partiellement d'accord</answer>
+		<answer>Un peu d'accord</answer>
+		<answer>Strongly disagree</answer>
+	</answers>
+	<questions>
+			<question>I think that I would like to use this system frequently.</question>
+			<question>I found the system unnecessarily complex.</question>
+			<question>I thought the system was easy to use.</question>
+			<question>I think that I would need the support of a technical person to be able to use this system.</question>
+			<question>I found the various functions in this system were well integrated.</question>
+			<question>I thought there was too much inconsistency in this system.</question>
+			<question>I would imagine that most people would learn to use this system very quickly.</question>
+			<question>I found the system very cumbersome to use.</question>
+			<question>I felt very confident using the system.</question>
+			<question>I needed to learn a lot of things before I could get going with this system.</question>
+	</questions>
+</questionnaire>
