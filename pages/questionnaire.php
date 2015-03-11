@@ -18,7 +18,7 @@
                 console.log(nomSysteme);
 
                 function afficherQuestXml() {
-                    $.ajax({
+                    /*$.ajax({
                         type: "POST",
                         url: "accueil.php",
                         //data : { num : 1},
@@ -30,11 +30,13 @@
                             console.log(data);
                             for (var i = 0; i < data.length; i++) {
                                 //appel de la fonction dans fonctionsUtiles.js
-                                var str = replaceSYSTEM(data[i].question, nomSysteme);
-                                $('#questions').append("<p>" + data[i].idQuestion + " : " + str + "</p>");
+                                var str = replaceSYSTEM(data[i].question, nomSysteme);*/
+                                //$('#questions').append("<p>" + data[i].idQuestion + " : " + str + "</p>");
+                                $('#questions').append("<p> Nom Système : " + nomSysteme + "</p>");
+                                /*
                             }
                         }
-                    });
+                    });*/
                 }
 
                 $.ajax({
@@ -45,8 +47,11 @@
                     dataType: 'json',
                     success: function (data)
                     {
-                        if (data.length == 0)
+                        console.log(data);
+                        if (data.length == 0){
+                            $('#questions').append("<p>questionnaire inexistant</p>");
                             console.log("questionnaire inexistant");
+                        }
                         else {
                             console.log("Questionnaire ok : " + data[0].nomSysteme);
                             afficherQuestXml();
