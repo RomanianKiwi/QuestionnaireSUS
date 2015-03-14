@@ -43,34 +43,6 @@
 		
 	</head>
         
-        <script type="text/javascript">
-
-            $(document).ready(function () {
-
-                function afficherListeQuestionnaires() {
-                    $.ajax({
-                        type: "POST",
-                        url: "requeteListeQuestionnaire.php",
-                        async: false,
-                        dataType: 'json',
-                        success: function (data)
-                        {
-                                if(data.length == 0)
-                                    $('#choixQuestionnaire').append("<option value='choix1'>Aucun Questionnaire</option>");
-                                else{
-                                    for(var i=0; i<data.length; i++)
-                                        $('#choixQuestionnaire').append("<option value='choix"+i+"'>"+data[i].Nom+"</option>");
-                                }
-                        }
-                    });
-                }
-                
-                afficherListeQuestionnaires();
-                
-            });
-
-        </script>
-        
 	<body>			
 		<?php include("menu.php"); ?>
 		<h1>Invitation de participants</h1>
