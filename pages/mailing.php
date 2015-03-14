@@ -66,7 +66,7 @@
 				<div class="form-group">
 					<label for="destinataires" class="col-sm-3 control-label">Destinataires: </label>
 					<div class="col-sm-4">
-						<textarea id="destinataires" name="destinataires" class="form-control" rows="4" placeholder="Indiquez le/les destinataires" required></textarea>
+						<textarea id="destinataires" name="destinataires" class="form-control" rows="4" placeholder="Indiquez les destinataires sur une ligne différente." required></textarea>
 					</div>
 				</div>
 			</div>
