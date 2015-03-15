@@ -1,6 +1,6 @@
     function loadXMLDoc(url){
         var xmlhttp;
-        var questions, answers, formGroup, i;
+        var questions, answers, system, formGroup, i;
 
         if (window.XMLHttpRequest){
             // code for IE7+, Firefox, Chrome, Opera, Safari
@@ -16,11 +16,14 @@
             if(xmlhttp.readyState == 4 && xmlhttp.status ==200){
                 $("#questSUS").html("");
                 questions = xmlhttp.responseXML.documentElement.getElementsByTagName("question");
-				answers = xmlhttp.responseXML.documentElement.getElementsByTagName("answer");
+		answers = xmlhttp.responseXML.documentElement.getElementsByTagName("answer");
+                system = xmlhttp.responseXML.documentElement.getElementsByTagName("system")[0].firstChild.nodeValue;
                 for(i=0; i<questions.length; i++){
                     var question = questions[i].firstChild.nodeValue;
+                    var re = new RegExp(system, "g");
+                    question = question.replace(re,"Git");
                     formGroup="<div class='form-group'>"
-                                +"<h4>"+question+"</h4>"
+                                +"<h4 class='questionSUS'>"+question+"</h4>"
                                 +"<label class='radio-inline'>"
                                         +"<input class='answerSUS' type='radio' name='question"+i+"' data-value='5' value='"+answers[0].firstChild.nodeValue+"'>"+answers[0].firstChild.nodeValue
                                 +"</label>"
@@ -40,7 +43,7 @@
 
                         $("#questSUS").append(formGroup);
                 }
-                $(".answerSUS").on('change', verifyAllInputRadioAreChecked);
+                $(".answerSUS").on('change', verifyAllQuestionsAreChecked);
 		$("#questSUS").append("<button type='submit' disabled='true' class='btn btn-default'>Submit</button>");
             }   
         }
@@ -49,7 +52,7 @@
         xmlhttp.send();
     }
     
-    function verifyAllInputRadioAreChecked(){
+    function verifyAllQuestionsAreChecked(){
         var anyQuestionsAreChecked = true;
    
         $("#questSUS > .form-group").each(function(){
