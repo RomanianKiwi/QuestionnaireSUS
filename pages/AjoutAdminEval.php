@@ -14,11 +14,11 @@
 
             $(document).ready(function () {
 
-                function ajoutAdmin(nom, mdp) {
+                function ajoutAdmin(nom, mdp, statut) {
                     $.ajax({
                         type: "POST",
                         url: "requeteAjoutAdmin.php",
-                        data: {NomU: "'" + nom + "'", MdpU: "'" + mdp + "'"},
+                        data: {NomU: "'" + nom + "'", MdpU: "'" + mdp + "'", Statut: "'" + statut + "'"},
                         async: false,
                         dataType: 'json',
                         success: function (data)
@@ -28,7 +28,7 @@
                     });
                 }
 				
-				//ajoutAdmin("jeremy", "laBOC");
+				//ajoutAdmin("Flavien", "laBOC","Evaluateur");
                 
                 /*
 				T'as juste à faire appel à la fonction ajoutAdmin(nom, mdp);

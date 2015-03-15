@@ -9,17 +9,46 @@
 		
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<<<<<<< HEAD
 		
-=======
-		.bs-example{
-				margin: 20px;
-			}
-			
-			li:hover {
-				 background-color: #D8D8D8;
-			}
->>>>>>> interfaces_maxime
+		<script type="text/javascript">
+
+            $(document).ready(function () {
+
+                function ajoutQuestionnaire(nom, dateCreation, idAmin) {
+                    $.ajax({
+                        type: "POST",
+                        url: "requeteAjoutQuestionnaire.php",
+                        data: {NomQuest: "'" + nom + "'", Date: "'" + dateCreation + "'", ID: "'" + idAmin + "'"},
+                        async: false,
+                        dataType: 'json',
+                        success: function (data)
+                        {
+                                console.log("insertion réussie");
+                        }
+                    });
+                }
+				
+				//ajoutQuestionnaire("GPS", "2015-03-15",2);
+                
+                /*
+				T'as juste à faire appel à la fonction ajoutAdmin(nom, mdp);
+				Et en paramètre tu mets l'identifiant et le mot de passe que l'admin que tu récupèreras dans 
+				tes formulaires (avec les $.text() ).
+				Et voilà
+				*/
+            });
+
+        </script>
+
+		<style type="text/css">
+            .bs-example{
+                margin: 20px;
+            }
+
+            li:hover {
+                background-color: #D8D8D8;
+            }
+        </style>
 	</head>
 	
 	<body>
