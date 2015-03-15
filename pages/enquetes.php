@@ -16,4 +16,3 @@ echo json_encode($reponse->fetchAll(PDO::FETCH_ASSOC));
 
 $reponse->closeCursor(); // Termine le traitement de la requête
 ?>
-

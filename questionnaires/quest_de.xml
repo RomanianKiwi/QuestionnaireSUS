@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<questions>
-	    <question>Ich denke, dass ich dieses System gerne häufig benutzen würde.</question>
-        <question>Ich fand das System unnötig komplex.</question>
-        <question>Ich fand das System einfach zu benutzen.</question>
-        <question>Ich denke, dass ich für die Benutzung dieses Systems die Unterstützung einer technisch versierten Person benötigen würde.</question>
-        <question>Ich fand, dass die verschiedenen Funktionen des Systems sehr gut integriert waren.</question>
-        <question>Ich fand, dass in diesem System zuviel Inkonsistenz (Unregelmäßigkeiten) herrscht.</question>
-        <question>Ich kann mir vorstellen, dass die meisten Leute sehr schnell lernen würden, mit dem System umzugehen.</question>
-        <question>Ich fand die Bedienung des Systems sehr schwerfällig.</question>
-        <question>Ich fühlte mich in der Bedienung des Systems sicher.</question>
-        <question>Ich würde sehr viel lernen müssen, bevor ich mit diesem System umgehen könnte.</question>
-</questions>
+<questionnaire>
+	<system>System</system>
+	<answers>
+		<answer>nicht</answer>
+		<answer>wenig</answer>
+		<answer>mittel</answer>
+		<answer>ziemlich</answer>
+		<answer>sehr</answer>
+	</answers>
+	<questions>
+			<question>Ich denke, dass ich System gerne häufig benutzen würde.</question>
+			<question>Ich fand System unnötig komplex.</question>
+			<question>Ich fand System einfach zu benutzen.</question>
+			<question>Ich denke, dass ich für die Benutzung System die Unterstützung einer technisch versierten Person benötigen würde.</question>
+			<question>Ich fand, dass die verschiedenen Funktionen System sehr gut integriert waren.</question>
+			<question>Ich fand, dass in System zuviel Inkonsistenz (Unregelmäßigkeiten) herrscht.</question>
+			<question>Ich kann mir vorstellen, dass die meisten Leute sehr schnell lernen würden, mit System umzugehen.</question>
+			<question>Ich fand die Bedienung System sehr schwerfällig.</question>
+			<question>Ich fühlte mich in der Bedienung System sicher.</question>
+			<question>Ich würde sehr viel lernen müssen, bevor ich mit System umgehen könnte.</question>
+	</questions>
+</questionnaire>
