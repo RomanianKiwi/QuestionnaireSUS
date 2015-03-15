@@ -1,14 +1,6 @@
 <!DOCTYPE html>
 <html>
-
-	<style>	
-	h1{
-		text-align: center;
-	}
-	</style>
-
-	<head>
-	
+	<head>	
 		<meta charset="utf-8" />
 		<title>Invitation de participants</title>
 		<!-- Latest compiled and minified CSS -->
@@ -40,6 +32,12 @@
 				afficherListeQuestionnaires();
 			});
 		</script>
+		
+		<style>	
+		h1{
+			text-align: center;
+		}
+		</style>	
 	</head>    
 	<body>			
 		<?php include("menu.php"); ?>
@@ -88,4 +86,3 @@
 		</form>
 	</body>
 </html>
-	
