@@ -23,7 +23,7 @@
                     var re = new RegExp(system, "g");
                     question = question.replace(re,"Git");
                     formGroup="<div class='form-group'>"
-                                +"<h4 class='questionSUS'>"+question+"</h4>"
+                                +"<h4>"+question+"</h4>"
                                 +"<label class='radio-inline'>"
                                         +"<input class='answerSUS' type='radio' name='question"+i+"' data-value='5' value='"+answers[0].firstChild.nodeValue+"'>"+answers[0].firstChild.nodeValue
                                 +"</label>"
