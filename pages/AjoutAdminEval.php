@@ -13,7 +13,7 @@
                     $.ajax({
                         type: "POST",
                         url: "requeteAjoutAdmin.php",
-                        data: {NomU: "'" + nom + "'", MdpU: "'" + mdp + "'"},
+                        data: {Username: "'" + nom + "'", PassWord: "'" + mdp + "'", Statut: "'" + statut + "'"},
                         async: false,
                         dataType: 'json',
                         success: function (data)
@@ -74,8 +74,14 @@
                     <input id="dateInsc" class="form-control" placeholder="Date de l'inscription">
                 </div>
             </div>
+			<div class="form-group">
+                <label id="mdp" class="col-sm-3 control-label">mot de passe</label>
+                <div class="col-sm-4">
+                    <input id="motdepasse" class="form-control" placeholder="Mot de passe">
+                </div>
+            </div>
             <div class="form-group">
-                <label for="statut" class="col-sm-3 control-label">Statut</label>
+                <label for="statutUtil" class="col-sm-3 control-label">Statut</label>
                 <div class="col-sm-4">
                     <select id="statut" class="form-control" required>
                         <option>évaluateur</option>

@@ -18,7 +18,7 @@
 					$.ajax({
 						type: "POST",
 						url: "adminAccueil.php",
-						data : { login : "'"+$('#user').val()+"'", mdp : "'"+$('#mdp').val()+"'"},
+						data : { login : "'"+$('#user').val()+"'", mdp : "'"+$('#mdp').val()+"'", statut : "'"+$('#statut').val()+"'"},
 
 						async: false,
 						dataType: 'json',
