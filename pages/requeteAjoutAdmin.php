@@ -9,10 +9,5 @@ $nom = $_POST['UserName'];
 $mdp = $_POST['PassWord'];
 $statut = $_POST['Statut'];
 $bdd->exec("INSERT INTO administrateur VALUES (''," . $nom . "," . $mdp . "," . $statut . ")");
-/*
-  $req = $bdd->prepare("INSERT INTO administrateur VALUES ('',:nom,:mdp);");
-  $req->execute(array(
-  'nom' => $nom,
-  'mdp' => $mdp
-  )); */
+
 ?>
