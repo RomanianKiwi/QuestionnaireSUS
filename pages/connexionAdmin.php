@@ -18,7 +18,7 @@
 					$.ajax({
 						type: "POST",
 						url: "adminAccueil.php",
-						data : { login : "'"+$('#user').val()+"'", mdp : "'"+$('#mdp').val()+"'"},
+						data : { login : "'"+$('#user').val()+"'", mdp : "'"+$('#mdp').val()+"'", statut : "'"+$('#statut').val()+"'"},
 
 						async: false,
 						dataType: 'json',
@@ -83,7 +83,7 @@
 					<div class="form-group">
 						<div class="col-sm-8">
 							<div class="input-group">   
-							  	<select id="statutChoix" class="form-control">
+							  	<select id="statut" class="form-control">
 							  			<option>Administrateur</option>
 							  			<option>Evaluateur</option>
 								</select>
