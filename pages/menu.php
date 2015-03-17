@@ -13,16 +13,16 @@
 		<div class="collapse navbar-collapse" id="main-menu">
 			<ul class="nav navbar-nav">
 				<li>
-				<a id ="ajoutQuest" href="AjoutQuestionnaire.php">Nouvelle enquête</a>
+				<a id ="ajoutQuest" href="../pages/AjoutQuestionnaire.php">Nouvelle enquête</a>
 				</li>
-				<li><a href="consult.php">Consultation résultats</a></li>
+				<li><a href="../pages/consult.php">Consultation résultats</a></li>
 				<li>
-				<a href="mailing.php">Invitation participants </a>
+				<a href="../pages/mailing.php">Invitation participants </a>
 				</li>
-				<li><a href="AjoutAdminEval.php">Ajouter évaluateur</a></li>
+				<li><a href="../pages/AjoutAdminEval.php">Ajouter évaluateur</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a id="deco" class="dropdown-toggle" >Déconnexion</a></li>
+				<li><a id="deco" href="../pages/logout.php" class="dropdown-toggle" >Déconnexion</a></li>
 			</ul>
 		</div>
 	</div>
