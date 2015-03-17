@@ -1,3 +1,7 @@
+<?php
+	session_start();
+?>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -14,6 +18,7 @@
 		<script type="text/javascript">
 			$(document).ready(function() {
 				$('#formAjout').on('submit', function(e) {
+					//e.preventDefault();
 					//console.log($('#user').val());
 					$.ajax({
 						type: "POST",
@@ -36,6 +41,7 @@
 								console.log(data);
 								$('#succes').show().delay(1000).fadeOut(500);
 								$('#accueil').append("<p>"+data[0].UserName+" , mdp : "+data[0].Password+"</p>");
+								//window.location.href="index.php";
 							}
 						}
 					});
@@ -56,13 +62,13 @@
 
 
 			
-				<form id="formAjout" class="form-horizontal" role="form">
+				<form id="formAjout" class="form-horizontal" role="form" method="post" action="../index.php">
 					<div class="form-group" >
 						<div class="col-sm-8">
 							<div class="input-group">
 
 							  <span class="input-group-addon glyphicon glyphicon-user"></span>    
-							  <input id ="user" type="text" class="form-control" placeholder="Utilisateur">
+							  <input id ="user" name="login" type="text" class="form-control" placeholder="Utilisateur">
 							</div>
 						</div>
 						
@@ -73,7 +79,7 @@
 							<div class="input-group">
 
 							  <span class="input-group-addon glyphicon glyphicon-lock"></span>    
-							  <input id ="mdp" type="password" class="form-control" placeholder="Mot de passe">
+							  <input id ="mdp" name="password" type="password" class="form-control" placeholder="Mot de passe">
 							</div>
 						</div>
 						
@@ -83,7 +89,7 @@
 					<div class="form-group">
 						<div class="col-sm-8">
 							<div class="input-group">   
-							  	<select id="statut" class="form-control">
+							  	<select id="statut" name="statut" class="form-control">
 							  			<option>Administrateur</option>
 							  			<option>Evaluateur</option>
 								</select>
@@ -93,7 +99,8 @@
 						
 					</div>
 					
-					<button type="submit" class="btn btn-primary">Connexion</button>
+					<INPUT Type="submit" name="submit" Value="Connexion">
+					
 
 				</form>
 				
