@@ -1,7 +1,7 @@
 <?php
 // On démarre la session (ceci est indispensable dans toutes les pages de notre section membre)
 	session_start();
-	if (isset($_SESSION['login']) && isset($_SESSION['password'])) {
+	if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION['statut']) && isset($_SESSION['ID'])) {
 		/*
 		print_r($_SESSION['login']);
 		echo "<br/>";
@@ -33,8 +33,7 @@
 		if($donnees['UserName'] != "" && $donnees['PassWord'] != "" && $_SESSION['login'] != ""){
 			echo 'tu es un boss';
 		}else{
-			echo 'faiseur de merde!';
-			//header("Location:logout.php");
+			header("Location:logout.php");
 		}
 		$reponse->closeCursor();
 	}

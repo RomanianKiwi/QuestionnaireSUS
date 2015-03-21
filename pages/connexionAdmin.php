@@ -1,7 +1,3 @@
-<?php
-	session_start();
-?>
-
 <!DOCTYPE html>
 <html>
 	<head>
@@ -17,37 +13,7 @@
 		
 		<script type="text/javascript">
 			$(document).ready(function() {
-				$('#formAjout').on('submit', function(e) {
-					//e.preventDefault();
-					//console.log($('#user').val());
-					$.ajax({
-						type: "POST",
-						url: "adminAccueil.php",
-						data : { login : "'"+$('#user').val()+"'", mdp : "'"+$('#mdp').val()+"'", statut : "'"+$('#statut').val()+"'"},
-
-						async: false,
-						dataType: 'json',
-						success: function (data)
-						{
-							//Mauvais identifiants
-							if(data.length == 0){
-								$('#accueil').append("<p>Mauvais identifiants </p>");
-								$('#echec').show().delay(1000).fadeOut(500);
-								console.log("erreur de mdp ou id");
-								console.log(data);
-							}
-							//Bons identifiants
-							else{
-								console.log(data);
-								$('#succes').show().delay(1000).fadeOut(500);
-								$('#accueil').append("<p>"+data[0].UserName+" , mdp : "+data[0].Password+"</p>");
-								//window.location.href="index.php";
-							}
-						}
-					});
-
-					
-				});
+				
 				$('.alert').hide();
             });
 			
@@ -89,7 +55,7 @@
 					<div class="form-group">
 						<div class="col-sm-8">
 							<div class="input-group">   
-							  	<select id="statut" name="statut" class="form-control">
+							  	<select id="statutUtil" name="statut" class="form-control">
 							  			<option>Administrateur</option>
 							  			<option>Evaluateur</option>
 								</select>

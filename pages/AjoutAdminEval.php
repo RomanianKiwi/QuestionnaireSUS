@@ -33,8 +33,7 @@
 		if($donnees['UserName'] != "" && $donnees['PassWord'] != "" && $_SESSION['login'] != ""){
 			echo 'tu es un boss';
 		}else{
-			echo 'faiseur de merde!';
-			//header("Location:logout.php");
+			header("Location:logout.php");
 		}
 		$reponse->closeCursor();
 	}
