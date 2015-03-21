@@ -12,16 +12,16 @@ function getUrlParameter(urlSTR)
     for (var i = 0; i < sURLVariables.length; i++)
     {
         var sParameterName = sURLVariables[i].split('=');
-        console.log(sParameterName[1]);
+        //console.log(sParameterName[1]);
         //si on a des espaces dans l'adresse url (traduit par %20)
         //on les remplace par des espaces
         var temp = sParameterName[1].split('%20');
-        console.log(temp);
+        //console.log(temp);
         var str = "";
         for (var j = 0; j < temp.length; j++)
             str += temp[j] + " ";
 
-        console.log(str);
+        //console.log(str);
         if (sParameterName[0] == urlSTR)
         {
             return str;
