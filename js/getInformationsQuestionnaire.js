@@ -20,6 +20,7 @@
                         }
                     },
                     error : function(result, status, err){
+                        console.log(result);
                         console.log(err);
                     }
             });
@@ -28,7 +29,7 @@
     }
     
     function getSystemName(){
-        var code, idQuest, nameSystem, nbResp, versSystem, noteSystem;
+        var code, nameSystem;
         var dataSystem = new Array();
                 
         //we get the hash code of the questionnaire in the current url

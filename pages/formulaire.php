@@ -11,14 +11,13 @@
         <script src="../js/loadXMLFile.js"></script>
         <script src="../js/computeScoreSUS.js"></script>
         <script src="../js/getInformationsQuestionnaire.js"></script>
+        <script src="../js/updateScoreQuestionnaire.js"></script>
         <script type="text/javascript">
             $(document).ready(function(){
                 //called when the user submit his answers
                 $("#questSUS").submit(function(e){
                     e.preventDefault();
-                    var scoreSUS = computeScoreSUS();
-		    //ajouterScoreSUS(computeScoreSUS());
-                    console.log(scoreSUS);
+		    updateScoreSystem(computeScoreSUS());
                 });		
             });
         </script>
