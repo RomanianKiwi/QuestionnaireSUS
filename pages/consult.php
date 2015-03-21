@@ -1,3 +1,14 @@
+<?php
+// On démarre la session (ceci est indispensable dans toutes les pages de notre section membre)
+	session_start();
+	if (isset($_SESSION['login']) && isset($_SESSION['password'])) {		
+	}
+	else{
+		header("Location:logout.php");
+	}
+	
+?>
+
 <!DOCTYPE html>
 
 <html>
@@ -34,26 +45,21 @@
                         if (data.length == 0)
                             $('#contenu').append("<p>Aucun questionnaire remplie</p>");
                         else {
-								console.log(data);
+								console.log(data.length);
 								var nomSysteme = "";
-								var version = 0;
 								var cpt=0;
-								console.log(version);
+								
 								for (var i = 0; i < data.length; i++) {
-									if(nomSysteme != data[i].nom)
+									if(nomSysteme != data[i].Nom)
 									{
-										$('#contenu').append('<div class="panel-group" id="accordion'+cpt+'"><div class="panel panel-default"><div class="panel-heading"><h1 class="panel-title"><a class="accordeon'+cpt+'" data-toggle="collapse" data-parent="#accordion'+cpt+'" href="#collapse'+cpt+'"><span class="glyphicon glyphicon-plus"></span>'+data[i].nom+'</a></h1></div><div id="collapse'+cpt+'" class="panel-collapse collapse"><div id="body'+cpt+'" class="panel-body"></div></div></div></div>');
+										$('#contenu').append('<div class="panel-group" id="accordion'+cpt+'"><div class="panel panel-default"><div class="panel-heading"><h1 class="panel-title"><a class="accordeon'+cpt+'" data-toggle="collapse" data-parent="#accordion'+cpt+'" href="#collapse'+cpt+'"><span class="glyphicon glyphicon-plus"></span>'+data[i].Nom+'</a></h1></div><div id="collapse'+cpt+'" class="panel-collapse collapse"><div id="body'+cpt+'" class="panel-body"></div></div></div></div>');
 									}
 									else
 									{
 										cpt--;
 									}
-									if(version != data[i].VersionSysteme)
-									{
-										$('#body'+cpt).append('<div class="panel-group" id="accordion'+cpt+'V'+data[i].VersionSysteme+'"><div class="panel panel-default"><div class="panel-heading"><h2 class="panel-title"><a class="accordeon'+cpt+'V'+data[i].VersionSysteme+'" data-toggle="collapse" data-parent="#accordion'+cpt+'V'+data[i].VersionSysteme+'" href="#collapse'+cpt+'V'+data[i].VersionSysteme+'"><span class="glyphicon glyphicon-plus"></span>Version '+data[i].VersionSysteme+'</a></h2></div><div id="collapse'+cpt+'V'+data[i].VersionSysteme+'" class="panel-collapse collapse"><div class="panel-body"><p>Le score de cette version est de: '+data[i].Moyenne+'</p></div></div></div></div>');
-									}
-									nomSysteme = data[i].nom;
-									version = data[i].VersionSysteme;
+									$('#body'+cpt).append('<div class="panel-group" id="accordion'+cpt+'V'+data[i].NumVersion+'"><div class="panel panel-default"><div class="panel-heading"><h2 class="panel-title"><a class="accordeon'+cpt+'V'+data[i].NumVersion+'" data-toggle="collapse" data-parent="#accordion'+cpt+'V'+data[i].NumVersion+'" href="#collapse'+cpt+'V'+data[i].NumVersion+'"><span class="glyphicon glyphicon-plus"></span>Version '+data[i].NumVersion+'</a></h2></div><div id="collapse'+cpt+'V'+data[i].NumVersion+'" class="panel-collapse collapse"><div class="panel-body"><p>Le score de cette version est de: '+data[i].Moyenne+'</p></div></div></div></div>');
+									nomSysteme = data[i].Nom;
 									cpt++;
 								}
 							}

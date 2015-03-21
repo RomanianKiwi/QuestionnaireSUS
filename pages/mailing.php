@@ -1,3 +1,49 @@
+<?php
+// On démarre la session (ceci est indispensable dans toutes les pages de notre section membre)
+	session_start();
+	if (isset($_SESSION['login']) && isset($_SESSION['password'])) {
+		/*
+		print_r($_SESSION['login']);
+		echo "<br/>";
+		print_r($_SESSION['password']);
+		*/
+		
+		try
+		{
+			$bdd = new PDO('mysql:host=localhost;dbname=projet;charset=utf8', 'root', '');
+		}
+		catch (Exception $e)
+		{
+				die('Erreur : ' . $e->getMessage());
+		}
+		$log = $_SESSION['login'];
+		$mpass = $_SESSION['password'];
+		$reponse = $bdd->query("SELECT * FROM administrateur WHERE UserName= \"". $log . "\"AND PassWord = \"". $mpass ."\";");
+		$donnees = $reponse->fetch(PDO::FETCH_ASSOC);
+	
+		/* echo "<br/>";
+		echo $donnees['UserName'];
+		echo "<br/>";
+		echo $donnees['PassWord'];
+		echo "<br/>"; */
+			
+		//if ne sert plus après la premiere id car on a vérifié ce qu'il y a en post avec la BDD.
+		//Maintenant vérifié si les données dans les SESSION sont egaux avec ce qu'il y a dans la BDD
+		//donc le test est effectuer au dessus.(tester si le champ que retourne la bdd n'est pas vide)
+		if($donnees['UserName'] != "" && $donnees['PassWord'] != "" && $_SESSION['login'] != ""){
+			echo 'tu es un boss';
+		}else{
+			echo 'faiseur de merde!';
+			//header("Location:logout.php");
+		}
+		$reponse->closeCursor();
+	}
+	else{
+		header("Location:logout.php");
+	}
+	
+?>
+
 <!DOCTYPE html>
 <html>
 	<head>	

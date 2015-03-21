@@ -42,3 +42,4 @@ function replaceSYSTEM(str, parametre) {
     }
     return newStr;
 }
+

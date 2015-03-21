@@ -8,7 +8,7 @@ catch (Exception $e)
         die('Erreur : ' . $e->getMessage());
 }
 
-$reponse = $bdd->query("SELECT * FROM administrateur WHERE UserName=". $_POST['login'] . "AND Password = ". $_POST['mdp']);
+$reponse = $bdd->query("SELECT * FROM administrateur WHERE UserName=". $_POST['login'] . "AND Password = ". $_POST['Password'] . "AND statut = ". $_POST['statut']);
 
 echo json_encode($reponse->fetchAll(PDO::FETCH_ASSOC));
 
