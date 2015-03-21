@@ -15,8 +15,28 @@
                 $("#questSUS").submit(function(e){
                     e.preventDefault();
                     var scoreSUS = computeScoreSUS();
+					//ajouterScoreSUS(computeScoreSUS());
                     console.log(scoreSUS);
                 });
+				/*
+				function ajouterScoreSUS(score){
+					$.ajax({
+                        type: "POST",
+                        url: "requeteAjoutScoreSUS.php",
+                        data: {Score: "'" + score + "'"},
+                        async: false,
+                        dataType: 'json',
+                        success: function (data)
+                        {
+                            console.log("insertion du score SUS dans la base de données réussie avec succès !");
+                        }
+						error: function( jqXHR jqXHR, String textStatus, String errorThrown )
+						{
+							console.log("echec de l'insertion du score SUS dans la base de données !");
+						}
+						
+                    });*/
+				}		
             });
         </script>
     </head>
