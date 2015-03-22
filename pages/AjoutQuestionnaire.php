@@ -70,11 +70,14 @@
                         url: "requeteAjoutQuestionnaire.php",
                         data: {NomQuest: "'" + nom + "'", Date: "'" + dateCreation + "'", ID: "'" + idAmin + "'"},
                         async: false,
-                        dataType: 'json',
-                        success: function (data)
+						success: function (result)
                         {
                                 console.log("insertion réussie");
-                        }
+                                console.log(result);
+                        },
+						error : function (result, status, err) {
+							console.log(err);
+						}
                     });
                 }
 				

@@ -60,11 +60,14 @@
                         url: "requeteAjoutAdmin.php",
                         data: {UserName: "'" + nom + "'", PassWord: "'" + mdp + "'", Statut: "'" + statut + "'"},
                         async: false,
-                        dataType: 'json',
-                        success: function (data)
+                        success: function (result)
                         {
-                            console.log("insertion réussie");
-                        }
+                                console.log("insertion réussie");
+                                console.log(result);
+                        },
+						error : function (result, status, err) {
+							console.log(err);
+						}
                     });
 				}
 					
