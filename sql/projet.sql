@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Dim 15 Mars 2015 à 16:26
+-- Généré le :  Dim 22 Mars 2015 à 11:51
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `administrateur` (
   `PassWord` varchar(20) NOT NULL,
   `Statut` varchar(256) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Contenu de la table `administrateur`
@@ -40,7 +40,8 @@ CREATE TABLE IF NOT EXISTS `administrateur` (
 
 INSERT INTO `administrateur` (`ID`, `UserName`, `PassWord`, `Statut`) VALUES
 (1, 'Marco', 'test', 'Administrateur'),
-(2, 'Jeremy', 'abc', 'Evaluateur');
+(2, 'Jeremy', 'abc', 'Evaluateur'),
+(3, 'Flavien', 'laBOC', 'Evaluateur');
 
 -- --------------------------------------------------------
 
@@ -54,14 +55,15 @@ CREATE TABLE IF NOT EXISTS `carnetadresse` (
   `ID` int(11) NOT NULL,
   PRIMARY KEY (`IdCarnet`),
   KEY `FK_CarnetAdresse_ID` (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `carnetadresse`
 --
 
 INSERT INTO `carnetadresse` (`IdCarnet`, `NomCarnet`, `ID`) VALUES
-(1, 'Sport IRIT', 2);
+(1, 'Sport IRIT', 2),
+(2, 'Nom TEST Carnet', 2);
 
 -- --------------------------------------------------------
 
@@ -77,6 +79,13 @@ CREATE TABLE IF NOT EXISTS `participer` (
   KEY `FK_Participer_InviteCode` (`InviteCode`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Contenu de la table `participer`
+--
+
+INSERT INTO `participer` (`statut_Invitation`, `NumVersion`, `InviteCode`) VALUES
+(0, 1, 19930806);
+
 -- --------------------------------------------------------
 
 --
@@ -90,14 +99,15 @@ CREATE TABLE IF NOT EXISTS `questionnaire` (
   `ID` int(11) NOT NULL,
   PRIMARY KEY (`IdQuest`),
   KEY `FK_Questionnaire_ID` (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `questionnaire`
 --
 
 INSERT INTO `questionnaire` (`IdQuest`, `Nom`, `DateCreation`, `ID`) VALUES
-(1, 'Parions Sport', '2015-03-15', 2);
+(1, 'Parions Sport', '2015-03-15', 2),
+(2, 'GPS', '2015-03-15', 2);
 
 -- --------------------------------------------------------
 
@@ -111,6 +121,13 @@ CREATE TABLE IF NOT EXISTS `syshash` (
   `Active` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`SysName`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `syshash`
+--
+
+INSERT INTO `syshash` (`SysName`, `HashCode`, `Active`) VALUES
+('Parions Sport', '123456', 0);
 
 -- --------------------------------------------------------
 
@@ -128,6 +145,13 @@ CREATE TABLE IF NOT EXISTS `utilisateurs` (
   KEY `FK_Utilisateurs_IdCarnet` (`IdCarnet`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Contenu de la table `utilisateurs`
+--
+
+INSERT INTO `utilisateurs` (`InviteCode`, `Email`, `DateNaissance`, `Ville`, `IdCarnet`) VALUES
+(19930806, 'bocchi31@gmail', NULL, 'Toulouse', 2);
+
 -- --------------------------------------------------------
 
 --
@@ -137,7 +161,7 @@ CREATE TABLE IF NOT EXISTS `utilisateurs` (
 CREATE TABLE IF NOT EXISTS `versionquestionnaire` (
   `NumVersion` int(11) NOT NULL,
   `DateExpiration` date DEFAULT NULL,
-  `SommeNote` int(11) DEFAULT NULL,
+  `SommeNote` float DEFAULT NULL,
   `NbReponses` int(11) DEFAULT NULL,
   `IdQuest` int(11) NOT NULL,
   PRIMARY KEY (`NumVersion`,`IdQuest`),
@@ -149,7 +173,10 @@ CREATE TABLE IF NOT EXISTS `versionquestionnaire` (
 --
 
 INSERT INTO `versionquestionnaire` (`NumVersion`, `DateExpiration`, `SommeNote`, `NbReponses`, `IdQuest`) VALUES
-(1, '2015-03-18', 0, 0, 1);
+(1, '2015-03-18', 95, 2, 1),
+(1, '2015-03-19', 210, 3, 2),
+(2, '2015-03-17', 1080, 14, 1),
+(2, '2015-03-31', 200, 3, 2);
 
 --
 -- Contraintes pour les tables exportées
