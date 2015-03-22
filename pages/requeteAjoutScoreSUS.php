@@ -11,7 +11,6 @@ $nbrep = $_POST['NB'];
 $version = $_POST['IDVERSION'];
 $questID = $_POST['IDQUESTIONNAIRE'];
 
-//$bdd->exec("INSERT INTO questionnaire VALUES ('',". $nom ."," . $dateC . "," . $ident . ")");
 $bdd->exec("UPDATE versionquestionnaire SET SommeNote = ". $somme .", NbReponses = ". $nbrep ." WHERE NumVersion = ". $version ." AND IdQuest = ". $questID .";");
 
 ?>
