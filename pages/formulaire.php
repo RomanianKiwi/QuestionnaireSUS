@@ -7,36 +7,18 @@
         <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" />
         <script src="../js/jquery-2.1.3.js"></script>
         <script src="../js/bootstrap.js"></script>
+        <script src="../js/fonctionsUtiles.js"></script>
         <script src="../js/loadXMLFile.js"></script>
         <script src="../js/computeScoreSUS.js"></script>
-        <script src="../js/replaceSystemByProductName.js"></script>
+        <script src="../js/getInformationsQuestionnaire.js"></script>
+        <script src="../js/updateScoreQuestionnaire.js"></script>
         <script type="text/javascript">
             $(document).ready(function(){
+                //called when the user submit his answers
                 $("#questSUS").submit(function(e){
                     e.preventDefault();
-                    var scoreSUS = computeScoreSUS();
-					//ajouterScoreSUS(computeScoreSUS());
-                    console.log(scoreSUS);
-                });
-				/*
-				function ajouterScoreSUS(score){
-					$.ajax({
-                        type: "POST",
-                        url: "requeteAjoutScoreSUS.php",
-                        data: {Score: "'" + score + "'"},
-                        async: false,
-                        dataType: 'json',
-                        success: function (data)
-                        {
-                            console.log("insertion du score SUS dans la base de données réussie avec succès !");
-                        }
-						error: function( jqXHR jqXHR, String textStatus, String errorThrown )
-						{
-							console.log("echec de l'insertion du score SUS dans la base de données !");
-						}
-						
-                    });*/
-				}		
+		    updateScoreSystem(computeScoreSUS());
+                });		
             });
         </script>
     </head>

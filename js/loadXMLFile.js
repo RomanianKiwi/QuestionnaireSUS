@@ -1,6 +1,7 @@
     function loadXMLDoc(url){
         var xmlhttp;
         var questions, answers, system, formGroup, i;
+        var nameSystem = getSystemName();
 
         if (window.XMLHttpRequest){
             // code for IE7+, Firefox, Chrome, Opera, Safari
@@ -21,7 +22,7 @@
                 for(i=0; i<questions.length; i++){
                     var question = questions[i].firstChild.nodeValue;
                     var re = new RegExp(system, "g");
-                    question = question.replace(re,"Git");
+                    question = question.replace(re, nameSystem);
                     formGroup="<div class='form-group'>"
                                 +"<h4>"+question+"</h4>"
                                 +"<label class='radio-inline'>"
