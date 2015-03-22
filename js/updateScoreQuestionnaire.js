@@ -10,7 +10,6 @@
             url: "requeteAjoutScoreSUS.php",
             data: {Somme: "'" + newScore + "'", NB: "'" + nbResp + "'", IDQUESTIONNAIRE: "'" + idQuest + "'", IDVERSION: "'" + versSystem + "'"},
             async: false,
-            dataType: 'json',
             success: function (data)
             {
                 console.log("Mise a jour reussie avec succes !");

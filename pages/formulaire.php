@@ -17,7 +17,7 @@
                 //called when the user submit his answers
                 $("#questSUS").submit(function(e){
                     e.preventDefault();
-		    updateScoreSystem(computeScoreSUS());
+					updateScoreSystem(computeScoreSUS());
                 });		
             });
         </script>
