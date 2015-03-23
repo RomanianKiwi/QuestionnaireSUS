@@ -5,9 +5,7 @@
 		die('Erreur : ' . $e->getMessage());
 	}
 	
-	$id= $_POST['id'];
-	
-	$reponse = $bdd->query("SELECT * FROM carnetadresse where ID = '".$id."'");
+	$reponse = $bdd->query("SELECT * FROM carnetadresse;");
 	echo json_encode($reponse->fetchAll(PDO::FETCH_ASSOC));
 	$reponse->closeCursor(); // Termine le traitement de la requête
 ?>

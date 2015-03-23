@@ -19,6 +19,9 @@
 				<li>
 				<a href="../pages/mailing.php">Invitation participants </a>
 				</li>
+				<li>
+				<a href="../pages/carnet.php">Gestion carnet d'adresse </a>
+				</li>
 				<li id="AjoutAd"><a href="../pages/AjoutAdminEval.php">Ajouter évaluateur</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">

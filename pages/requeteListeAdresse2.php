@@ -5,9 +5,9 @@
 		die('Erreur : ' . $e->getMessage());
 	}
 	
-	$id= $_POST['id'];
+	$idcarnet = $_POST['idcarnet'];
 	
-	$reponse = $bdd->query("SELECT * FROM carnetadresse where ID = '".$id."'");
+	$reponse = $bdd->query("SELECT Email,InviteCode,U.IdCarnet FROM carnetadresse C, utilisateurs U WHERE '".$idcarnet."' = U.IdCarnet AND U.IdCarnet = C.IdCarnet;");
 	echo json_encode($reponse->fetchAll(PDO::FETCH_ASSOC));
 	$reponse->closeCursor(); // Termine le traitement de la requête
 ?>

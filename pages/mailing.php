@@ -12,14 +12,10 @@
 			}
 			$log = $_SESSION['login'];
 			$mpass = $_SESSION['password'];
-			$statut=$_SESSION['statut'];
+			$statut =$_SESSION['statut'];
+			$id_user =$_SESSION['ID'];
 			$reponse = $bdd->query("SELECT * FROM administrateur WHERE UserName= \"". $log . "\"AND PassWord = \"". $mpass ."\"AND Statut = \"". $statut ."\";");
 			$donnees = $reponse->fetch(PDO::FETCH_ASSOC);
-				
-			//print_r($_SESSION['ID']);
-			//if ne sert plus après la premiere id car on a vérifié ce qu'il y a en post avec la BDD.
-			//Maintenant vérifié si les données dans les SESSION sont egaux avec ce qu'il y a dans la BDD
-			//donc le test est effectuer au dessus.(tester si le champ que retourne la bdd n'est pas vide)
 			
 			
 			//Partie Envoi de mail.
@@ -99,8 +95,7 @@
 								}
 							}
 						}
-					}
-					
+					}					
 			}else{
 				header("Location:logout.php");	
 			}
@@ -122,21 +117,19 @@
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 		
 		<!-- Latest compiled and minified JavaScript -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-		<script>
-		$(document).ready(function () {
-				
-				var statutUtil =  "<?php echo $_SESSION['statut']; ?>" ;
-				if(statutUtil != "Administrateur"){
-					$("#AjoutAd").hide();
-				}
-		});
-		</script>
-		
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>		
 	</head>
 	
 		 <script type="text/javascript">
 			$(document).ready(function () {
+			
+				var statutUtil =  "<?php echo $_SESSION['statut']; ?>" ;
+				if(statutUtil != "Administrateur"){
+					$("#AjoutAd").hide();
+				}
+			
+			
+			
 				//Masquer toutes les alertes par défaut
 				$('.alert').hide();
 				$('#mails').attr('display','none');
@@ -158,14 +151,17 @@
 						}
 					});
 				}
+				
+				var iduser = parseInt('<?php echo $id_user; ?>');
 				afficherListeQuestionnaires();
 				
-				function afficherListeCarnet() {
+				function afficherListeCarnet(id) {
 					$.ajax({
 						type: "POST",
 						url: "requeteListeCarnet.php",
 						async: false,
 						dataType: 'json',
+						data: 'id=' + id,
 						success: function (data)
 						{
 							if(data.length == 0)
@@ -177,7 +173,7 @@
 						}
 					});
 				}
-				afficherListeCarnet();				
+				afficherListeCarnet(iduser);				
 			});
 			
 			function changementCarnet(){
