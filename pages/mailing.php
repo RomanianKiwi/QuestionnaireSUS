@@ -123,6 +123,15 @@
 		
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+		<script>
+		$(document).ready(function () {
+				
+				var statutUtil =  "<?php echo $_SESSION['statut']; ?>" ;
+				if(statutUtil != "Administrateur"){
+					$("#AjoutAd").hide();
+				}
+		});
+		</script>
 		
 	</head>
 	
