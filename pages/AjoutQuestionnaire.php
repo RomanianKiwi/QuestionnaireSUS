@@ -2,41 +2,33 @@
 // On démarre la session (ceci est indispensable dans toutes les pages de notre section membre)
 	session_start();
 	if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION['statut']) && isset($_SESSION['ID'])) {
-		/*
-		print_r($_SESSION['login']);
-		echo "<br/>";
-		print_r($_SESSION['password']);
-		*/
-		
-		try
-		{
-			$bdd = new PDO('mysql:host=localhost;dbname=projet;charset=utf8', 'root', '');
+			try
+			{
+				$bdd = new PDO('mysql:host=localhost;dbname=projet;charset=utf8', 'root', '');
+			}
+			catch (Exception $e)
+			{
+					die('Erreur : ' . $e->getMessage());
+			}
+			$log = $_SESSION['login'];
+			$mpass = $_SESSION['password'];
+			$statut=$_SESSION['statut'];
+			$reponse = $bdd->query("SELECT * FROM administrateur WHERE UserName= \"". $log . "\"AND PassWord = \"". $mpass ."\"AND Statut = \"". $statut ."\";");
+			$donnees = $reponse->fetch(PDO::FETCH_ASSOC);
+				
+			print_r($_SESSION['ID']);
+			//if ne sert plus après la premiere id car on a vérifié ce qu'il y a en post avec la BDD.
+			//Maintenant vérifié si les données dans les SESSION sont egaux avec ce qu'il y a dans la BDD
+			//donc le test est effectuer au dessus.(tester si le champ que retourne la bdd n'est pas vide)
+			if($donnees['UserName'] != "" && $donnees['PassWord'] != "" && $_SESSION['login'] != "" && $donnees['Statut'] != ""){
+				echo 'tu es un boss xD';
+			}else{
+				header("Location:logout.php");
+				
+				
+			}
+			$reponse->closeCursor();
 		}
-		catch (Exception $e)
-		{
-				die('Erreur : ' . $e->getMessage());
-		}
-		$log = $_SESSION['login'];
-		$mpass = $_SESSION['password'];
-		$reponse = $bdd->query("SELECT * FROM administrateur WHERE UserName= \"". $log . "\"AND PassWord = \"". $mpass ."\";");
-		$donnees = $reponse->fetch(PDO::FETCH_ASSOC);
-	
-		/* echo "<br/>";
-		echo $donnees['UserName'];
-		echo "<br/>";
-		echo $donnees['PassWord'];
-		echo "<br/>"; */
-			
-		//if ne sert plus après la premiere id car on a vérifié ce qu'il y a en post avec la BDD.
-		//Maintenant vérifié si les données dans les SESSION sont egaux avec ce qu'il y a dans la BDD
-		//donc le test est effectuer au dessus.(tester si le champ que retourne la bdd n'est pas vide)
-		if($donnees['UserName'] != "" && $donnees['PassWord'] != "" && $_SESSION['login'] != ""){
-			echo 'tu es un boss';
-		}else{
-			header("Location:logout.php");
-		}
-		$reponse->closeCursor();
-	}
 	else{
 		header("Location:logout.php");
 	}
@@ -64,6 +56,8 @@
 
             $(document).ready(function () {
 
+			var statutUtil =  "<?php echo $_SESSION['statut']; ?>" ;
+			
                 function ajoutQuestionnaire(nom, dateCreation, idAmin) {
                     $.ajax({
                         type: "POST",
@@ -81,6 +75,7 @@
                     });
                 }
 				
+				var idUtil= <?php echo $_SESSION['ID']; ?> ;
 				
 				$('#formAjout').on('submit', function(e) {
 						//ajoutQuestionnaire($("#NomSysteme").val(),$("#dateDebut").val(),2);
@@ -90,7 +85,7 @@
 						//var date2 = $("#datepicker").val($.datepicker.formatdate('dd-mm-yyyy',new Date()));
 						//console.log( DateFrtoEn(date));
 						
-						ajoutQuestionnaire($("#nomQuestionaire").val(),DateFrtoEn(date),2);
+						ajoutQuestionnaire($("#nomQuestionaire").val(),DateFrtoEn(date),idUtil);
 					});
 				$(function() {
 					$("#datepicker").datepicker({
@@ -99,6 +94,9 @@
 				});
 				
 
+				if(statutUtil != "Administrateur"){
+					$("#AjoutAd").hide();
+				}
 
 				
 				//ajoutQuestionnaire("GPS", "2015-03-15",2);
