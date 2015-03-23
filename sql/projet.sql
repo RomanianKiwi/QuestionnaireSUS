@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Dim 22 Mars 2015 à 11:51
+-- Généré le :  Lun 23 Mars 2015 à 23:02
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `administrateur` (
 INSERT INTO `administrateur` (`ID`, `UserName`, `PassWord`, `Statut`) VALUES
 (1, 'Marco', 'test', 'Administrateur'),
 (2, 'Jeremy', 'abc', 'Evaluateur'),
-(3, 'Flavien', 'laBOC', 'Evaluateur');
+(3, 'Flavien', 'laboc', 'Evaluateur');
 
 -- --------------------------------------------------------
 
@@ -55,15 +55,40 @@ CREATE TABLE IF NOT EXISTS `carnetadresse` (
   `ID` int(11) NOT NULL,
   PRIMARY KEY (`IdCarnet`),
   KEY `FK_CarnetAdresse_ID` (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Contenu de la table `carnetadresse`
 --
 
 INSERT INTO `carnetadresse` (`IdCarnet`, `NomCarnet`, `ID`) VALUES
+(0, 'Archive', 1),
 (1, 'Sport IRIT', 2),
-(2, 'Nom TEST Carnet', 2);
+(2, 'Sciences', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `gerer`
+--
+
+CREATE TABLE IF NOT EXISTS `gerer` (
+  `IdCarnet` int(11) NOT NULL,
+  `InviteCode` varchar(255) NOT NULL,
+  PRIMARY KEY (`IdCarnet`,`InviteCode`),
+  KEY `FK_Gerer_InviteCode` (`InviteCode`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `gerer`
+--
+
+INSERT INTO `gerer` (`IdCarnet`, `InviteCode`) VALUES
+(1, '2548'),
+(1, '337752493652424404824466004444846460026'),
+(2, '337752493652424404824466004444846460026'),
+(1, '53131172170670664482420846024208824402'),
+(1, '8742');
 
 -- --------------------------------------------------------
 
@@ -74,8 +99,10 @@ INSERT INTO `carnetadresse` (`IdCarnet`, `NomCarnet`, `ID`) VALUES
 CREATE TABLE IF NOT EXISTS `participer` (
   `statut_Invitation` tinyint(1) NOT NULL,
   `NumVersion` int(11) NOT NULL,
-  `InviteCode` int(11) NOT NULL,
-  PRIMARY KEY (`NumVersion`,`InviteCode`),
+  `InviteCode` varchar(255) NOT NULL,
+  `IdQuest` int(11) NOT NULL,
+  PRIMARY KEY (`NumVersion`,`InviteCode`,`IdQuest`),
+  KEY `FK_Participer_IdQuest` (`IdQuest`),
   KEY `FK_Participer_InviteCode` (`InviteCode`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -83,8 +110,10 @@ CREATE TABLE IF NOT EXISTS `participer` (
 -- Contenu de la table `participer`
 --
 
-INSERT INTO `participer` (`statut_Invitation`, `NumVersion`, `InviteCode`) VALUES
-(0, 1, 19930806);
+INSERT INTO `participer` (`statut_Invitation`, `NumVersion`, `InviteCode`, `IdQuest`) VALUES
+(0, 2, '1235314', 2),
+(0, 2, '2548', 1),
+(0, 2, '8742', 1);
 
 -- --------------------------------------------------------
 
@@ -106,8 +135,8 @@ CREATE TABLE IF NOT EXISTS `questionnaire` (
 --
 
 INSERT INTO `questionnaire` (`IdQuest`, `Nom`, `DateCreation`, `ID`) VALUES
-(1, 'Parions Sport', '2015-03-15', 2),
-(2, 'GPS', '2015-03-15', 2);
+(1, 'Parions Sport', '2015-03-23', 2),
+(2, 'GPS', '2015-03-23', 2);
 
 -- --------------------------------------------------------
 
@@ -122,13 +151,6 @@ CREATE TABLE IF NOT EXISTS `syshash` (
   PRIMARY KEY (`SysName`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Contenu de la table `syshash`
---
-
-INSERT INTO `syshash` (`SysName`, `HashCode`, `Active`) VALUES
-('Parions Sport', '123456', 0);
-
 -- --------------------------------------------------------
 
 --
@@ -136,21 +158,24 @@ INSERT INTO `syshash` (`SysName`, `HashCode`, `Active`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `utilisateurs` (
-  `InviteCode` int(11) NOT NULL,
+  `InviteCode` varchar(255) NOT NULL,
   `Email` varchar(25) NOT NULL,
   `DateNaissance` date DEFAULT NULL,
-  `Ville` varchar(25) NOT NULL,
-  `IdCarnet` int(11) NOT NULL,
-  PRIMARY KEY (`InviteCode`),
-  KEY `FK_Utilisateurs_IdCarnet` (`IdCarnet`)
+  `Ville` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`InviteCode`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `utilisateurs`
 --
 
-INSERT INTO `utilisateurs` (`InviteCode`, `Email`, `DateNaissance`, `Ville`, `IdCarnet`) VALUES
-(19930806, 'bocchi31@gmail', NULL, 'Toulouse', 2);
+INSERT INTO `utilisateurs` (`InviteCode`, `Email`, `DateNaissance`, `Ville`) VALUES
+('1235314', 'bocchi@gmail.com', NULL, NULL),
+('2548', 'bocchiTEST@gmail.com', NULL, NULL),
+('337752493652424404824466004444846460026', 'dylan@gmail.com', NULL, NULL),
+('53131172170670664482420846024208824402', 'dylan2@gmail.com', NULL, NULL),
+('5446544', 'lool', NULL, NULL),
+('8742', 'max@gmail.com', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -173,10 +198,10 @@ CREATE TABLE IF NOT EXISTS `versionquestionnaire` (
 --
 
 INSERT INTO `versionquestionnaire` (`NumVersion`, `DateExpiration`, `SommeNote`, `NbReponses`, `IdQuest`) VALUES
-(1, '2015-03-18', 95, 2, 1),
-(1, '2015-03-19', 210, 3, 2),
-(2, '2015-03-17', 1080, 14, 1),
-(2, '2015-03-31', 200, 3, 2);
+(1, '2015-03-26', 120, 2, 1),
+(1, '2015-03-30', 100, 1, 2),
+(2, '2015-03-26', 210, 3, 1),
+(2, '2015-03-30', 300, 4, 2);
 
 --
 -- Contraintes pour les tables exportées
@@ -189,9 +214,17 @@ ALTER TABLE `carnetadresse`
   ADD CONSTRAINT `FK_CarnetAdresse_ID` FOREIGN KEY (`ID`) REFERENCES `administrateur` (`ID`);
 
 --
+-- Contraintes pour la table `gerer`
+--
+ALTER TABLE `gerer`
+  ADD CONSTRAINT `FK_Gerer_InviteCode` FOREIGN KEY (`InviteCode`) REFERENCES `utilisateurs` (`InviteCode`),
+  ADD CONSTRAINT `FK_Gerer_IdCarnet` FOREIGN KEY (`IdCarnet`) REFERENCES `carnetadresse` (`IdCarnet`);
+
+--
 -- Contraintes pour la table `participer`
 --
 ALTER TABLE `participer`
+  ADD CONSTRAINT `FK_Participer_IdQuest` FOREIGN KEY (`IdQuest`) REFERENCES `versionquestionnaire` (`IdQuest`),
   ADD CONSTRAINT `FK_Participer_InviteCode` FOREIGN KEY (`InviteCode`) REFERENCES `utilisateurs` (`InviteCode`),
   ADD CONSTRAINT `FK_Participer_NumVersion` FOREIGN KEY (`NumVersion`) REFERENCES `versionquestionnaire` (`NumVersion`);
 
@@ -200,12 +233,6 @@ ALTER TABLE `participer`
 --
 ALTER TABLE `questionnaire`
   ADD CONSTRAINT `FK_Questionnaire_ID` FOREIGN KEY (`ID`) REFERENCES `administrateur` (`ID`);
-
---
--- Contraintes pour la table `utilisateurs`
---
-ALTER TABLE `utilisateurs`
-  ADD CONSTRAINT `FK_Utilisateurs_IdCarnet` FOREIGN KEY (`IdCarnet`) REFERENCES `carnetadresse` (`IdCarnet`);
 
 --
 -- Contraintes pour la table `versionquestionnaire`

@@ -12,7 +12,7 @@ $idCode = $_POST['CodeMail'];
 /*$newNom = "'test carnet'";
   $idCarnet = "'1'"; */
 
-$requete = "UPDATE utilisateurs SET IdCarnet = " . $idCarnet . " WHERE InviteCode = " . $idCode . ";";
+$requete = "UPDATE gerer SET IdCarnet = " . $idCarnet . " WHERE InviteCode = " . $idCode . ";";
 $bdd->exec($requete);
 
 /* fonction ajax : 

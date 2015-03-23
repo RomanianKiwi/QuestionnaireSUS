@@ -9,8 +9,8 @@ try {
 $mail = $_POST['Mail'];
 $idCarnet = $_POST['IDCarnet'];
 
-/* $mail = "dylan@gmail.com";
-  $idCarnet = "'4'"; */
+ /*$mail = "dylan2@gmail.com";
+  $idCarnet = "'1'"; */
 
 function hashMail($Email) {
     $test = hash('md5', $Email);
@@ -21,7 +21,31 @@ function hashMail($Email) {
 $mailHascher = hashMail($mail);
 //echo $mailHascher;
 
-$bdd->exec("INSERT INTO utilisateurs VALUES ('" . $mailHascher . "' , '" . $mail . "', NULL, NULL," . $idCarnet . ");");
+$testBool = "false";
+
+$reponse = $bdd->query('SELECT * FROM utilisateurs');
+
+while ($donnees = $reponse->fetch())
+{
+    if($mailHascher == $donnees['InviteCode'])
+        $testBool = "true";
+}
+
+$reponse->closeCursor();
+
+if($testBool == "false"){
+    //etape 1 : inserer utilisateur dans la table utilisateurs si il n'existe pas déjà :
+    $etape1 = "INSERT INTO utilisateurs VALUES ('" . $mailHascher . "' , '" . $mail . "', NULL, NULL);";
+}
+else
+    $etape1 = "";
+
+//etape 2 : inserer dans gerer le code hashé et le code du carnet en cours :
+$etape2 = "INSERT INTO gerer VALUES (" . $idCarnet . ", '" . $mailHascher . "');";
+
+//echo $etape1 . " " . $etape2;
+
+$bdd->exec($etape1 . $etape2);
 
 /* fonction ajax : 
   function ajoutUtilisateur(mail, idCarnet){
