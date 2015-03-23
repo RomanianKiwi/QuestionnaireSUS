@@ -19,6 +19,26 @@
 			
 
         </script>
+		 <style>
+
+        body {
+            background-color: #F7F7F9;
+			padding-top: 100px;
+        }
+
+        #wrapper {
+            position: absolute;
+            top: 25%;
+            width: 100%;
+        }
+
+        form {
+            border: 2px solid lightgrey;
+            padding-top: 50px;
+            padding-bottom: 20px;
+			
+        }
+    </style>
 
 	</head>
 	

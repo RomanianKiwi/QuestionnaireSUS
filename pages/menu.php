@@ -19,7 +19,7 @@
 				<li>
 				<a href="../pages/mailing.php">Invitation participants </a>
 				</li>
-				<li><a href="../pages/AjoutAdminEval.php">Ajouter évaluateur</a></li>
+				<li id="AjoutAd"><a href="../pages/AjoutAdminEval.php">Ajouter évaluateur</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li><a id="deco" href="../pages/logout.php" class="dropdown-toggle" >Déconnexion</a></li>

@@ -3,9 +3,10 @@
 	session_start();
 	print_r($_POST);
 		echo "ca passe la !";
+		 
+		
 		// On teste nos deux variables
 		if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION['statut']) && isset($_SESSION['ID'])) {
-			echo "session encore active !";
 			try
 			{
 				$bdd = new PDO('mysql:host=localhost;dbname=projet;charset=utf8', 'root', '');
@@ -16,17 +17,18 @@
 			}
 			$log = $_SESSION['login'];
 			$mpass = $_SESSION['password'];
-			$_SESSION['statut']=$SESSION['statut'];
+			$statut= $_SESSION['statut'];
 			$reponse = $bdd->query("SELECT * FROM administrateur WHERE UserName= \"". $log . "\"AND PassWord = \"". $mpass ."\"AND Statut = \"". $statut ."\";");
 			$donnees = $reponse->fetch(PDO::FETCH_ASSOC);
 				
+			print_r($_SESSION['statut']);
 			//if ne sert plus après la premiere id car on a vérifié ce qu'il y a en post avec la BDD.
 			//Maintenant vérifié si les données dans les SESSION sont egaux avec ce qu'il y a dans la BDD
 			//donc le test est effectuer au dessus.(tester si le champ que retourne la bdd n'est pas vide)
-			if($donnees['UserName'] != "" && $donnees['PassWord'] != "" && $_SESSION['login'] != "" && $_SESSION['statut'] != ""){
+			if($donnees['UserName'] != "" && $donnees['PassWord'] != "" && $_SESSION['login'] != "" && $donnees['Statut'] != ""){
 				echo 'tu es un boss xD';
 			}else{
-				header("Location:logout.php");
+				header("Location:pages/logout.php");
 				
 			}
 			$reponse->closeCursor();
@@ -38,6 +40,7 @@
 			$_SESSION['login']=$_POST['login'];
 			$_SESSION['password']=$_POST['password'];
 			$_SESSION['statut']=$_POST['statut'];
+			
 			
 			try
 			{
@@ -105,6 +108,17 @@
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="js/bootstrap.js"></script>
+		<script>
+		$(document).ready(function () {
+				var statutUtil =  "<?php echo $_SESSION['statut']; ?>" ;
+				console.log(statutUtil);
+				if(statutUtil != "Administrateur"){
+					$("#AjoutAd").hide();
+				}
+				
+		});
+		</script>
+		
 		<style type="text/css">
             .bs-example{
                 margin: 20px;
@@ -136,7 +150,7 @@
 				<li>
 				<a href="../QuestionnaireSUS/pages/mailing.php">Invitation participants </a>
 				</li>
-				<li><a href="../QuestionnaireSUS/pages/AjoutAdminEval.php">Ajouter évaluateur</a></li>
+				<li id="AjoutAd"><a href="../QuestionnaireSUS/pages/AjoutAdminEval.php">Ajouter évaluateur</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li><a id="deco" href="../QuestionnaireSUS/pages/logout.php" class="dropdown-toggle" >Déconnexion</a></li>
