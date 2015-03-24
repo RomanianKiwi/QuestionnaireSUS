@@ -108,7 +108,7 @@
 								for(var i=0; i<data.length; i++){
 									$('#contenuCarnet').append('<div class="panel-group" id="accordion'+data[i].IdCarnet+'"><div class="panel panel-default"><div class="panel-heading"><h1 class="panel-title"><a class="accordeon'+data[i].IdCarnet+'" data-toggle="collapse" data-parent="#accordion'+data[i].IdCarnet+'" href="#collapse'+data[i].IdCarnet+'"><span class="glyphicon glyphicon-plus"></span>'+data[i].NomCarnet+'</a></h1></div><div id="collapse'+data[i].IdCarnet+'" class="panel-collapse collapse"><div id="body'+data[i].IdCarnet+'" class="panel-body"><table id="tabAdresses'+data[i].IdCarnet+'" class="table table-bordered"><tr><th>Adresse</th><th>Supprimer</th></tr></table></div></div></div></div>');
 									afficherAdresses(data[i].IdCarnet);
-									$('#body'+data[i].IdCarnet+'').append('<form><input id="email'+data[i].IdCarnet+'" type="email" name="email" required><button type="submit" class="btn btn-primary" onClick=ajouterAdresse('+data[i].IdCarnet+'); >Ajouter Adresse</button></form><button type="button" onClick=supprimerCarnet('+data[i].IdCarnet+'); class="btn btn-primary">Supprimer ce carnet</button>');
+									$('#body'+data[i].IdCarnet+'').append('<form><label for="email'+data[i].IdCarnet+'">Adresse: <input id="email'+data[i].IdCarnet+'" type="email" name="email'+data[i].IdCarnet+'" required></label><button type="submit" class="btn btn-primary" onClick=ajouterAdresse('+data[i].IdCarnet+'); >Ajouter Adresse</button></form><form><label for="nouveauNom'+data[i].IdCarnet+'">Nouveau nom du carnet: <input id="nouveauNom'+data[i].IdCarnet+'" type="text" name="nouveauNom'+data[i].IdCarnet+'" required></label><button type="submit" class="btn btn-primary" onClick=modifNom('+data[i].IdCarnet+'); >Modifier nom du carnet</button></form><button type="button" onClick=supprimerCarnet('+data[i].IdCarnet+'); class="btn btn-primary">Supprimer ce carnet</button>');
 								}
 							}
 						}
@@ -193,6 +193,7 @@
 				}
 			}
 			
+			//Fonction qui permet la suppresion d'un carnet d'adresse
 			function supprimerCarnet(idCarnet){
 				var iduser = parseInt('<?php echo $id_user; ?>');
 				  $.ajax({
@@ -209,6 +210,27 @@
 						console.log(err);
 					  }
 				  });
+			}
+			
+			//Modifier le nom d'un Carnet
+			function modifNom(idCarnet) {
+				var iduser = parseInt('<?php echo $id_user; ?>');
+				var nouvNom = $('#nouveauNom'+idCarnet+'').val();
+				if(nouvNom != ""){
+					$.ajax({
+						  type: "POST",
+						  url: "requeteModifierNomCarnet.php",
+						  data: {Nom: "'"+ nouvNom + "'", IDCarnet: "'" + idCarnet + "'"},
+						  async: false,
+						  success: function (result)
+						  {
+								afficherListeCarnet(iduser);
+						  },
+						  error : function (result, status, err) {
+						  console.log(err);
+						  }
+					});
+				}
 			}
 			
 	</script>

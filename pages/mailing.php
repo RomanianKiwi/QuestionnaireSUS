@@ -61,7 +61,7 @@
 								{			
 									$mailHascher = hashMail($destinataire);
 									$nomHasher = hashMail($_POST['choixQuestionnaire']);
-									$message_url = $urlIni . "?c=" . $mailHascher . "&n=" . $nomHasher;							
+									$message_url = $urlIni . "?c=" . $nomHasher . "&n=" . $mailHascher;							
 								
 									$message= $message_head.$passage_ligne.$message_txt.$message_url.$passage_ligne.$passage_ligne."--".$boundary.$passage_ligne;
 									// fin du message
@@ -87,6 +87,8 @@
 							{
 								$mailHascher = hashMail($destinataires_array[$i]);
 								$nomHasher = hashMail($_POST['choixQuestionnaire']);
+								echo "".$nomHasher."";
+								echo "".hashMail("Parions Sport")."";
 								$message_url = $urlIni . "?c=" . $mailHascher . "&n=" . $nomHasher;							
 								
 								$message= $message_head.$passage_ligne.$message_txt.$message_url.$passage_ligne.$passage_ligne."--".$boundary.$passage_ligne;
