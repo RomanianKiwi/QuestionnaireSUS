@@ -69,7 +69,6 @@
                         if (data.length == 0)
                             $('#contenu').append("<p>Aucun questionnaire remplie</p>");
                         else {
-								console.log(data.length);
 								var nomSysteme = "";
 								var cpt=0;
 								

@@ -47,12 +47,16 @@
 	</head>
 	
 	<style>	
-	h1{
+	h1,h2{
 		text-align: center;
 	}
 	
 	input{
 		margin-right:10px;
+	}
+	
+	form{
+		margin-bottom:20px;
 	}
 	
 	</style>
@@ -65,35 +69,10 @@
 					$("#AjoutAd").hide();
 				}
 			
-			
-				//Affiche tous les carnets dans un collapse.
-				function afficherListeCarnet(id) {
-					$.ajax({
-						type: "POST",
-						url: "requeteListeCarnet.php",
-						async: false,
-						dataType: 'json',
-						data: 'id=' + id,
-						success: function (data)
-						{
-							if(data.length == 0)
-							{
-								$('#contenu').append("<p>Vous n'avez aucun carnet d'adresse</p>")
-							}
-							else{
-								for(var i=0; i<data.length; i++){
-									$('#contenu').append('<div class="panel-group" id="accordion'+data[i].IdCarnet+'"><div class="panel panel-default"><div class="panel-heading"><h1 class="panel-title"><a class="accordeon'+data[i].IdCarnet+'" data-toggle="collapse" data-parent="#accordion'+data[i].IdCarnet+'" href="#collapse'+data[i].IdCarnet+'"><span class="glyphicon glyphicon-plus"></span>'+data[i].NomCarnet+'</a></h1></div><div id="collapse'+data[i].IdCarnet+'" class="panel-collapse collapse"><div id="body'+data[i].IdCarnet+'" class="panel-body"><table id="tabAdresses'+data[i].IdCarnet+'" class="table table-striped"><tr><th>Adresse</th><th>Supprimer</th></tr></table></div></div></div></div>');
-									afficherAdresses(data[i].IdCarnet);
-									$('#body'+data[i].IdCarnet+'').append('<form><input id="email'+data[i].IdCarnet+'" type="email" name="email" required><input type="submit" onClick=ajouterAdresse('+data[i].IdCarnet+'); value="Ajouter Adresse"></form>');
-								}
-							}
-						}
-					});
-				}
 				var iduser = parseInt('<?php echo $id_user; ?>');
 				afficherListeCarnet(iduser);
 				
-				$("input[type='submit']").click(function (e) {
+				$("button[type='submit']").click(function (e) {
 					e.preventDefault();
 				});
 				
@@ -106,6 +85,36 @@
 					supprimerUtilisateurCarnet(carnetid,invCode);
 				});
 			});
+			
+			
+			
+				//Affiche tous les carnets dans un collapse.
+				function afficherListeCarnet(id) {
+					$('#contenuCarnet').children().remove();
+					$('#contenuCarnet').append('<h2>Liste de vos carnets:</h2>');
+					$.ajax({
+						type: "POST",
+						url: "requeteListeCarnet.php",
+						async: false,
+						dataType: 'json',
+						data: 'id=' + id,
+						success: function (data)
+						{
+							if(data.length == 0)
+							{
+								$('#contenuCarnet').append("<p>Vous n'avez aucun carnet d'adresse</p>")
+							}
+							else{
+								for(var i=0; i<data.length; i++){
+									$('#contenuCarnet').append('<div class="panel-group" id="accordion'+data[i].IdCarnet+'"><div class="panel panel-default"><div class="panel-heading"><h1 class="panel-title"><a class="accordeon'+data[i].IdCarnet+'" data-toggle="collapse" data-parent="#accordion'+data[i].IdCarnet+'" href="#collapse'+data[i].IdCarnet+'"><span class="glyphicon glyphicon-plus"></span>'+data[i].NomCarnet+'</a></h1></div><div id="collapse'+data[i].IdCarnet+'" class="panel-collapse collapse"><div id="body'+data[i].IdCarnet+'" class="panel-body"><table id="tabAdresses'+data[i].IdCarnet+'" class="table table-bordered"><tr><th>Adresse</th><th>Supprimer</th></tr></table></div></div></div></div>');
+									afficherAdresses(data[i].IdCarnet);
+									$('#body'+data[i].IdCarnet+'').append('<form><input id="email'+data[i].IdCarnet+'" type="email" name="email" required><button type="submit" class="btn btn-primary" onClick=ajouterAdresse('+data[i].IdCarnet+'); >Ajouter Adresse</button></form><button type="button" onClick=supprimerCarnet('+data[i].IdCarnet+'); class="btn btn-primary">Supprimer ce carnet</button>');
+								}
+							}
+						}
+					});
+				}
+			
 			
 			//Affiche les adresses d'un carnet dans le tableau.
 			function afficherAdresses(numCarnet) {
@@ -136,7 +145,6 @@
 						  async: false,
 						  success: function (result)
 						  {
-								console.log("insertion réussie de "+adresseM);
 								afficherAdresses(idCarnet);
 						  },
 						  error : function (result, status, err) {
@@ -146,8 +154,8 @@
 				}
 			}
 			
+			// Permet de supprimer une adresse d'un carnet
 			function supprimerUtilisateurCarnet(idCarnet, idCodeMail){
-
 				$.ajax({
 					type: "POST",
 					url: "requeteSupprimerUtilisateurCarnet.php",
@@ -155,14 +163,52 @@
 					async: false,
 					success: function (result)
 					{
-						console.log("archivage réussie de "+idCodeMail+" du carnet numero "+idCarnet);
 						afficherAdresses(idCarnet);
 					},
 					error : function (result, status, err) {
 						console.log(err);
 					}
 				});
-
+			}
+			
+			//Permet l'ajout d'un carnet d'adresse
+			function ajouterCarnet() {
+				var iduser = parseInt('<?php echo $id_user; ?>');
+				if($('#nouveauCarnet').val()!= "")
+				{
+					var nomC ="'"+$('#nouveauCarnet').val()+"'";
+					$.ajax({
+							  type: "POST",
+							  url: "requeteAjoutCarnet.php",
+							  data: {nomCarnet: nomC, idCreateur: "'" + iduser + "'"},
+							  async: false,
+							  success: function (result)
+							  {
+									afficherListeCarnet(iduser);
+							  },
+							  error : function (result, status, err) {
+							  console.log(err);
+							  }
+					});
+				}
+			}
+			
+			function supprimerCarnet(idCarnet){
+				var iduser = parseInt('<?php echo $id_user; ?>');
+				  $.ajax({
+					  type: "POST",
+					  url: "requeteSupprimerCarnet.php",
+					  data: {IDCarnet: "'" + idCarnet + "'"},
+					  async: false,
+					  success: function (result)
+					  {
+						console.log("suppression réussie de "+idCarnet);
+						afficherListeCarnet(iduser);
+					  },
+					  error : function (result, status, err) {
+						console.log(err);
+					  }
+				  });
 			}
 			
 	</script>
@@ -171,6 +217,18 @@
 		<?php include("menu.php"); ?>
 		<h1>Gestion carnet d'adresse</h1>
 		<div id="contenu" class="container">
+			<div id="contenuAjout" class="container">
+				<h2>Ajouter un carnet:</h2>
+				<form id="ajoutC" class="form-inline" role="form">
+				<div class="form-group">
+					<label for="nouveauCarnet">Nom du carnet: </label>
+					<input type="text" id="nouveauCarnet" name="nouveauCarnet" placeholder="Titre du nouveau carnet" required/>
+				</div>
+					<button type="submit" onClick=ajouterCarnet(); class="btn btn-primary btn-sm">Ajouter ce carnet</button>
+				</form>
+			</div>
+			<div id="contenuCarnet" class="container">
+			</div>
 		</div>
 	</body>
 </html>
