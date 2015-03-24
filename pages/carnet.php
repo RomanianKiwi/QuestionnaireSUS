@@ -81,7 +81,7 @@
 								$('#contenu').append("<p>Vous n'avez aucun carnet d'adresse</p>")
 							}
 							else{
-								for(var i=1; i<data.length; i++){
+								for(var i=0; i<data.length; i++){
 									$('#contenu').append('<div class="panel-group" id="accordion'+data[i].IdCarnet+'"><div class="panel panel-default"><div class="panel-heading"><h1 class="panel-title"><a class="accordeon'+data[i].IdCarnet+'" data-toggle="collapse" data-parent="#accordion'+data[i].IdCarnet+'" href="#collapse'+data[i].IdCarnet+'"><span class="glyphicon glyphicon-plus"></span>'+data[i].NomCarnet+'</a></h1></div><div id="collapse'+data[i].IdCarnet+'" class="panel-collapse collapse"><div id="body'+data[i].IdCarnet+'" class="panel-body"><table id="tabAdresses'+data[i].IdCarnet+'" class="table table-striped"><tr><th>Adresse</th><th>Supprimer</th></tr></table></div></div></div></div>');
 									afficherAdresses(data[i].IdCarnet);
 									$('#body'+data[i].IdCarnet+'').append('<form><input id="email'+data[i].IdCarnet+'" type="email" name="email" required><input type="submit" onClick=ajouterAdresse('+data[i].IdCarnet+'); value="Ajouter Adresse"></form>');
@@ -97,9 +97,13 @@
 					e.preventDefault();
 				});
 				
-				$('.delete').click(function() {
-					var id = $(this).attr('id');
-							supprimerAdresse(id);
+				$(document).on("click", ".delete", function() {
+					var res = $(this).attr('id').split(";");
+					var invCode = res[0];
+					var carnetid = res[1];
+					console.log(carnetid);
+					console.log(invCode);
+					supprimerUtilisateurCarnet(carnetid,invCode);
 				});
 			});
 			
@@ -115,7 +119,7 @@
 					data: 'idcarnet=' + numCarnet,
 					success: function (data) {
 						for(var i=0; i<data.length; i++){
-							$('#tabAdresses'+data[i].IdCarnet+'').append('<tr><td>'+data[i].Email+'</td><td><a id="'+data[i].InviteCode+'" class="delete glyphicon glyphicon-trash"></a></td></tr>');
+							$('#tabAdresses'+data[i].IdCarnet+'').append('<tr><td>'+data[i].Email+'</td><td><a id="'+data[i].InviteCode+';'+data[i].IdCarnet+'" class="delete glyphicon glyphicon-trash"></a></td></tr>');
 						}
 					}
 				});
@@ -142,20 +146,23 @@
 				}
 			}
 			
-			function supprimerAdresse(id) {
+			function supprimerUtilisateurCarnet(idCarnet, idCodeMail){
+
 				$.ajax({
 					type: "POST",
 					url: "requeteSupprimerUtilisateurCarnet.php",
-					data: 'CodeMail=' + id,
+					data: {IDCarnet: "'" + idCarnet + "'", CodeMail: "'" + idCodeMail + "'"},
 					async: false,
 					success: function (result)
 					{
-						console.log("archivage réussie");
+						console.log("archivage réussie de "+idCodeMail+" du carnet numero "+idCarnet);
+						afficherAdresses(idCarnet);
 					},
 					error : function (result, status, err) {
 						console.log(err);
 					}
 				});
+
 			}
 			
 	</script>
