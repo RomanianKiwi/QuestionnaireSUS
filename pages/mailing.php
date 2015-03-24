@@ -30,6 +30,13 @@
 							$passage_ligne = "\r\n";
 							$sujet = $_POST['objet'];
 							$message_txt = $_POST['message'].' voici le lien sur le questionnaire: ';
+							$urlIni = "http://localhost/QuestionnaireSUS/pages/formulaire.php";
+							
+							function hashMail($Email) {
+								$test = hash('md5', $Email);
+								$retval = base_convert($test, 16, 10);
+								return $retval;
+							}
 							
 							$boundary = "-----=".md5(rand());
 							
@@ -39,36 +46,25 @@
 							$header.= "Content-Type: multipart/mixed;".$passage_ligne." boundary=\"".$boundary."\"".$passage_ligne;
 							
 							//=====Création du message.
-							$message = $passage_ligne."--".$boundary.$passage_ligne;
+							$message_head = $passage_ligne."--".$boundary.$passage_ligne;
 							//=====Ajout du message au format texte.
-							$message.= "Content-Type: text/plain; charset=\"ISO-8859-1\"".$passage_ligne;
-							$message.= "Content-Transfer-Encoding: 8bit".$passage_ligne;		
-							/*try {
-									$bdd = new PDO('mysql:host=localhost;dbname=projet;charset=utf8', 'root', '');
-							} catch (Exception $e) {
-								die('Erreur : ' . $e->getMessage());
-							}
-							
-							$questionnaire = $_POST['choixQuestionnaire'];
-							$reponse = $bdd->query("SELECT nom, url FROM questionnaire WHERE nom = \"".$questionnaire."\";");
-							while ($donnees = $reponse->fetch(PDO::FETCH_ASSOC))
-							{
-								$message_txt .= $donnees['url'].' '.$passage_ligne;
-							}	
-							$reponse->closeCursor();*/
-							$message_txt.=$_POST['choixQuestionnaire'];
-							
-							$message.= $passage_ligne.$message_txt.$passage_ligne;
-							$message.= $passage_ligne."--".$boundary.$passage_ligne;
-							// fin du message
-							
+							$message_head.= "Content-Type: text/plain; charset=\"ISO-8859-1\"".$passage_ligne;
+							$message_head.= "Content-Transfer-Encoding: 8bit".$passage_ligne;
+							$message_txt.=$_POST['choixQuestionnaire'].' ';
+													
 							
 							//envoi de mail destinataires du carnet
 							$boolmail = true;
 							if(isset($_POST['adresses']))
 							{
 								foreach($_POST['adresses'] as $destinataire)
-								{
+								{			
+									$mailHascher = hashMail($destinataire);
+									$nomHasher = hashMail($_POST['choixQuestionnaire']);
+									$message_url = $urlIni . "?c=" . $mailHascher . "&n=" . $nomHasher;							
+								
+									$message= $message_head.$passage_ligne.$message_txt.$message_url.$passage_ligne.$passage_ligne."--".$boundary.$passage_ligne;
+									// fin du message
 									if (mail($destinataire,$sujet,$message,$header)){
 									} else {
 										$boolmail=false;
@@ -89,6 +85,12 @@
 							}
 							for($i=0;$i<$nb_dest;$i++)
 							{
+								$mailHascher = hashMail($destinataires_array[$i]);
+								$nomHasher = hashMail($_POST['choixQuestionnaire']);
+								$message_url = $urlIni . "?c=" . $mailHascher . "&n=" . $nomHasher;							
+								
+								$message= $message_head.$passage_ligne.$message_txt.$message_url.$passage_ligne.$passage_ligne."--".$boundary.$passage_ligne;
+								// fin du message
 								if (mail($destinataires_array[$i],$sujet,$message,$header)){
 								} else {
 									$boolmail=false;
