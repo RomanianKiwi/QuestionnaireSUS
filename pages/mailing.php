@@ -114,7 +114,7 @@
 <!DOCTYPE html>
 <html>
 	<head>	
-		<meta charset="utf-8" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<title>Invitation de participants</title>
 		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -250,7 +250,7 @@
 				<div class="form-group">
 					<label for="autresDestinataires" class="col-sm-3 control-label">Autres destinataires: </label>
 					<div class="col-sm-4">
-						<textarea id="autreDestinataires" name="autresDestinataires" class="form-control" rows="4" placeholder="Indiquez les destinataires sur une ligne différente."></textarea>
+						<textarea id="autreDestinataires" name="autresDestinataires" class="form-control" rows="4" placeholder="Indiquez les destinataires sur une ligne diff&eacute;rente."></textarea>
 					</div>
 				</div>
 			</div>
