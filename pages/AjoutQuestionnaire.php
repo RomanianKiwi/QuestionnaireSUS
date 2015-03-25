@@ -62,7 +62,7 @@
                     $.ajax({
                         type: "POST",
                         url: "requeteAjoutQuestionnaire.php",
-                        data: {NomQuest: "'" + nom + "'", Date: "'" + dateCreation + "'", ID: "'" + idAmin + "'"},
+                        data: {NomQuest: nom, Date: "'" + dateCreation + "'", ID: "'" + idAmin + "'"},
                         async: false,
 						success: function (result)
                         {
@@ -95,7 +95,7 @@
 				
 
 				if(statutUtil != "Administrateur"){
-					$("#AjoutAd").hide();
+					$(".AjoutAd").hide();
 				}
 
 				
