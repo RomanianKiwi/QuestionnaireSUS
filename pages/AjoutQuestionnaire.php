@@ -95,7 +95,7 @@
 				
 
 				if(statutUtil != "Administrateur"){
-					$("#AjoutAd").hide();
+					$(".AjoutAd").hide();
 				}
 
 				
