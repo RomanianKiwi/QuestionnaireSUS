@@ -23,6 +23,7 @@
 				<a href="../pages/carnet.php">Gestion carnet d'adresse </a>
 				</li>
 				<li id="AjoutAd"><a href="../pages/AjoutAdminEval.php">Ajouter évaluateur</a></li>
+				<li id="AjoutAd"><a href="../pages/AjoutNewLangueQuest.php">Ajouter nouvelle langue</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li><a id="deco" href="../pages/logout.php" class="dropdown-toggle" >Déconnexion</a></li>
