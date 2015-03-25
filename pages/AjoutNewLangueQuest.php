@@ -13,12 +13,12 @@ if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION
     $reponse = $bdd->query("SELECT * FROM administrateur WHERE UserName= \"" . $log . "\"AND PassWord = \"" . $mpass . "\"AND Statut = \"" . $statut . "\";");
     $donnees = $reponse->fetch(PDO::FETCH_ASSOC);
 
-    print_r($_SESSION['ID']);
+    //print_r($_SESSION['ID']);
     //if ne sert plus après la premiere id car on a vérifié ce qu'il y a en post avec la BDD.
     //Maintenant vérifié si les données dans les SESSION sont egaux avec ce qu'il y a dans la BDD
     //donc le test est effectuer au dessus.(tester si le champ que retourne la bdd n'est pas vide)
     if ($donnees['UserName'] != "" && $donnees['PassWord'] != "" && $_SESSION['login'] != "" && $donnees['Statut'] != "") {
-        echo 'tu es un boss xD';
+        //echo 'tu es un boss xD';
     } else {
         header("Location:logout.php");
     }

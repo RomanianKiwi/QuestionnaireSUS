@@ -51,7 +51,7 @@
 				var statutUtil =  "<?php echo $_SESSION['statut']; ?>" ;
 				console.log(statutUtil);
 				if(statutUtil != "Administrateur"){
-					$("#AjoutAd").hide();
+					$(".AjoutAd").hide();
 				}
 				
 		});
@@ -88,7 +88,11 @@
 				<li>
 				<a href="../QuestionnaireSUS/pages/mailing.php">Invitation participants </a>
 				</li>
-				<li id="AjoutAd"><a href="../QuestionnaireSUS/pages/AjoutAdminEval.php">Ajouter évaluateur</a></li>
+				<li>
+				<a href="../QuestionnaireSUS/pages/carnet.php">Gestion carnet d'adresse </a>
+				</li>
+				<li class="AjoutAd"><a href="../QuestionnaireSUS/pages/AjoutAdminEval.php">Ajouter évaluateur</a></li>
+				<li class="AjoutAd"><a href="../QuestionnaireSUS/pages/AjoutNewLangueQuest.php">Ajouter nouvelle langue</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li><a id="deco" href="../QuestionnaireSUS/pages/logout.php" class="dropdown-toggle" >Déconnexion</a></li>
