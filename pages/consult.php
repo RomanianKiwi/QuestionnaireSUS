@@ -39,9 +39,9 @@
 
 	<head>
 	
-		<meta charset="utf-8" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Consultation des résultats</title>
+		<title>Consultation des r&eacute;sultats</title>
 		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -97,7 +97,7 @@
 	</head>
 	<body>
 		<?php include("menu.php"); ?>
-		<h1>Consultation des résultats</h1>
+		<h1>Consultation des r&eacute;sultats</h1>
 		<div id="contenu" class="container">
 		</div>
 	</body>

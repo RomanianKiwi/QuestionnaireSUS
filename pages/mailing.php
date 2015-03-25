@@ -132,7 +132,7 @@ if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION
             if (statutUtil != "Administrateur") {
                 $(".AjoutAd").hide();
             }
-    //Masquer toutes les alertes par défaut
+            //Masquer toutes les alertes par défaut
             $('.alert').hide();
             $('#mails').attr('display', 'none');
             function afficherListeQuestionnaires() {
