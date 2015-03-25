@@ -1,42 +1,35 @@
 <?php
 // On démarre la session (ceci est indispensable dans toutes les pages de notre section membre)
-	session_start();
-	if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION['statut']) && isset($_SESSION['ID'])) {
-			try
-			{
-				$bdd = new PDO('mysql:host=localhost;dbname=projet;charset=utf8', 'root', '');
-			}
-			catch (Exception $e)
-			{
-					die('Erreur : ' . $e->getMessage());
-			}
-			$log = $_SESSION['login'];
-			$mpass = $_SESSION['password'];
-			$statut=$_SESSION['statut'];
-			$reponse = $bdd->query("SELECT * FROM administrateur WHERE UserName= \"". $log . "\"AND PassWord = \"". $mpass ."\"AND Statut = \"". $statut ."\";");
-			$donnees = $reponse->fetch(PDO::FETCH_ASSOC);
-				
-			//print_r($_SESSION['ID']);
-			//if ne sert plus après la premiere id car on a vérifié ce qu'il y a en post avec la BDD.
-			//Maintenant vérifié si les données dans les SESSION sont egaux avec ce qu'il y a dans la BDD
-			//donc le test est effectuer au dessus.(tester si le champ que retourne la bdd n'est pas vide)
-			if($donnees['UserName'] != "" && $donnees['PassWord'] != "" && $_SESSION['login'] != "" && $donnees['Statut'] != ""){
-				if($donnees['Statut'] == "Administrateur"){
-					//echo 'tu es un boss xD';
-				}else{
-					header("Location:../index.php");
-				}
-			}else{
-				header("Location:logout.php");
-				
-				
-			}
-			$reponse->closeCursor();
-		}
-	else{
-		header("Location:logout.php");
-	}
-	
+session_start();
+if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION['statut']) && isset($_SESSION['ID'])) {
+    try {
+        $bdd = new PDO('mysql:host=localhost;dbname=projet;charset=utf8', 'root', '');
+    } catch (Exception $e) {
+        die('Erreur : ' . $e->getMessage());
+    }
+    $log = $_SESSION['login'];
+    $mpass = $_SESSION['password'];
+    $statut = $_SESSION['statut'];
+    $reponse = $bdd->query("SELECT * FROM administrateur WHERE UserName= \"" . $log . "\"AND PassWord = \"" . $mpass . "\"AND Statut = \"" . $statut . "\";");
+    $donnees = $reponse->fetch(PDO::FETCH_ASSOC);
+
+    //print_r($_SESSION['ID']);
+    //if ne sert plus après la premiere id car on a vérifié ce qu'il y a en post avec la BDD.
+    //Maintenant vérifié si les données dans les SESSION sont egaux avec ce qu'il y a dans la BDD
+    //donc le test est effectuer au dessus.(tester si le champ que retourne la bdd n'est pas vide)
+    if ($donnees['UserName'] != "" && $donnees['PassWord'] != "" && $_SESSION['login'] != "" && $donnees['Statut'] != "") {
+        if ($donnees['Statut'] == "Administrateur") {
+            //echo 'tu es un boss xD';
+        } else {
+            header("Location:../index.php");
+        }
+    } else {
+        header("Location:logout.php");
+    }
+    $reponse->closeCursor();
+} else {
+    header("Location:logout.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -50,7 +43,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
         <script type="text/javascript">
             $(document).ready(function () {
-                function ajoutAdmin(nom, mdp,statut) {
+                function ajoutAdmin(nom, mdp, statut) {
                     $.ajax({
                         type: "POST",
                         url: "requeteAjoutAdmin.php",
@@ -58,21 +51,21 @@
                         async: false,
                         success: function (result)
                         {
-                                console.log("insertion réussie");
-                                console.log(result);
+                            console.log("insertion réussie");
+                            console.log(result);
                         },
-						error : function (result, status, err) {
-							console.log(err);
-						}
+                        error: function (result, status, err) {
+                            console.log(err);
+                        }
                     });
-				}
-					
-					
-					$('#formAjout').on('submit', function(e) {
-						ajoutAdmin($("#nom").val(),$("#motdepasse").val(),$("#statut").val());
-					});
-                
-        //ajoutAdmin("jeremy", "laBOC");
+                }
+
+
+                $('#formAjout').on('submit', function (e) {
+                    ajoutAdmin($("#nom").val(), $("#motdepasse").val(), $("#statut").val());
+                });
+
+                //ajoutAdmin("jeremy", "laBOC");
                 /*
                  T'as juste à faire appel à la fonction ajoutAdmin(nom, mdp);
                  Et en paramètre tu mets l'identifiant et le mot de passe que l'admin que tu récupèreras dans
@@ -91,43 +84,20 @@
         </style>
     </head>
     <body>
-        <?php include("menu.php"); ?>
-        <!--<h3 style="text-align:center">Formulaire d'ajout d'un Admin/Evaluateur</h3>-->
+<?php include("menu.php"); ?>
+        
         <form id="formAjout" class="form-horizontal" role="form">
             <div class="form-group">
                 <label for="nom" class="col-sm-3 control-label">Nom</label>
                 <div class="col-sm-4">
                     <input id="nom" type="text" class="form-control" placeholder="Nom" required>
                 </div>
-            </div><!--
-            <div class="form-group">
-                <label for="prenom" class="col-sm-3 control-label">PrÃ©nom</label>
-                <div class="col-sm-4">
-                    <input id="prenom" type="text" class="form-control" placeholder="PrÃ©nom" required>
-                </div>
             </div>
+            
             <div class="form-group">
-                <label for="mail" class="col-sm-3 control-label">Email</label>
-                <div class="col-sm-4">
-                    <input id="email" type="text" class="form-control" placeholder="Email" required>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="tel" class="col-sm-3 control-label">TÃ©lÃ©phone</label>
-                <div class="col-sm-4">
-                    <input id="tel" type="text" class="form-control" placeholder="NumÃ©ro de tÃ©lÃ©phone" required>
-                </div>
-            </div>
-            <div class="form-group">
-                <label id="dateId" for="date" class="col-sm-3 control-label">Date Inscription</label>
-                <div class="col-sm-4">
-                    <input id="dateInsc" class="form-control" placeholder="Date de l'inscription">
-                </div>
-            </div>-->
-			<div class="form-group">
                 <label id="mdp" class="col-sm-3 control-label">mot de passe</label>
                 <div class="col-sm-4">
-                    <input id="motdepasse" class="form-control" placeholder="Mot de passe">
+                    <input id="motdepasse" type="password" class="form-control" placeholder="Mot de passe">
                 </div>
             </div>
             <div class="form-group">
