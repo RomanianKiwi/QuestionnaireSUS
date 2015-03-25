@@ -56,7 +56,7 @@
 				
 				var statutUtil =  "<?php echo $_SESSION['statut']; ?>" ;
 				if(statutUtil != "Administrateur"){
-					$("#AjoutAd").hide();
+					$(".AjoutAd").hide();
 				}
 
                 $.ajax({

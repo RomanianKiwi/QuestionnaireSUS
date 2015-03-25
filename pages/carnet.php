@@ -66,7 +66,7 @@
 			
 				var statutUtil =  "<?php echo $_SESSION['statut']; ?>" ;
 				if(statutUtil != "Administrateur"){
-					$("#AjoutAd").hide();
+					$(".AjoutAd").hide();
 				}
 			
 				var iduser = parseInt('<?php echo $id_user; ?>');
