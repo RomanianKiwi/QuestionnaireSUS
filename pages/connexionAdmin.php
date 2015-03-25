@@ -48,7 +48,7 @@
 
 
 			
-				<form id="formAjout" class="form-horizontal" role="form" method="post" action="../index.php">
+				<form id="formAjout" class="form-horizontal" role="form" method="post" action="creationSession.php">
 					<div class="form-group" >
 						<div class="col-sm-8">
 							<div class="input-group">
