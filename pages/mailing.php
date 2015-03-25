@@ -20,7 +20,7 @@
 			
 			//Partie Envoi de mail.
 			if($donnees['UserName'] != "" && $donnees['PassWord'] != "" && $_SESSION['login'] != "" && $donnees['Statut'] != ""){
-					ini_set('SMTP','smtp.free.fr');
+					ini_set('SMTP','smtp.orange.fr');
 					ini_set('sendmail_from','equipetix@gmail.com');
 					if(isset($_POST) && isset($_POST['objet']) && isset($_POST['choixQuestionnaire']) && isset($_POST['message']) && (isset($_POST['autresDestinataires']) || isset($_POST['adresses'])))
 					{
@@ -53,6 +53,16 @@
 							$message_txt.=$_POST['choixQuestionnaire'].' ';
 													
 							
+							$reponse2 = $bdd->query("SELECT NumVersion from versionquestionnaire V, questionnaire Q WHERE V.IdQuest = Q.IdQuest AND Nom = '".$_POST['choixQuestionnaire']."' ORDER BY NumVersion DESC LIMIT 1;");
+							$donnees2 = $reponse2->fetch(PDO::FETCH_ASSOC);
+							$lastV = $donnees2['NumVersion'];
+							$reponse2->closeCursor();
+							
+							$reponse3 = $bdd->query("SELECT IdQuest from questionnaire WHERE Nom = '".$_POST['choixQuestionnaire']."';");
+							$donnees3 = $reponse3->fetch(PDO::FETCH_ASSOC);
+							$numQ = $donnees3['IdQuest'];
+							$reponse3->closeCursor();
+							
 							//envoi de mail destinataires du carnet
 							$boolmail = true;
 							if(isset($_POST['adresses']))
@@ -65,6 +75,12 @@
 								
 									$message= $message_head.$passage_ligne.$message_txt.$message_url.$passage_ligne.$passage_ligne."--".$boundary.$passage_ligne;
 									// fin du message
+									
+									$participation = "INSERT INTO participer VALUES ('0','".$lastV."','" . $mailHascher . "','".$numQ."');";
+									$bdd->exec($participation);
+									
+									
+									
 									if (mail($destinataire,$sujet,$message,$header)){
 									} else {
 										$boolmail=false;
@@ -87,12 +103,38 @@
 							{
 								$mailHascher = hashMail($destinataires_array[$i]);
 								$nomHasher = hashMail($_POST['choixQuestionnaire']);
-								echo "".$nomHasher."";
-								echo "".hashMail("Parions Sport")."";
-								$message_url = $urlIni . "?c=" . $mailHascher . "&n=" . $nomHasher;							
+								$message_url = $urlIni . "?n=" . $mailHascher . "&c=" . $nomHasher;							
 								
 								$message= $message_head.$passage_ligne.$message_txt.$message_url.$passage_ligne.$passage_ligne."--".$boundary.$passage_ligne;
 								// fin du message
+								
+								$testBool = "false";
+
+								$reponse4 = $bdd->query('SELECT * FROM utilisateurs');
+
+								while ($donnees4 = $reponse4->fetch())
+								{
+									if($mailHascher == $donnees4['InviteCode'])
+										$testBool = "true";
+								}
+
+								$reponse4->closeCursor();
+
+								if($testBool == "false"){
+									//etape 1 : inserer utilisateur dans la table utilisateurs si il n'existe pas déjà :
+									$etape1 = "INSERT INTO utilisateurs VALUES ('" . $mailHascher . "' , '" . $destinataires_array[$i] . "', NULL, NULL);";
+								}
+								else
+									$etape1 = "";
+
+								//etape 2 : inserer dans gerer le code hashé et le code du carnet en cours :
+								$etape2 = "INSERT INTO gerer VALUES ('0', '" . $mailHascher . "');";
+
+								$bdd->exec($etape1 . $etape2);
+								
+								$participation2 = "INSERT INTO participer VALUES ('0','".$lastV."','" . $mailHascher . "','".$numQ."');";
+								$bdd->exec($participation2);
+								
 								if (mail($destinataires_array[$i],$sujet,$message,$header)){
 								} else {
 									$boolmail=false;
@@ -114,7 +156,7 @@
 <!DOCTYPE html>
 <html>
 	<head>	
-		<meta charset="utf-8" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<title>Invitation de participants</title>
 		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -250,7 +292,7 @@
 				<div class="form-group">
 					<label for="autresDestinataires" class="col-sm-3 control-label">Autres destinataires: </label>
 					<div class="col-sm-4">
-						<textarea id="autreDestinataires" name="autresDestinataires" class="form-control" rows="4" placeholder="Indiquez les destinataires sur une ligne différente."></textarea>
+						<textarea id="autreDestinataires" name="autresDestinataires" class="form-control" rows="4" placeholder="Indiquez les destinataires sur une ligne diff&eacute;rente."></textarea>
 					</div>
 				</div>
 			</div>
