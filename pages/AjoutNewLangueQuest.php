@@ -44,6 +44,7 @@ if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION
         <link href="../css/datepicker.css" rel="stylesheet">
         <script src="../js/bootstrap-datepicker.js"></script>
         <script src="../js/dateFRtoEN.js"></script>
+        <script src="../js/createXMLString.js"></script>
 
         <script type="text/javascript">
 
@@ -69,23 +70,6 @@ if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION
                             "</div>");
                 }
 
-                /*function ajoutQuestionnaire(nom, dateCreation, idAmin) {
-                 $.ajax({
-                 type: "POST",
-                 url: "requeteAjoutQuestionnaire.php",
-                 data: {NomQuest: "'" + nom + "'", Date: "'" + dateCreation + "'", ID: "'" + idAmin + "'"},
-                 async: false,
-                 success: function (result)
-                 {
-                 console.log("insertion réussie");
-                 console.log(result);
-                 },
-                 error: function (result, status, err) {
-                 console.log(err);
-                 }
-                 });
-                 }*/
-
                 var idUtil = <?php echo $_SESSION['ID']; ?>;
 
                 $('#formAjout').on('submit', function (e) {
@@ -110,6 +94,10 @@ if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION
                     console.log($("#nomSysteme").val());
                     console.log(tabRep);
                     console.log(tabQuest);
+                    
+                    var chaineXML = createXMLString($("#nomSysteme").val(), tabRep, tabQuest);
+                    
+                    console.log(chaineXML);
                     
                     //ajoutQuestionnaire($("#nomQuestionaire").val(), DateFrtoEn(date), idUtil);
                 });
