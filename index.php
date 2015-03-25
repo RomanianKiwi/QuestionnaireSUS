@@ -1,12 +1,11 @@
 <?php
     // On démarre la session (ceci est indispensable dans toutes les pages de notre section membre)
 	session_start();
-	print_r($_POST);
-		echo "ca passe la !";
 		 
 		
 		// On teste nos deux variables
-		if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION['statut']) && isset($_SESSION['ID'])) {
+		
+		if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION['statut'])) {
 			try
 			{
 				$bdd = new PDO('mysql:host=localhost;dbname=projet;charset=utf8', 'root', '');
@@ -21,82 +20,21 @@
 			$reponse = $bdd->query("SELECT * FROM administrateur WHERE UserName= \"". $log . "\"AND PassWord = \"". $mpass ."\"AND Statut = \"". $statut ."\";");
 			$donnees = $reponse->fetch(PDO::FETCH_ASSOC);
 				
-			print_r($_SESSION['statut']);
+			//print_r($_SESSION['statut']);
 			//if ne sert plus après la premiere id car on a vérifié ce qu'il y a en post avec la BDD.
 			//Maintenant vérifié si les données dans les SESSION sont egaux avec ce qu'il y a dans la BDD
 			//donc le test est effectuer au dessus.(tester si le champ que retourne la bdd n'est pas vide)
 			if($donnees['UserName'] != "" && $donnees['PassWord'] != "" && $_SESSION['login'] != "" && $donnees['Statut'] != ""){
-				echo 'tu es un boss xD';
+				$_SESSION['ID'] = $donnees['ID'];
+				//echo 'tu es un boss xD';
 			}else{
 				header("Location:pages/logout.php");
 				
 			}
 			$reponse->closeCursor();
-		}
-		else{
-			echo "pas de session encore créée";
-			echo "<br/>";
-			if (isset($_POST['login']) && isset($_POST['password']) && isset($_POST['statut'])) {
-			$_SESSION['login']=$_POST['login'];
-			$_SESSION['password']=$_POST['password'];
-			$_SESSION['statut']=$_POST['statut'];
-			
-			
-			try
-			{
-				$bdd = new PDO('mysql:host=localhost;dbname=projet;charset=utf8', 'root', '');
-			}
-			catch (Exception $e)
-			{
-					die('Erreur : ' . $e->getMessage());
-			}
-			$log = $_POST['login'];
-			$mpass = $_POST['password'];
-			$statut = $_POST['statut'];
-			$reponse = $bdd->query("SELECT * FROM administrateur WHERE UserName= \"". $log . "\"AND PassWord = \"". $mpass ."\"AND Statut = \"". $statut ."\";");
-			$donnees = $reponse->fetch(PDO::FETCH_ASSOC);
-			/*
-			while ($donnees = $reponse->fetch(PDO::FETCH_ASSOC))
-			{
-				echo $donnees['UserName'];
-			}
-			*/
-			
-			/*
-			$_SESSION['user']=$_POST['user'];
-			$_SESSION['mdp']=$_POST['mdp'];
-			*/
-			//echo $_SESSION['user'];
-			/*
-			echo "<br/>";
-			echo strtolower($donnees['UserName']);
-			echo "<br/>";
-			echo strtolower($donnees['PassWord']);
-			echo "<br/>";
-			echo $donnees['Statut'];
-			echo "<br/>";
-			print_r($_POST['login']);
-			echo "<br/>";
-			print_r($_SESSION['password']);
-			echo "<br/>";
-			print_r($_SESSION['statut']);
-			echo "<br/>";
-			*/
-			
-				if(strtolower($_SESSION['login']) == strtolower($donnees['UserName']) && strtolower($_SESSION['password']) == strtolower($donnees['PassWord']) && $_SESSION['statut'] == $donnees['Statut'] && $_SESSION['login'] != ""){
-					$_SESSION['ID'] = $donnees['ID'];
-					echo 'tu es un boss';
-					print_r($_SESSION['ID']);
-				}else{
-					header("Location:pages/logout.php");
-				}
-				$reponse->closeCursor();
-			}
-			else{
-				header("Location:pages/logout.php");
-			}
-		}
-		
+		}else{
+			header("Location:pages/logout.php");
+		}		
 			
  ?>
 
@@ -129,7 +67,7 @@
         </style>
     </head>
     <body>
-		<<nav class="navbar navbar-default" role="navigation">
+		<nav class="navbar navbar-default" role="navigation">
 	<div class="container">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-menu">
