@@ -1,3 +1,4 @@
+
 <?php
 
 try {
@@ -5,14 +6,12 @@ try {
 } catch (Exception $e) {
     die('Erreur : ' . $e->getMessage());
 }
-
 $nom = $_POST['NomQuest'];
 $dateC = $_POST['Date'];
 $ident = $_POST['ID'];
-
-/*$nom = "hihoooo";
-$dateC = "'2015-01-02'";
-$ident = "'1'";*/
+/* $nom = "hihoooo";
+  $dateC = "'2015-01-02'";
+  $ident = "'1'"; */
 
 function hashMail($nomH) {
     $test = hash('md5', $nomH);
@@ -20,15 +19,11 @@ function hashMail($nomH) {
     return $retval;
 }
 
-$nomHascher = hashMail($nom);
+$name2 = "'".$nom."'";
+$nomHascher = "'".hashMail($nom)."'";
 
-$etape1 = "INSERT INTO questionnaire VALUES ('', '". $nom ."'," . $dateC . "," . $ident . ");";
-
-$etape2 = "INSERT INTO syshash VALUES ('".$nom."','". $nomHascher ."','0');";
-
-echo $etape1 . "<br/>" . $etape2;
-
+$etape1 = "INSERT INTO questionnaire VALUES (null, " . $name2 . "," . $dateC . "," . $ident . ");";
+$etape2 = "INSERT INTO syshash VALUES (" . $name2 . "," . $nomHascher . ",'0');";
+//echo $etape1 . "<br/>" . $etape2;
 $bdd->exec($etape1 . $etape2);
-
 ?>
-
