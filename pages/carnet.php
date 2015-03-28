@@ -80,8 +80,6 @@
 					var res = $(this).attr('id').split(";");
 					var invCode = res[0];
 					var carnetid = res[1];
-					console.log(carnetid);
-					console.log(invCode);
 					supprimerUtilisateurCarnet(carnetid,invCode);
 				});
 			});

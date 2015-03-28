@@ -50,6 +50,11 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>	
 		<script src="../js/fonctionsUtiles.js"></script>
 		
+		<script src="../js/jquery-2.1.3.js"></script>
+        <script src="../js/highcharts.js"></script>
+        <script src="../js/modules/exporting.js"></script>
+        <script src="../js/generateChart.js"></script>
+		
 		<script type="text/javascript">
 
             $(document).ready(function () {
@@ -58,17 +63,22 @@
 				if(statutUtil != "Administrateur"){
 					$(".AjoutAd").hide();
 				}
+				affichageCollapses();
+				affichageGraphiques();
 
-                $.ajax({
-                    type: "POST",
-                    url: "enquetes.php",
-                    async: false,
-                    dataType: 'json',
-                    success: function (data)
-                    {
-                        if (data.length == 0)
-                            $('#contenu').append("<p>Aucun questionnaire remplie</p>");
-                        else {
+            });
+			
+			function affichageCollapses(){
+				$.ajax({
+					type: "POST",
+					url: "enquetes.php",
+					async: false,
+					dataType: 'json',
+					success: function (data)
+					{
+						if (data.length == 0)
+							$('#contenu').append("<p>Aucun questionnaire remplie</p>");
+						else {
 								var nomSysteme = "";
 								var cpt=0;
 								
@@ -88,8 +98,58 @@
 							}
 						}
 					});
-
-            });
+			}
+			
+			function affichageGraphiques(){
+				$.ajax({
+					type: "POST",
+					url: "enquetes.php",
+					async: false,
+					dataType: 'json',
+					success: function (data)
+					{
+						if (data.length == 0)
+						{
+							
+						}
+						else {
+								var nomSysteme = "";
+								var cpt_s=0;
+								var cpt_v=0;
+								var tab_systemes = new Array();
+								var tab_systemes_version = new Array();
+								var tab_systemes_version_res = new Array();
+								
+								for (var i = 0; i < data.length; i++) {
+									if(nomSysteme != data[i].Nom)
+									{
+										tab_systemes[cpt_s] = data[i].Nom;
+										tab_systemes_version[cpt_s] = new Array();
+										tab_systemes_version_res[cpt_s] = new Array();
+										cpt_v=0;
+										tab_systemes_version[cpt_s][cpt_v] = [data[i].NumVersion];
+										tab_systemes_version_res[cpt_s][cpt_v] = [parseInt(data[i].Moyenne)];
+									}
+									else
+									{
+										cpt_s--;
+										tab_systemes_version[cpt_s][cpt_v] = [data[i].NumVersion];
+										tab_systemes_version_res[cpt_s][cpt_v] = [parseInt(data[i].Moyenne)];
+									}
+									nomSysteme = data[i].Nom;
+									cpt_s++;
+									cpt_v++;
+								}
+								for (var j = 0; j < tab_systemes.length; j++)
+								{
+									$('#body'+j).append('<div id="chartContainer'+j+'" style="min-width: 310px; height: 400px; margin: 0 auto"></div>');
+									generateChart(j,tab_systemes[j],tab_systemes_version[j],tab_systemes_version_res[j]);
+								}
+						}
+					}		
+				});
+			}
+			
 
         </script>
 		

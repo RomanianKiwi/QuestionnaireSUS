@@ -8,7 +8,7 @@ try {
 						
 $reponse = $bdd->query("SELECT  Nom, NumVersion, (SommeNote/NbReponses) as Moyenne, V.IdQuest
 						FROM versionquestionnaire V, questionnaire Q
-						WHERE V.IdQuest = Q.IdQuest;");
+						WHERE V.IdQuest = Q.IdQuest ORDER BY Nom;");
 						
 
 echo json_encode($reponse->fetchAll(PDO::FETCH_ASSOC));

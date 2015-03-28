@@ -4,8 +4,8 @@
      * @apram results : array containing all results of each versions of the 
      *                  system
      */
-    function generateChart (nameSystem, versions, results) {
-        $('#chartContainer').highcharts({
+    function generateChart (cible,nameSystem, versions, results) {
+        $('#chartContainer'+cible+'').highcharts({
             chart: {
                 type: 'spline'
             },
