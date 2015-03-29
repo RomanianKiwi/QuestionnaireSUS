@@ -11,6 +11,6 @@ $expDate = $_POST['DateExpiration'];
 $IdQuest = $_POST['IdQuest'];
 
 
-$requete = "INSERT INTO versionquestionnaire VALUES ('" . $numVer . "' , '" . $expDate . "', 0, 0,'" . $IdQuest . "');";
+$requete = "INSERT INTO versionquestionnaire VALUES ('" . $numVer . "' , " . $expDate . ", 0, 0,'" . $IdQuest . "');";
 $bdd->exec($requete);
 ?>

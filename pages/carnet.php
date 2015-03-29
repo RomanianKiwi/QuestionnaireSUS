@@ -51,7 +51,7 @@
 		text-align: center;
 	}
 	
-	input{
+	label{
 		margin-right:10px;
 	}
 	

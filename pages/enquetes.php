@@ -6,7 +6,7 @@ try {
     die('Erreur : ' . $e->getMessage());
 }
 						
-$reponse = $bdd->query("SELECT  Nom, NumVersion, (SommeNote/NbReponses) as Moyenne, V.IdQuest
+$reponse = $bdd->query("SELECT  Q.IdQuest, Nom, NumVersion, (SommeNote/NbReponses) as Moyenne, V.IdQuest
 						FROM versionquestionnaire V, questionnaire Q
 						WHERE V.IdQuest = Q.IdQuest ORDER BY Nom;");
 						
