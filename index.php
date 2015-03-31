@@ -81,10 +81,7 @@
 		</div>
 		<div class="collapse navbar-collapse" id="main-menu">
 			<ul class="nav navbar-nav">
-				<li>
-				<a id ="ajoutQuest" href="../QuestionnaireSUS/pages/AjoutQuestionnaire.php">Nouvelle enquête</a>
-				</li>
-				<li><a href="../QuestionnaireSUS/pages/consult.php">Consultation résultats</a></li>
+				<li><a href="../QuestionnaireSUS/pages/consult.php">Mes enquêtes</a></li>
 				<li>
 				<a href="../QuestionnaireSUS/pages/mailing.php">Invitation participants </a>
 				</li>

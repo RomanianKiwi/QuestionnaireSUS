@@ -142,9 +142,9 @@ if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION
 
         <form id="formAjout" class="form-horizontal" role="form">
             <div class="form-group">
-                <label for="nomSysteme" class="col-sm-3 control-label">Nom du Système</label>
+                <label for="nomSysteme" class="col-sm-3 control-label">Mot Système</label>
                 <div class="col-sm-4">
-                    <input id="nomSysteme" type="text" class="form-control" placeholder="Nom du Système dans la nouvelle langue" required>
+                    <input id="nomSysteme" type="text" class="form-control" placeholder="Traduction du mot système dans la nouvelle langue" required>
                 </div>
             </div>
 			

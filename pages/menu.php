@@ -12,10 +12,7 @@
 		</div>
 		<div class="collapse navbar-collapse" id="main-menu">
 			<ul class="nav navbar-nav">
-				<li>
-				<a id ="ajoutQuest" href="../pages/AjoutQuestionnaire.php">Nouvelle enquête</a>
-				</li>
-				<li><a href="../pages/consult.php">Consultation résultats</a></li>
+				<li><a href="../pages/consult.php">Mes enquêtes</a></li>
 				<li>
 				<a href="../pages/mailing.php">Invitation participants </a>
 				</li>

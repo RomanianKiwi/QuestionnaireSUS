@@ -9,6 +9,8 @@ try {
 $nom = $_POST['NomQuest'];
 $dateC = $_POST['Date'];
 $ident = $_POST['ID'];
+$dateExp = $_POST['DE'];
+$numVersion = $_POST['NV'];
 /* $nom = "hihoooo";
   $dateC = "'2015-01-02'";
   $ident = "'1'"; */
@@ -24,6 +26,10 @@ $nomHascher = "'".hashMail($nom)."'";
 
 $etape1 = "INSERT INTO questionnaire VALUES (null, " . $name2 . "," . $dateC . "," . $ident . ");";
 $etape2 = "INSERT INTO syshash VALUES (" . $name2 . "," . $nomHascher . ",'0');";
+
 //echo $etape1 . "<br/>" . $etape2;
 $bdd->exec($etape1 . $etape2);
+$req = $bdd->query("SELECT IdQuest FROM questionnaire ORDER BY IdQuest DESC LIMIT 1;");
+$donnees = $req->fetch();
+$bdd->exec("INSERT INTO versionquestionnaire VALUES (" . $numVersion . "," . $dateExp . ",'0','0',".$donnees["IdQuest"].");");
 ?>

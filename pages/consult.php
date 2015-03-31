@@ -13,6 +13,7 @@
 			$log = $_SESSION['login'];
 			$mpass = $_SESSION['password'];
 			$statut=$_SESSION['statut'];
+			$id_user =$_SESSION['ID'];
 			$reponse = $bdd->query("SELECT * FROM administrateur WHERE UserName= \"". $log . "\"AND PassWord = \"". $mpass ."\"AND Statut = \"". $statut ."\";");
 			$donnees = $reponse->fetch(PDO::FETCH_ASSOC);
 				
@@ -38,6 +39,7 @@
 
 	label{
 		margin-right:10px;
+		margin-top:8px;
 	}
 	
 	form{
@@ -72,23 +74,38 @@
 					$(".AjoutAd").hide();
 				}
 				
+				var iduser = parseInt('<?php echo $id_user; ?>');
 				
-				
-				affichageCollapses();
-				affichageGraphiques();
+				affichageCollapses(iduser);
+				affichageGraphiques(iduser);
 
-				$("button[type='submit']").click(function (e) {
+				$(".ajouter").click(function (e) {
 					e.preventDefault();
 				});
+				
             });
 			
-			
-			function affichageCollapses(){
+			 function ajouterEnquete() {
+					console.log("ok");
+					var idUtil = <?php echo $_SESSION['ID']; ?>;
+                    var d = new Date();
+
+                    var month = d.getMonth() + 1;
+                    var day = d.getDate();
+
+                    var output = d.getFullYear() + '-' +
+                            (month < 10 ? '0' : '') + month + '-' +
+                            (day < 10 ? '0' : '') + day;
+                    ajoutQuestionnaire($("#nomQuestionaire").val(), output, idUtil, $("#ajoutVersion").val(), $("#systemeDate").val());
+             }
+				
+			function affichageCollapses(iduser){
 				$.ajax({
 					type: "POST",
 					url: "enquetes.php",
 					async: false,
 					dataType: 'json',
+					data: 'iduser=' + iduser,
 					success: function (data)
 					{
 						if (data.length == 0)
@@ -109,24 +126,25 @@
 									if(data[i].Moyenne == null){
 										data[i].Moyenne = 0;
 									}
-									$('#body'+cpt).append('<div class="panel-group" id="accordion'+cpt+'V'+data[i].NumVersion+'"><div class="panel panel-default"><div class="panel-heading"><h2 class="panel-title"><a class="accordeon'+cpt+'V'+data[i].NumVersion+'" data-toggle="collapse" data-parent="#accordion'+cpt+'V'+data[i].NumVersion+'" href="#collapse'+cpt+'V'+data[i].NumVersion+'"><span class="glyphicon glyphicon-plus"></span>Version '+data[i].NumVersion+'</a></h2></div><div id="collapse'+cpt+'V'+data[i].NumVersion+'" class="panel-collapse collapse"><div class="panel-body"><p>Le score de cette version est de: '+data[i].Moyenne+'</p><button type="button" onClick=supprimerVersion('+data[i].NumVersion+','+data[i].IdQuest+'); class="btn btn-primary">Supprimer cette version</button></div></div></div></div>');
+									$('#body'+cpt).append('<div class="panel-group" id="accordion'+cpt+'V'+data[i].NumVersion+'"><div class="panel panel-default"><div class="panel-heading"><h2 class="panel-title"><a class="accordeon'+cpt+'V'+data[i].NumVersion+'" data-toggle="collapse" data-parent="#accordion'+cpt+'V'+data[i].NumVersion+'" href="#collapse'+cpt+'V'+data[i].NumVersion+'"><span class="glyphicon glyphicon-plus"></span>Version '+data[i].NumVersion+'</a></h2></div><div id="collapse'+cpt+'V'+data[i].NumVersion+'" class="panel-collapse collapse"><div class="panel-body"><p>Le score de cette version est de: '+data[i].Moyenne+'</p><button type="button" onClick=supprimerVersion('+data[i].NumVersion+','+data[i].IdQuest+'); class="btn btn-primary ajouter">Supprimer cette version</button></div></div></div></div>');
 									nomSysteme = data[i].Nom;
 									cpt++;
 								}
 								for (var i = 0; i < cpt; i++){
-									$('#body'+i).append('<form><label for="ajouV'+i+'">Version: <input id="ajoutV'+i+'" type="number" min=2 name="ajoutV'+i+'" required></label><label for="systeme'+i+'date">Date d\'expiration: <input id="ajoutV'+i+'date" type="text" placeholder="format aaaa-mm-jj" name="ajoutV'+i+'date" required></label><button type="submit" class="btn btn-primary" onClick=ajouterVersion('+i+'); >Ajouter Version</button></form>');
+									$('#body'+i).append('<form><label for="ajouV'+i+'">Version: <input id="ajoutV'+i+'" type="number" min=2 name="ajoutV'+i+'" required></label><label for="systeme'+i+'date">Date d\'expiration: <input id="ajoutV'+i+'date" type="text" placeholder="format aaaa-mm-jj" name="ajoutV'+i+'date" required></label><button type="submit" class="btn btn-primary ajouter" onClick=ajouterVersion('+i+'); >Ajouter Version</button></form>');
 								}
 							}
 						}
 					});
 			}
 			
-			function affichageGraphiques(){
+			function affichageGraphiques(iduser){
 				$.ajax({
 					type: "POST",
 					url: "enquetes.php",
 					async: false,
 					dataType: 'json',
+					data: 'iduser=' + iduser,
 					success: function (data)
 					{
 						if (data.length == 0)
@@ -148,14 +166,20 @@
 										tab_systemes_version[cpt_s] = new Array();
 										tab_systemes_version_res[cpt_s] = new Array();
 										cpt_v=0;
-										tab_systemes_version[cpt_s][cpt_v] = [data[i].NumVersion];
-										tab_systemes_version_res[cpt_s][cpt_v] = [parseInt(data[i].Moyenne)];
+										tab_systemes_version[cpt_s][cpt_v] = data[i].NumVersion;
+										if(data[i].Moyenne == null){
+											data[i].Moyenne = 0;
+										}
+										tab_systemes_version_res[cpt_s][cpt_v] = parseInt(data[i].Moyenne);
 									}
 									else
 									{
 										cpt_s--;
-										tab_systemes_version[cpt_s][cpt_v] = [data[i].NumVersion];
-										tab_systemes_version_res[cpt_s][cpt_v] = [parseInt(data[i].Moyenne)];
+										tab_systemes_version[cpt_s][cpt_v] = data[i].NumVersion;
+										if(data[i].Moyenne == null){
+											data[i].Moyenne = 0;
+										}
+										tab_systemes_version_res[cpt_s][cpt_v] = parseInt(data[i].Moyenne);
 									}
 									nomSysteme = data[i].Nom;
 									cpt_s++;
@@ -163,7 +187,7 @@
 								}
 								for (var j = 0; j < tab_systemes.length; j++)
 								{
-									$('#body'+j).append('<div id="chartContainer'+j+'" style="min-width: 310px; height: 400px; margin: 0 auto"></div>');
+									$('#body'+j).append('<div id="chartContainer'+j+'" class="col-xs-8"></div>');
 									generateChart(j,tab_systemes[j],tab_systemes_version[j],tab_systemes_version_res[j]);
 								}
 						}
@@ -205,14 +229,55 @@
 				});
 			}
 			
+			
+			function ajoutQuestionnaire(nom, dateCreation, idAmin, NumVersion, DateExpiration) {
+					var iduser = parseInt('<?php echo $id_user; ?>');
+					$('#contenu').children().remove();
+                    $.ajax({
+                        type: "POST",
+                        url: "requeteAjoutQuestionnaire.php",
+                        data: {NomQuest: nom, Date: "'" + dateCreation + "'", ID: "'" + idAmin + "'", NV: "'" + NumVersion + "'", DE: "'" + DateExpiration + "'"},
+                        async: false,
+                        success: function (result)
+                        {
+							affichageCollapses(iduser);
+							affichageGraphiques(iduser);
+                        },
+                        error: function (result, status, err) {
+                            console.log(err);
+                        }
+                    });
+                }			
         </script>
 		
 		
 	</head>
 	<body>
 		<?php include("menu.php"); ?>
-		<h1>Consultation des r&eacute;sultats</h1>
-		<div id="contenu" class="container">
+		<div class="container">
+			<div class="row">
+				<h2>Ajouter une nouvelle enquête</h2>
+				<form id="formAjout" class="form-inline" role="form">
+					<div class="form-group">
+						<label for="nomQuestionaire" class="control-label">Nom du Questionnaire <input id="nomQuestionaire" type="text" placeholder="Nom du Questionnaire" required></label>
+					</div>
+					<div class="form-group">	
+						<label for="ajoutVersion">Version <input id="ajoutVersion" type="number" min=1 name="ajoutVesion" required></label>
+					</div>
+					<div class="form-group">
+						<label for="systemeDate">Date d'expiration <input id="systemeDate" type="text" placeholder="format aaaa-mm-jj" name="systemeDate" required></label>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-1">
+							<button type="submit" class="btn btn-primary ajouter" onClick=ajouterEnquete()>Ajouter</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="row">
+				<h2>Mes enquêtes</h2>
+				<div id="contenu"></div>
+			</div>
 		</div>
 	</body>
 </html>
