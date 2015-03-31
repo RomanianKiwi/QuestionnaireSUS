@@ -187,7 +187,7 @@
 								}
 								for (var j = 0; j < tab_systemes.length; j++)
 								{
-									$('#body'+j).append('<h3 class="col-xs-offset-5">Graphique des résultats</h3><div id="chartContainer'+j+'" class="col-xs-8"></div>');
+									$('#body'+j).append('<h3 class="col-xs-offset-5">Graphique des résultats</h3><div id="chartContainer'+j+'" class="col-xs-6" style="margin-left : 6%;"></div>');
 									generateChart(j,tab_systemes[j],tab_systemes_version[j],tab_systemes_version_res[j]);
 								}
 						}
