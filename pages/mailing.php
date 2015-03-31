@@ -135,12 +135,13 @@ if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION
             //Masquer toutes les alertes par défaut
             $('.alert').hide();
             $('#mails').attr('display', 'none');
-            function afficherListeQuestionnaires() {
+            function afficherListeQuestionnaires(id) {
                 $.ajax({
                     type: "POST",
                     url: "requeteListeQuestionnaire.php",
                     async: false,
                     dataType: 'json',
+					data: 'id=' + id,
                     success: function (data)
                     {
                         if (data.length == 0)
@@ -153,7 +154,7 @@ if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION
                 });
             }
             var iduser = parseInt('<?php echo $id_user; ?>');
-            afficherListeQuestionnaires();
+            afficherListeQuestionnaires(iduser);
             function afficherListeCarnet(id) {
                 $.ajax({
                     type: "POST",

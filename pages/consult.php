@@ -1,5 +1,5 @@
 <?php
-// On d�marre la session (ceci est indispensable dans toutes les pages de notre section membre)
+// On démarre la session (ceci est indispensable dans toutes les pages de notre section membre)
 	session_start();
 	if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION['statut']) && isset($_SESSION['ID'])) {
 			try
@@ -117,7 +117,7 @@
 								for (var i = 0; i < data.length; i++) {
 									if(nomSysteme != data[i].Nom)
 									{
-										$('#contenu').append('<div class="panel-group" id="accordion'+cpt+'"><div class="panel panel-default"><div class="panel-heading"><h1 class="panel-title"><a class="accordeon'+cpt+'" data-toggle="collapse" data-parent="#accordion'+cpt+'" href="#collapse'+cpt+'"><span class="glyphicon glyphicon-plus"></span>'+data[i].Nom+'</a></h1></div><div id="collapse'+cpt+'" class="panel-collapse collapse"><div id="body'+cpt+'" name='+data[i].IdQuest+' class="panel-body"></div></div></div></div>');
+										$('#contenu').append('<div class="panel-group" id="accordion'+cpt+'"><div class="panel panel-default"><div class="panel-heading"><h1 class="panel-title"><a class="accordeon'+cpt+'" data-toggle="collapse" data-parent="#accordion'+cpt+'" href="#collapse'+cpt+'"><span class="glyphicon glyphicon-plus"></span>'+data[i].Nom+'</a></h1></div><div id="collapse'+cpt+'" class="panel-collapse collapse"><div id="body'+cpt+'" name='+data[i].IdQuest+' class="panel-body"><h3 class="col-xs-offset-5">Liste des versions</h3></div></div></div></div>');
 									}
 									else
 									{
@@ -187,7 +187,7 @@
 								}
 								for (var j = 0; j < tab_systemes.length; j++)
 								{
-									$('#body'+j).append('<div id="chartContainer'+j+'" class="col-xs-8"></div>');
+									$('#body'+j).append('<h3 class="col-xs-offset-5">Graphique des résultats</h3><div id="chartContainer'+j+'" class="col-xs-8"></div>');
 									generateChart(j,tab_systemes[j],tab_systemes_version[j],tab_systemes_version_res[j]);
 								}
 						}

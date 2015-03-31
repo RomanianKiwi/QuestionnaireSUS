@@ -4,7 +4,10 @@
 	} catch (Exception $e) {
 		die('Erreur : ' . $e->getMessage());
 	}
-	$reponse = $bdd->query("SELECT * FROM questionnaire");
+	
+	$id= $_POST['id'];
+	
+	$reponse = $bdd->query("SELECT * FROM questionnaire where ID = '".$id."'");
 	echo json_encode($reponse->fetchAll(PDO::FETCH_ASSOC));
 	$reponse->closeCursor(); // Termine le traitement de la requête
 ?>
