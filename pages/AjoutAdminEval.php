@@ -36,11 +36,9 @@ if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION
 <html>
     <head>
         <meta charset="utf-8" />
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-        <!-- Latest compiled and minified JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="../css/bootstrap.css">
+		<script src="../js/jquery-2.1.3.js"></script>
+		<script src="../js/bootstrap.js"></script>	
         <script type="text/javascript">
             $(document).ready(function () {
                 function ajoutAdmin(nom, mdp, statut) {

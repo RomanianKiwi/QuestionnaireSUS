@@ -5,10 +5,9 @@
 		<title>Accueil Administrateur</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
-
-        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="../css/bootstrap.css">
+		<script src="../js/jquery-2.1.3.js"></script>
+		<script src="../js/bootstrap.js"></script>	
         <script src="../js/fonctionsUtiles.js"></script>
 		
 		<script type="text/javascript">
