@@ -43,9 +43,9 @@
     <head>
         <meta charset="UTF-8">
         <title>Questionnaire SUS</title>
-		<link rel="stylesheet" href="/css/bootstrap.css">
-		<script src="/js/jquery-2.1.3.js"></script>
-		<script src="/js/bootstrap.js"></script>	
+		<link rel="stylesheet" href="css/bootstrap.css">
+		<script src="js/jquery-2.1.3.js"></script>
+		<script src="js/bootstrap.js"></script>	
 		<script>
 		$(document).ready(function () {
 				var statutUtil =  "<?php echo $_SESSION['statut']; ?>" ;
