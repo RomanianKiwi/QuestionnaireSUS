@@ -1,24 +1,28 @@
-<?php
-session_start();
-?>
-
 <!DOCTYPE html>
 <html>
-<head>
+	<head>
+	
+		<title>Accueil Administrateur</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../css/bootstrap.css">
+		<script src="../js/jquery-2.1.3.js"></script>
+		<script src="../js/bootstrap.js"></script>	
+        <script src="../js/fonctionsUtiles.js"></script>
+		
+		<script type="text/javascript">
+			$(document).ready(function() {
+				
+				$('.alert').hide();
+            });
+			
 
-    <title>Accueil Administrateur</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-
-    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-    <script src="../js/fonctionsUtiles.js"></script>
-
-    <style>
+        </script>
+		 <style>
 
         body {
             background-color: #F7F7F9;
+			padding-top: 100px;
         }
 
         #wrapper {
@@ -29,70 +33,67 @@ session_start();
 
         form {
             border: 2px solid lightgrey;
-            padding-top: 40px;
+            padding-top: 50px;
             padding-bottom: 20px;
-            padding-left: 40px;
+			
         }
     </style>
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            
-            $('.alert').hide();
-        });
+	</head>
+	
+	<body>
+		<div class="container">
+			<div class="panel-group" id="accordion">
 
 
-    </script>
+			
+				<form id="formAjout" class="form-horizontal" role="form" method="post" action="creationSession.php">
+					<div class="form-group" >
+						<div class="col-sm-8">
+							<div class="input-group">
 
-</head>
+							  <span class="input-group-addon glyphicon glyphicon-user"></span>    
+							  <input id ="user" name="login" type="text" class="form-control" placeholder="Utilisateur">
+							</div>
+						</div>
+						
+						
+					</div>
+					<div class="form-group">
+						<div class="col-sm-8">
+							<div class="input-group">
 
-<body>
-<div class="container" id="wrapper">
+							  <span class="input-group-addon glyphicon glyphicon-lock"></span>    
+							  <input id ="mdp" name="password" type="password" class="form-control" placeholder="Mot de passe">
+							</div>
+						</div>
+						
+						
+					</div>
+					
+					<div class="form-group">
+						<div class="col-sm-8">
+							<div class="input-group">   
+							  	<select id="statutUtil" name="statut" class="form-control">
+							  			<option>Administrateur</option>
+							  			<option>Evaluateur</option>
+								</select>
+							</div>
+						</div>
+						
+						
+					</div>
+					
+					<INPUT Type="submit" name="submit" Value="Connexion">
+					
 
-        <form id="formAjout" class="form-horizontal" role="form" method="post" action="../index.php">
-            <div class="form-group" >
-                <div class="col-sm-8">
-                    <div class="input-group">
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                        <input id ="user" name="login" type="text" class="form-control" placeholder="Utilisateur">
-                    </div>
-                </div>
-
-
-            </div>
-            <div class="form-group">
-                <div class="col-sm-8">
-                    <div class="input-group">
-
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-                        <input id ="mdp" name="password" type="password" class="form-control" placeholder="Mot de passe">
-                    </div>
-                </div>
-
-
-            </div>
-
-            <div class="form-group">
-                <div class="col-sm-8">
-                    <div class="input-group">
-                        <select id="statut" name="statut" class="form-control">
-                            <option>Administrateur</option>
-                            <option>Evaluateur</option>
-                        </select>
-                    </div>
-                </div>
-
-            </div>
-
-            <input Type="submit" name="submit" Value="Connexion" class="btn btn-primary">
-
-
-        </form>
-
-        <div id="echec" class="alert alert-danger">Echec de la connexion.</div>
-
-        <div id="succes" class="alert alert-success">Connexion valide !</div>
-</div>
-</body>
-
+				</form>
+				
+				<div id="echec" class="alert alert-danger">Echec de la connexion.</div>
+					
+				<div id="succes" class="alert alert-success">Connexion valide !</div>
+			</div>
+		</div>
+	</body>
+	
 </html>
