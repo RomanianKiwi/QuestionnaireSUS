@@ -35,6 +35,7 @@
             border: 2px solid lightgrey;
             padding-top: 50px;
             padding-bottom: 20px;
+			padding-left: 40px;
 			
         }
     </style>
@@ -42,8 +43,7 @@
 	</head>
 	
 	<body>
-		<div class="container">
-			<div class="panel-group" id="accordion">
+		<div class="container" id="wrapper">
 
 
 			
@@ -52,7 +52,7 @@
 						<div class="col-sm-8">
 							<div class="input-group">
 
-							  <span class="input-group-addon glyphicon glyphicon-user"></span>    
+							  <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>    
 							  <input id ="user" name="login" type="text" class="form-control" placeholder="Utilisateur">
 							</div>
 						</div>
@@ -63,7 +63,7 @@
 						<div class="col-sm-8">
 							<div class="input-group">
 
-							  <span class="input-group-addon glyphicon glyphicon-lock"></span>    
+							  <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span>    </span>    
 							  <input id ="mdp" name="password" type="password" class="form-control" placeholder="Mot de passe">
 							</div>
 						</div>
@@ -74,7 +74,7 @@
 					<div class="form-group">
 						<div class="col-sm-8">
 							<div class="input-group">   
-							  	<select id="statutUtil" name="statut" class="form-control">
+								<select id="statut" name="statut" class="form-control" style="border-radius: 8px;">
 							  			<option>Administrateur</option>
 							  			<option>Evaluateur</option>
 								</select>
@@ -84,7 +84,7 @@
 						
 					</div>
 					
-					<INPUT Type="submit" name="submit" Value="Connexion">
+					<INPUT Type="submit" name="submit" Value="Connexion" class="btn btn-primary">
 					
 
 				</form>
@@ -92,7 +92,7 @@
 				<div id="echec" class="alert alert-danger">Echec de la connexion.</div>
 					
 				<div id="succes" class="alert alert-success">Connexion valide !</div>
-			</div>
+			
 		</div>
 	</body>
 	
