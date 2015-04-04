@@ -13,6 +13,21 @@
         
         return scoreTotal * 2.5;
     }
+    
+    function getAnswersToString(){
+        var answers = "";
+        
+        $(".answerSUS:checked").each(function(index){
+            var answer = $(this).attr("data-value");
+            
+            if(index == 0){
+                answers += answer;
+            }
+            answers += "," + answer;
+        });
+        
+        return answers;
+    }
 
     
 
