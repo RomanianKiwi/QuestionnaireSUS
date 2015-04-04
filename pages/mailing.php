@@ -13,13 +13,13 @@ if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION
     $id_user = $_SESSION['ID'];
     $reponse = $bdd->query("SELECT * FROM administrateur WHERE UserName= \"" . $log . "\"AND PassWord = \"" . $mpass . "\"AND Statut = \"" . $statut . "\";");
     $donnees = $reponse->fetch(PDO::FETCH_ASSOC);
-//Partie Envoi de mail.
+	//Partie Envoi de mail.
     if ($donnees['UserName'] != "" && $donnees['PassWord'] != "" && $_SESSION['login'] != "" && $donnees['Statut'] != "") {
-        ini_set('SMTP', 'smtp.orange.fr');
+        ini_set('SMTP', 'smtp.free.fr');
         ini_set('sendmail_from', 'equipetix@gmail.com');
         if (isset($_POST) && isset($_POST['objet']) && isset($_POST['choixQuestionnaire']) && isset($_POST['message']) && (isset($_POST['autresDestinataires']) || isset($_POST['adresses']))) {
             if (!empty($_POST['objet']) && !empty($_POST['choixQuestionnaire']) && !empty($_POST['message']) && !empty($_POST['autresDestinataires'] || $_POST['adresses'])) {
-// Création de l'email.
+				// Création de l'email.
                 $passage_ligne = "\r\n";
                 $sujet = $_POST['objet'];
                 $message_txt = $_POST['message'] . ' voici le lien sur le questionnaire: ';
@@ -36,9 +36,9 @@ if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION
                 $header.= "Reply-to: \"equipetix\" <equipetix@gmail.com>" . $passage_ligne;
                 $header.= "MIME-Version: 1.0" . $passage_ligne;
                 $header.= "Content-Type: multipart/mixed;" . $passage_ligne . " boundary=\"" . $boundary . "\"" . $passage_ligne;
-//=====Création du message.
+				// Création du message.
                 $message_head = $passage_ligne . "--" . $boundary . $passage_ligne;
-//=====Ajout du message au format texte.
+				// Ajout du message au format texte.
                 $message_head.= "Content-Type: text/plain; charset=\"ISO-8859-1\"" . $passage_ligne;
                 $message_head.= "Content-Transfer-Encoding: 8bit" . $passage_ligne;
                 $message_txt.=$_POST['choixQuestionnaire'] . ' ';
@@ -50,7 +50,7 @@ if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION
                 $donnees3 = $reponse3->fetch(PDO::FETCH_ASSOC);
                 $numQ = $donnees3['IdQuest'];
                 $reponse3->closeCursor();
-//envoi de mail destinataires du carnet
+				//envoi de mail destinataires du carnet
                 $boolmail = true;
                 if (isset($_POST['adresses'])) {
                     foreach ($_POST['adresses'] as $destinataire) {
@@ -58,7 +58,7 @@ if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION
                         $nomHasher = hashMail($_POST['choixQuestionnaire']);
                         $message_url = $urlIni . "?c=" . $nomHasher . "&n=" . $mailHascher;
                         $message = $message_head . $passage_ligne . $message_txt . $message_url . $passage_ligne . $passage_ligne . "--" . $boundary . $passage_ligne;
-// fin du message
+						// fin du message
                         $participation = "INSERT INTO participer VALUES ('0','" . $lastV . "','" . $mailHascher . "','" . $numQ . "');";
                         $bdd->exec($participation);
                         if (mail($destinataire, $sujet, $message, $header)) {
@@ -68,7 +68,7 @@ if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION
                         }
                     }
                 }
-//envoi de mail destinataires autres
+				//envoi de mail destinataires autres
                 $destinataires_sup = $_POST['autresDestinataires'];
                 if ($destinataires_sup != "") {
                     $destinataires_array = explode("\n", $destinataires_sup);
@@ -81,7 +81,7 @@ if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION
                     $nomHasher = hashMail($_POST['choixQuestionnaire']);
                     $message_url = $urlIni . "?n=" . $mailHascher . "&c=" . $nomHasher;
                     $message = $message_head . $passage_ligne . $message_txt . $message_url . $passage_ligne . $passage_ligne . "--" . $boundary . $passage_ligne;
-// fin du message
+					// fin du message
                     $testBool = "false";
                     $reponse4 = $bdd->query('SELECT * FROM utilisateurs');
                     while ($donnees4 = $reponse4->fetch()) {
@@ -90,11 +90,11 @@ if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION
                     }
                     $reponse4->closeCursor();
                     if ($testBool == "false") {
-//etape 1 : inserer utilisateur dans la table utilisateurs si il n'existe pas déjà :
+					//etape 1 : inserer utilisateur dans la table utilisateurs si il n'existe pas déjà :
                         $etape1 = "INSERT INTO utilisateurs VALUES ('" . $mailHascher . "' , '" . $destinataires_array[$i] . "', NULL, NULL);";
                     } else
                         $etape1 = "";
-//etape 2 : inserer dans gerer le code hashé et le code du carnet en cours :
+					//etape 2 : inserer dans gerer le code hashé et le code du carnet en cours :
                     $etape2 = "INSERT INTO gerer VALUES ('0', '" . $mailHascher . "');";
                     $bdd->exec($etape1 . $etape2);
                     $participation2 = "INSERT INTO participer VALUES ('0','" . $lastV . "','" . $mailHascher . "','" . $numQ . "');";

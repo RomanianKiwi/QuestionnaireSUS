@@ -96,6 +96,7 @@
              }
 				
 			function affichageCollapses(iduser){
+				$('#contenu').children().remove();
 				$.ajax({
 					type: "POST",
 					url: "enquetes.php",
@@ -127,7 +128,7 @@
 									cpt++;
 								}
 								for (var i = 0; i < cpt; i++){
-									$('#body'+i).append('<form><label for="ajouV'+i+'">Version: <input id="ajoutV'+i+'" type="number" min=2 name="ajoutV'+i+'" required></label><label for="systeme'+i+'date">Date d\'expiration: <input id="ajoutV'+i+'date" type="text" placeholder="format aaaa-mm-jj" name="ajoutV'+i+'date" required></label><button type="submit" class="btn btn-primary ajouter" onClick=ajouterVersion('+i+'); >Ajouter Version</button></form>');
+									$('#body'+i).append('<form><label for="ajouV'+i+'">Version: <input id="ajoutV'+i+'" type="number" min=2 name="ajoutV'+i+'" required></label><label for="ajoutV'+i+'date">Date d\'expiration: <input id="ajoutV'+i+'date" type="text" placeholder="format aaaa-mm-jj" name="ajoutV'+i+'date" required></label><button type="submit" class="btn btn-primary ajouter" onClick=ajouterVersion('+i+'); >Ajouter Version</button></form>');
 								}
 							}
 						}
@@ -192,6 +193,8 @@
 			}
 			
 			function ajouterVersion(idBody){
+				var iduser = parseInt('<?php echo $id_user; ?>');
+				console.log(iduser);
 				var numV = $('#ajoutV'+idBody).val();
 				var date = $('#ajoutV'+idBody+'date').val();
 				var idQuestionnaire = $('#body'+idBody).attr('name');
@@ -200,27 +203,29 @@
 					type: "POST",
 					url: "ajoutVersion.php",
 					async: false,
-					dataType: 'json',
 					data: {NumVersion: numV, IdQuest: idQuestionnaire, DateExpiration: "'" +date+ "'"},
-					success: function (data)
+					success: function (result)
 					{
-						affichageCollapses();
-						affichageGraphiques();
-					}					
+						affichageCollapses(iduser);
+						affichageGraphiques(iduser);
+					},
+					error: function (result, status, err) {
+                            console.log("err");
+                    }					
 				});
 			}
 			
 			function supprimerVersion(NumV,idQ){
+				var iduser = parseInt('<?php echo $id_user; ?>');
 				$.ajax({
 					type: "POST",
 					url: "SupprimerVersion.php",
 					async: false,
-					dataType: 'json',
 					data: {NumVersion: NumV, IdQuest: idQ},
-					success: function (data)
+					success: function (result)
 					{
-						affichageCollapses();
-						affichageGraphiques();
+						affichageCollapses(iduser);
+						affichageGraphiques(iduser);
 					}		
 				});
 			}
@@ -228,7 +233,6 @@
 			
 			function ajoutQuestionnaire(nom, dateCreation, idAmin, NumVersion, DateExpiration) {
 					var iduser = parseInt('<?php echo $id_user; ?>');
-					$('#contenu').children().remove();
                     $.ajax({
                         type: "POST",
                         url: "requeteAjoutQuestionnaire.php",
