@@ -5,6 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" />
+        <link rel="stylesheet" type="text/css" href="../css/formulaire.css" />
         <script src="../js/jquery-2.1.3.js"></script>
         <script src="../js/bootstrap.js"></script>
         <script src="../js/fonctionsUtiles.js"></script>
@@ -36,6 +37,7 @@
 		    updateScoreSystem(computeScoreSUS(),dataSystem);
                     setActiveToOneToUser(dataSystem);
                     endQuestionnaire();
+                    console.log(computeScoreSUS());
                     console.log(getAnswersToString());
                 });		
             });
@@ -56,7 +58,7 @@
             <div class="row">
                 <h1 id="titleSUS" style="text-align: center;">Questionnaire SUS of</h1>
             </div>
-            <div id="contentSUS" class="row">
+            <div id="contentSUS" class="row" style="margin-top:2%;">
                 <form id="questSUS"></form>
             </div>
             <div id="buttonContainer" class="row" style="margin-top:18%; text-align: center;">

@@ -23,7 +23,9 @@
             if(index == 0){
                 answers += answer;
             }
-            answers += "," + answer;
+            else{
+                answers += "," + answer;
+            }
         });
         
         return answers;
