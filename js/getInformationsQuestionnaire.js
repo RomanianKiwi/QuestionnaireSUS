@@ -1,22 +1,25 @@
 
     //return datas of the questionnaire according to his hash code
-    function getNoteLastVersionAndNomSysteme(hashCode){
+    function getNoteLastVersionAndNomSysteme(sysCode, mailCode){
 
             var tabData = new Array();
             $.ajax({
                     type: "POST",
                     url: "requeteGetLastNoteGlobale_NomVersion.php",
-                    data: {Code: "'" + hashCode + "'"},
+                    data: {Code: "'" + sysCode + "'", MailH: "'" + mailCode + "'"},
                     async: false,
                     dataType: 'json',
                     success: function (data)
                     {
-                        if (data.length == 0){
-                            tabData.push(null, "System", null, null, null, null);
+                        //console.log(data);
+                        if (data.InviteCode == null || data.NumVersion == null){
+                            $("#questSUS").hide();
+                            $("#contentSUS").append("<h2 class='col-xs-offset-5'>Ooops ! Wrong way ! :(</h2>" +
+                                                    "<p class='col-xs-offset-4'>Il se peut que vous ayez déjà répondu au questionnaire ou que l'URL soit incorrecte.</p>");
                         }
                         else {
                             //we insert the datas into the array
-                            tabData.push(data[0].IdQuest, data[0].Nom, data[0].NumVersion, data[0].DateExpiration, data[0].SommeNote, data[0].NbReponses);
+                            tabData.push(data.IdQuest, data.Nom, data.NumVersion, data.DateExpiration, data.SommeNote, data.NbReponses);
                         }
                     },
                     error : function(result, status, err){
@@ -29,14 +32,15 @@
     }
     
     function getSystemName(){
-        var code, nameSystem;
+        var sysCode, mailCode, nameSystem;
         var dataSystem = new Array();
                 
-        //we get the hash code of the questionnaire in the current url
-        code = getUrlParameter('c');
+        //we get the hash code of the questionnaire and the user's mail in the current url
+        sysCode = getUrlParameter('c');
+        mailCode = getUrlParameter('m');
         
         //we get all datas of this questionnaire
-        dataSystem = getNoteLastVersionAndNomSysteme(code);
+        dataSystem = getNoteLastVersionAndNomSysteme(sysCode,mailCode);
         nameSystem = dataSystem[1];
 
         //we only return the name of the system
