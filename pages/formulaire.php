@@ -35,10 +35,8 @@
                 $("#questSUS").submit(function(e){
                     e.preventDefault();
 		    updateScoreSystem(computeScoreSUS(),dataSystem);
-                    setActiveToOneToUser(dataSystem);
+                    setResultsUser(dataSystem,getAnswersToString(),computeScoreSUS());
                     endQuestionnaire();
-                    console.log(computeScoreSUS());
-                    console.log(getAnswersToString());
                 });		
             });
             

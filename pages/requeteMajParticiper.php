@@ -9,7 +9,9 @@ try {
 $nVersion = $_POST['NumVersion'];
 $InvCode = $_POST['InviteCode'];
 $idQuest = $_POST['IdQuest'];
+$reponses = $_POST['Reponses'];
+$score = $_POST['Score'];
 
-$bdd->exec("UPDATE participer SET statut_Invitation = '1' WHERE NumVersion = ".$nVersion." AND InviteCode = ".$InvCode." AND IdQuest =  ".$idQuest.";");
+$bdd->exec("UPDATE participer SET statut_Invitation = '1', Reponses = ".$reponses.", Score = ".$score." WHERE NumVersion = ".$nVersion." AND InviteCode = ".$InvCode." AND IdQuest =  ".$idQuest.";");
 
 ?>

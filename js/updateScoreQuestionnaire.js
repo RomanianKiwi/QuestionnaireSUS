@@ -12,7 +12,7 @@
             async: false,
             success: function (data)
             {
-                console.log("Mise a jour reussie avec succes !");
+                console.log("Mise a jour reussie de VersionQuestionnaire avec succes !");
             },
             error: function (result, status, err)
             {
@@ -30,15 +30,15 @@
         updateScoreSUS(score, currentScore, nbResp, idQuest, versSystem);
     }
     
-    function updatePartiper(versSystem, mailCode, idQuest) {
+    function updatePartiper(versSystem, mailCode, idQuest, reponses, score) {
         $.ajax({
             type: "POST",
             url: "requeteMajParticiper.php",
-            data: {NumVersion: "'" + versSystem + "'", InviteCode: "'" + mailCode + "'", IdQuest: "'" + idQuest + "'"},
+            data: {NumVersion: "'" + versSystem + "'", InviteCode: "'" + mailCode + "'", IdQuest: "'" + idQuest + "'", Reponses: "'" + reponses + "'", Score: "'" + score + "'"},
             async: false,
             success: function (data)
             {
-                console.log("Mise à jour de Participer réussie");
+                console.log("Mise a�jour de Participer reussie");
             },
             error: function (result, status, err) {
                 console.log(err);
@@ -46,10 +46,10 @@
         });
     }
                 
-    function setActiveToOneToUser(dataSystem){
+    function setResultsUser(dataSystem, reponses, score){
         var mailCode = getUrlParameter('m');
         var idQuest = dataSystem[0];
         var versSystem = dataSystem[2];
         
-        updatePartiper(versSystem, mailCode, idQuest);       
+        updatePartiper(versSystem, mailCode, idQuest, reponses, score);       
     }
