@@ -14,35 +14,57 @@
         <script src="../js/updateScoreQuestionnaire.js"></script>
         <script src="../js/checkExpirationDate.js"></script>
         <script type="text/javascript">
-            $(document).ready(function(){
+            $(document).ready(function(){                
+                var dataSystem = new Array();
+
+                //we get the hash code of the questionnaire and the user's mail in the current url
+                var sysCode = getUrlParameter('c');
+                var mailCode = getUrlParameter('m');
+
+                //we get all datas of this questionnaire
+                dataSystem = getNoteLastVersionAndNomSysteme(sysCode, mailCode);
+                
+                //custom the title of this page
+                $("#titleSUS").append(" "+dataSystem[1]);
+                
                 console.log(getCurrentDate());
-                console.log(checkExpirationDate());
+                console.log(checkExpirationDate(dataSystem));
+                
                 //called when the user submit his answers
                 $("#questSUS").submit(function(e){
                     e.preventDefault();
-		    updateScoreSystem(computeScoreSUS());
+		    updateScoreSystem(computeScoreSUS(),dataSystem);
+                    setActiveToOneToUser(dataSystem);
+                    endQuestionnaire();
                     console.log(getAnswersToString());
                 });		
             });
             
             function hideButtonLanguage(){
-                $(".btn-lang").hide();
+                $("#buttonContainer").hide();
+            }
+            
+            function endQuestionnaire(){
+                $("#questSUS").hide();
+                $("#contentSUS").append("<h2 style='margin-top:25%; color: green; text-align: center;'>Success !</h2>" +
+                                                    "<p style='text-align: center;'>Thanks you for your participation.</p>");
             }
         </script>
     </head>
     <body>
         <div class="container">
             <div class="row">
-                <h1 class="col-xs-offset-5">Questionnaire SUS</h1>
+                <h1 id="titleSUS" style="text-align: center;">Questionnaire SUS of</h1>
             </div>
             <div id="contentSUS" class="row">
                 <form id="questSUS"></form>
             </div>
-            <div class="row" style="margin-top:20px;">
-                <button class="btn btn-default btn-lang" type="button" onclick="loadXMLDoc('../questionnaires/quest_fr.xml'),hideButtonLanguage()">Français</button>
-                <button class="btn btn-default btn-lang" type="button" onclick="loadXMLDoc('../questionnaires/quest_en.xml'),hideButtonLanguage()">Anglais</button>
-                <button class="btn btn-default btn-lang" type="button" onclick="loadXMLDoc('../questionnaires/quest_es.xml'),hideButtonLanguage()">Espagnol</button>
-                <button class="btn btn-default btn-lang" type="button" onclick="loadXMLDoc('../questionnaires/quest_de.xml'),hideButtonLanguage()">Allemand</button>
+            <div id="buttonContainer" class="row" style="margin-top:18%; text-align: center;">
+                <h3>Welcome, choose your language</h3>
+                <button class='btn btn-default' type='button' onclick="loadXMLDoc('../questionnaires/quest_fr.xml'),hideButtonLanguage()">French</button>
+                <button class='btn btn-default' type='button' onclick="loadXMLDoc('../questionnaires/quest_en.xml'),hideButtonLanguage()">English</button>
+                <button class='btn btn-default' type='button' onclick="loadXMLDoc('../questionnaires/quest_es.xml'),hideButtonLanguage()">Spanish</button>
+                <button class='btn btn-default' type='button' onclick="loadXMLDoc('../questionnaires/quest_de.xml'),hideButtonLanguage()">German</button>
             </div>
         </div>
     </body>

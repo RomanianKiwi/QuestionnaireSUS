@@ -1,8 +1,17 @@
     function loadXMLDoc(url){
         var xmlhttp;
         var questions, answers, system, formGroup, i;
-        var nameSystem = getSystemName();
+        var nameSystem;
+        var dataSystem = new Array();
 
+        //we get the hash code of the questionnaire and the user's mail in the current url
+        var sysCode = getUrlParameter('c');
+        var mailCode = getUrlParameter('m');
+
+        //we get all datas of this questionnaire
+        dataSystem = getNoteLastVersionAndNomSysteme(sysCode, mailCode); 
+        nameSystem = dataSystem[1];
+        
         if (window.XMLHttpRequest){
             // code for IE7+, Firefox, Chrome, Opera, Safari
             xmlhttp=new XMLHttpRequest();

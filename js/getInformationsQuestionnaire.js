@@ -13,9 +13,11 @@
                     {
                         //console.log(data);
                         if (data.InviteCode == null || data.NumVersion == null){
+                            $("#titleSUS").hide();
+                            hideButtonLanguage();
                             $("#questSUS").hide();
-                            $("#contentSUS").append("<h2 class='col-xs-offset-5'>Ooops ! Wrong way ! :(</h2>" +
-                                                    "<p class='col-xs-offset-4'>Il se peut que vous ayez déjà répondu au questionnaire ou que l'URL soit incorrecte.</p>");
+                            $("#contentSUS").append("<h2 style='margin-top: 25%; text-align: center; color: red;'>Ooops ! Wrong way ! :(</h2>" +
+                                                    "<p style='text-align: center;'>It seems you have already completed the questionnaire or the URL is incorrect.</p>");
                         }
                         else {
                             //we insert the datas into the array
@@ -29,20 +31,4 @@
             });
 
             return tabData;
-    }
-    
-    function getSystemName(){
-        var sysCode, mailCode, nameSystem;
-        var dataSystem = new Array();
-                
-        //we get the hash code of the questionnaire and the user's mail in the current url
-        sysCode = getUrlParameter('c');
-        mailCode = getUrlParameter('m');
-        
-        //we get all datas of this questionnaire
-        dataSystem = getNoteLastVersionAndNomSysteme(sysCode,mailCode);
-        nameSystem = dataSystem[1];
-
-        //we only return the name of the system
-        return nameSystem;
     }
