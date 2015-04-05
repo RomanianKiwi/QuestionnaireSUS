@@ -13,7 +13,7 @@
 	session_start();
 	if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION['statut']) && isset($_SESSION['ID'])) {
 		try {
-			$bdd = new PDO('mysql:host=localhost;dbname=projet;charset=utf8', 'root', '');
+			$bdd = new PDO('mysql:host=localhost;dbname=cl24-project;charset=utf8', 'cl24-project', 'teamTIX');
 		} catch (Exception $e) {
 			die('Erreur : ' . $e->getMessage());
 		}
@@ -29,8 +29,8 @@
 		$donnees = $reponse->fetch(PDO::FETCH_ASSOC);
 		//Partie Envoi de mail.
 		if ($donnees['UserName'] != "" && $donnees['PassWord'] != "" && $_SESSION['login'] != "" && $donnees['Statut'] != "") {
-			ini_set('SMTP', 'smtp.free.fr');
-			ini_set('sendmail_from', 'equipetix@gmail.com');
+			//ini_set('SMTP', 'smtp.free.fr');
+			//ini_set('sendmail_from', 'equipetix@gmail.com');
 			if (isset($_POST) && isset($_POST['objet']) && isset($_POST['choixQuestionnaire']) && isset($_POST['message']) && (isset($_POST['autresDestinataires']) || isset($_POST['adresses']))) {
 				if (!empty($_POST['objet']) && !empty($_POST['choixQuestionnaire']) && !empty($_POST['message']) && (!empty($_POST['autresDestinataires']) || (sizeof($_POST['adresses'])!=1))) {			
 					$boolmail=true;
