@@ -1,0 +1,17 @@
+
+h1, h2{
+        text-align: center;
+}
+
+h2{
+    margin-bottom: 2%;
+}
+
+label{
+        margin-right:10px;
+        margin-top:8px;
+}
+
+form{
+        margin-bottom:20px;
+}
