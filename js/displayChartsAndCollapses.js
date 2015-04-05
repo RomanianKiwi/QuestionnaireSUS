@@ -47,22 +47,28 @@
                                                                 '</h2>' +
                                                             '</div>' +
                                                             '<div id="collapse'+cpt+'V'+data[i].NumVersion+'" class="panel-collapse collapse">' +
-                                                                '<div class="panel-body">' +
-                                                                    '<p>Le score de cette version est de: '+data[i].Moyenne+'</p>' +
+                                                                '<div id="list' + data[i].Nom + 'Version' + data[i].NumVersion + '" class="panel-body">' +
                                                                     '<button type="button" onClick=supprimerVersion('+data[i].NumVersion+','+data[i].IdQuest+','+iduser+'); class="btn btn-primary ajouter">Supprimer cette version</button>' +
                                                                 '</div>' +
                                                             '</div>' +
                                                         '</div>' +
                                                     '</div>');
+                            generateTableAndPagination(data[i].Nom, data[i].NumVersion)
                             nomSysteme = data[i].Nom;
                             cpt++;
+                            getDataSUSOfUser(iduser, data[i].NumVersion, data[i].IdQuest, data[i].Nom);
+                            updateScoreWhenCheckboxesAreChanged(data[i].Nom, data[i].NumVersion);
+                            $(".isUser" + data[i].Nom + "Version" + data[i].NumVersion).hide();
+                            $("." + data[i].Nom + "Version" + data[i].NumVersion + "user1").show();
                     }
                     for (var i = 0; i < cpt; i++){
                         $('#body'+i).append('<form>' +
                                                 '<label for="ajouV'+i+'">Version: \n\<input id="ajoutV'+i+'" type="number" min=2 name="ajoutV'+i+'" required></label>' +
                                                 '<label for="ajoutV'+i+'date">Date d\'expiration: <input id="ajoutV'+i+'date" type="text" placeholder="format aaaa-mm-jj" name="ajoutV'+i+'date" required></label>' +
                                                 '<button type="submit" class="btn btn-primary ajouter" onClick=ajouterVersion('+i+','+iduser+'); >Ajouter Version</button>' +
-                                            '</form>');
+                                            '</form>' + 
+                                            '<h3 class="col-xs-offset-5">Graphique des résultats</h3>' +
+                                            '<div id="chartContainer'+i+'" class="col-xs-offset-3"></div>');
                     }
                 }
             }
@@ -89,6 +95,7 @@
                     var tab_systemes = new Array();
                     var tab_systemes_version = new Array();
                     var tab_systemes_version_res = new Array();
+                    var scoreVersions = new Array();
 
                     for (var i = 0; i < data.length; i++) {
                             if(nomSysteme != data[i].Nom)
@@ -116,11 +123,11 @@
                             cpt_s++;
                             cpt_v++;
                     }
+                    
                     for (var j = 0; j < tab_systemes.length; j++)
                     {
-                            $('#body'+j).append('<h3 class="col-xs-offset-5">Graphique des résultats</h3>' +
-                                                 '<div id="chartContainer'+j+'" class="col-xs-6" style="margin-left : 6%;"></div>');
-                            generateChart(j,tab_systemes[j],tab_systemes_version[j],tab_systemes_version_res[j]);
+                            scoreVersions = getScoreVersions(tab_systemes[j], tab_systemes_version[j].length);
+                            generateChart(j,tab_systemes[j],tab_systemes_version[j],scoreVersions);
                     }
                 }
             }		

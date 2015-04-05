@@ -42,6 +42,9 @@
             <script src="../js/bootstrap.js"></script>
             <script src="../js/displayChartsAndCollapses.js"></script>
             <script src="../js/addOrDeleteVersionAndQuestionnaire.js"></script>
+            <script src="../js/getUserDataSUS.js"></script>
+            <script src="../js/generateUserTableAndPagination.js"></script>
+            <script src="../js/computeVersionScore.js"></script>
             <script src="../js/fonctionsUtiles.js"></script>	
             <script src="../js/highcharts.js"></script>
             <script src="../js/modules/exporting.js"></script>

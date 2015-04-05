@@ -7,16 +7,15 @@
     function generateChart (cible,nameSystem, versions, results) {
         $('#chartContainer'+cible+'').highcharts({
             chart: {
-                type: 'spline'
+                type: 'spline',
+                reflow: false,
+                width: 600
             },
             credits: {
                 enabled: false
             },
             title: {
                 text: 'Score SUS de ' + nameSystem + ' au fil de ses versions'
-            },
-            subtitle: {
-                text: 'Source: thesource.com by Gones'
             },
             xAxis: {
                 title :{
