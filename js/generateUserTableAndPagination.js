@@ -1,4 +1,4 @@
-    function generateTableAndPagination(nameSystem, numVersion){
+    function generateTableAndPagination(iduser, nameSystem, numVersion){
         $("#list" + nameSystem + "Version" + numVersion).prepend('<div>' +
                                                                     '<table class="table table-striped table-bordered table-hover">' +
                                                                                     '<thead>' +
@@ -22,6 +22,7 @@
         $("#selectAll" + nameSystem + "Version" + numVersion).on("change", function(){
             selectAllUserOfSystemVersion(nameSystem, numVersion);
             updateScoreWhenCheckboxesAreChanged(nameSystem, numVersion);
+            affichageGraphiques(iduser);
         });
     }
 
@@ -54,7 +55,7 @@
                 page++;
                 $("#paginationUser" + nameSystem + "Version" + numVersion).append('<li><a id="' + nameSystem + 'Version' + numVersion + 'page' + page + '" href="#">' + page + '</a></li>');
                 $("#" + nameSystem + "Version" +  numVersion + "page" + page).on('click', function(e){
-                    var numPage = e.target.innerText;
+                    var numPage = e.target.innerHTML;
                     $(".isUser" + nameSystem + "Version" + numVersion).hide();
                     $("." + nameSystem + "Version" + numVersion + "user" + numPage).show();
                 });

@@ -53,7 +53,7 @@
                                                             '</div>' +
                                                         '</div>' +
                                                     '</div>');
-                            generateTableAndPagination(data[i].Nom, data[i].NumVersion)
+                            generateTableAndPagination(iduser, data[i].Nom, data[i].NumVersion)
                             nomSysteme = data[i].Nom;
                             cpt++;
                             getDataSUSOfUser(iduser, data[i].NumVersion, data[i].IdQuest, data[i].Nom);

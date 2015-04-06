@@ -7,7 +7,7 @@
             dataType: 'json',
             success: function (data)
             {
-                generateList(iduser, data,nameSystem, nVersion);
+                generateList(iduser, data, nameSystem, nVersion);
                 generatePages(data, nameSystem, nVersion);
             },
             error: function (result, status, err) {
