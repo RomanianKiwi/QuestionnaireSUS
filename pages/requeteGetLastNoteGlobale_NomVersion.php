@@ -8,7 +8,7 @@
     $nomSysHash = $_POST['Code'];
     $mailHash = $_POST['MailH'];
 
-    $reponse = $bdd->query("SELECT NumVersion, DateExpiration, SommeNote, NbReponses, V.IdQuest, Nom FROM versionquestionnaire V, questionnaire Q
+    $reponse = $bdd->query("SELECT NumVersion, DateExpiration, V.IdQuest, Nom FROM versionquestionnaire V, questionnaire Q
                                                     WHERE V.IdQuest = Q.IdQuest
                                                     AND V.IdQuest in (SELECT IdQuest FROM questionnaire WHERE Nom in (SELECT SysName FROM syshash WHERE HashCode = ".$nomSysHash."))
                                                     ORDER BY NumVersion DESC LIMIT 1;");
@@ -21,8 +21,6 @@
     $data = array(
         "NumVersion"      => $donnees['NumVersion'],
         "DateExpiration"  => $donnees['DateExpiration'],
-        "SommeNote"       => $donnees['SommeNote'],
-        "NbReponses"      => $donnees['NbReponses'],
         "IdQuest"         => $donnees['IdQuest'],
         "Nom"             => $donnees['Nom'],
         "InviteCode"      =>  $donnees2['InviteCode']

@@ -9,7 +9,7 @@ try {
 
 $id_user = $_POST['iduser'];
 						
-$reponse = $bdd->query("SELECT  Q.IdQuest, Nom, NumVersion, (SommeNote/NbReponses) as Moyenne, V.IdQuest
+$reponse = $bdd->query("SELECT  Q.IdQuest, Nom, NumVersion, V.IdQuest
 						FROM versionquestionnaire V, questionnaire Q
 						WHERE V.IdQuest = Q.IdQuest  AND ID = " .$id_user. " ORDER BY Nom;");
 						

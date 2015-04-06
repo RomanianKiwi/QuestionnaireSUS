@@ -31,7 +31,7 @@ $reponse->closeCursor();
 
 if($testBool == "false"){
     //etape 1 : inserer utilisateur dans la table utilisateurs si il n'existe pas déjà :
-    $etape1 = "INSERT INTO utilisateurs VALUES ('" . $mailHascher . "' , '" . $mail . "', NULL, NULL);";
+    $etape1 = "INSERT INTO utilisateurs VALUES ('" . $mailHascher . "' , '" . $mail . "');";
 }
 else
     $etape1 = "";

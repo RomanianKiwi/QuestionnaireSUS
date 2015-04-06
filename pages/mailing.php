@@ -75,10 +75,10 @@
 							{
 								$mailHascher = hashMail($destinataire);
 								$nomHasher = hashMail($_POST['choixQuestionnaire']);
-								$message_url = $urlIni . "?c=" . $nomHasher . "&n=" . $mailHascher;
+								$message_url = $urlIni . "?c=" . $nomHasher . "&m=" . $mailHascher;
 								$message = $message_head . $passage_ligne . $message_txt . $message_url . $passage_ligne . $passage_ligne . "--" . $boundary . $passage_ligne;
 								// fin du message
-								$participation = "INSERT INTO participer VALUES ('0','" . $lastV . "','" . $mailHascher . "','" . $numQ . "');";
+								$participation = "INSERT INTO participer VALUES ('0','" . $lastV . "','" . $mailHascher . "','" . $numQ . "',NULL, NULL);";
 								$bdd->exec($participation);
 								if (mail($destinataire, $sujet, $message, $header)) {
 									
@@ -100,7 +100,7 @@
 					for ($i = 0; $i < $nb_dest; $i++) {
 						$mailHascher = hashMail($destinataires_array[$i]);
 						$nomHasher = hashMail($_POST['choixQuestionnaire']);
-						$message_url = $urlIni . "?n=" . $mailHascher . "&c=" . $nomHasher;
+						$message_url = $urlIni . "?m=" . $mailHascher . "&c=" . $nomHasher;
 						$message = $message_head . $passage_ligne . $message_txt . $message_url . $passage_ligne . $passage_ligne . "--" . $boundary . $passage_ligne;
 						// fin du message
 						$testBool = "false";
@@ -118,7 +118,7 @@
 						//etape 2 : inserer dans gerer le code hashé et le code du carnet en cours :
 						$etape2 = "INSERT INTO gerer VALUES ('0', '" . $mailHascher . "');";
 						$bdd->exec($etape1 . $etape2);
-						$participation2 = "INSERT INTO participer VALUES ('0','" . $lastV . "','" . $mailHascher . "','" . $numQ . "');";
+						$participation2 = "INSERT INTO participer VALUES ('0','" . $lastV . "','" . $mailHascher . "','" . $numQ . "',NULL, NULL);";
 						$bdd->exec($participation2);
 						if (mail($destinataires_array[$i], $sujet, $message, $header)) {
 							
