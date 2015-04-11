@@ -14,6 +14,7 @@
         <script src="../js/getInformationsQuestionnaire.js"></script>
         <script src="../js/updateScoreQuestionnaire.js"></script>
         <script src="../js/checkExpirationDate.js"></script>
+        <script src="../js/listFilesXml.js"></script>
         <script type="text/javascript">
             $(document).ready(function(){                
                 var dataSystem = new Array();
@@ -28,8 +29,8 @@
                 //custom the title of this page
                 $("#titleSUS").append(" "+dataSystem[1]);
                 
-                console.log(getCurrentDate());
-                console.log(checkExpirationDate(dataSystem));
+                //we check the expiration date of the questionnaire
+                checkExpirationDate(dataSystem);
                 
                 //called when the user submit his answers
                 $("#questSUS").submit(function(e){
