@@ -32,6 +32,7 @@ if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION
 <html>
     <head>
 
+        <title>Ajout Langue</title>
         <meta charset="utf-8">
         <link rel="stylesheet" href="../css/bootstrap.css">
         <script src="../js/jquery-2.1.3.js"></script>
@@ -39,10 +40,12 @@ if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION
 
         <!-- plugin Bootstrap DatePicker -->
         <link href="../css/datepicker.css" rel="stylesheet">
+        <link rel="stylesheet" href="../css/style.css" />
         <script src="../js/bootstrap-datepicker.js"></script>
         <script src="../js/dateFRtoEN.js"></script>
         <script src="../js/createXMLString.js"></script>
         <script src="../js/ajoutLangue.js"></script>
+        <script src="../js/listFilesXml.js"></script>
 
         <script type="text/javascript">
 
@@ -52,11 +55,35 @@ if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION
 
                 var statutUtil = "<?php echo $_SESSION['statut']; ?>";
 
+                var tabXML = listFilesXML();
+                afficherListFilesXML(tabXML);
+
+                //Gestion redimension fenetre pour la liste des fichiers xml ;
+                var largIni = $(document).width();
+                console.log(largIni);
+                if (largIni <= 850)
+                {
+                    $('#listeFilesXML').css('width', '90%');
+                    $('#listeFilesXML').css('margin-left', '5%');
+                }
+
+                $(window).resize(function () {
+                    var largRezise = $(document).width();
+                    if (largRezise <= 850) {
+                        $('#listeFilesXML').css('width', '90%');
+                        $('#listeFilesXML').css('margin-left', '5%');
+                    } else {
+                        $('#listeFilesXML').css('width', '40%');
+                        $('#listeFilesXML').css('margin-left', '28%');
+                    }
+                });
+
+                //Initialisation formulaire
                 for (var i = 1; i < 6; i++) {
                     $("#reponses").append("<div class='form-group'>" +
-                            "<label for='reponse" + i + "' class='col-sm-3 control-label'>Réponse " + i + "</label>" +
+                            "<label for='reponse" + i + "' class='col-sm-3 control-label'>R&eacute;ponse " + i + "</label>" +
                             "<div class='col-sm-4'>" +
-                            "<input id='reponse" + i + "' type='text' class='form-control' placeholder='Réponse de niveau " + i + "' required>" +
+                            "<input id='reponse" + i + "' type='text' class='form-control' placeholder='R&eacute;ponse de niveau " + i + "' required>" +
                             "</div>" +
                             "</div>");
                 }
@@ -71,6 +98,8 @@ if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION
                 }
 
                 var idUtil = <?php echo $_SESSION['ID']; ?>;
+
+
 
                 $('#formAjout').on('submit', function (e) {
                     var tabRep = new Array();
@@ -135,16 +164,24 @@ if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION
 
                 <div id="alertFail" class="alert alert-danger" role="alert">Erreur ajout de langue</div>
 
+                <div id="listeFilesXML" class="form-group">
+                    <div class="row">
+                        <div class="col-md-12"><span class="glyphicon glyphicon-folder-open" style="color:rgb(150, 150, 55)" aria-hidden="true"></span>&thinsp;&thinsp;&thinsp;&thinsp;Fichiers des langues des questionnaires pr&eacute;sentes :</div>
+                    </div>
+                </div>
+
+                <hr>
+
                 <div class="form-group">
                     <label for="nameLangue" class="col-sm-3 control-label">Nouvelle langue :</label>
                     <div class="col-sm-4">
-                        <input id="nameLangue" type="text" class="form-control" placeholder="Exemple : Chinois, Anglais, Fran�ais, etc." required>
+                        <input id="nameLangue" type="text" class="form-control" placeholder="Exemple : English, China, etc." required>
                     </div>
                 </div>
                 <hr>
 
                 <div class="form-group">
-                    <label for="nomSysteme" class="col-sm-3 control-label">Mot Système</label>
+                    <label for="nomSysteme" class="col-sm-3 control-label">Mot Syst&egrave;me</label>
                     <div class="col-sm-4">
                         <input id="nomSysteme" type="text" class="form-control" placeholder="Traduction du mot système dans la nouvelle langue" required>
                     </div>
@@ -153,7 +190,7 @@ if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION
                 <hr></hr>
 
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">Réponses :</label>
+                    <label class="col-sm-3 control-label">R&eacute;ponses :</label>
                 </div>
 
                 <div id="reponses">

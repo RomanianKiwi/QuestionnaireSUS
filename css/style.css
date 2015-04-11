@@ -1,0 +1,16 @@
+.fileXML {
+    margin-left : 5%;
+}
+
+#listeFilesXML{
+    border: 2px solid;
+    border-radius: 10px;
+    padding: 10px;
+    padding-left : 5%;
+    width: 40%;
+    margin-left: 28%;
+}
+
+#listeFilesXML .row{
+    padding-bottom : 2%;
+}
