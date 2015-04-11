@@ -14,7 +14,7 @@
                         //console.log(data);
                         if (data.InviteCode == null || data.NumVersion == null){
                             $("#titleSUS").hide();
-                            hideButtonLanguage();
+                            hideLanguagesOptionAndStartButton();
                             $("#questSUS").hide();
                             $("#contentSUS").append("<h2 style='margin-top: 25%; text-align: center; color: red;'>Ooops ! Wrong way ! :(</h2>" +
                                                     "<p style='text-align: center;'>It seems you have already completed the questionnaire or the URL is incorrect.</p>");

@@ -27,17 +27,16 @@ function listFilesXML() {
     return tab;
 }
 
-function afficherListFilesXML(tabXML) {
-    if (tabXML.length == 0)
-    {
-        $('#listeFilesXML').append("<p>Aucun fichier (xml) de langue connu.</p>")
-    }
-    else {
-        for (var i = 0; i < tabXML.length; i++) {
-            console.log(tabXML[i]);
-            $('#listeFilesXML').append('<div class="row">' +
-                    '<div class="col-md-12"><span class="glyphicon glyphicon-file fileXML" aria-hidden="true"></span>&thinsp;&thinsp;' + tabXML[i] + '</div>' +
-                    '</div>');
+function generateLanguageList(languagesAvailables){
+    if(languagesAvailables.length != 0 ) {
+        var language;
+        
+        for(var i = 0; i < languagesAvailables.length; i++) {
+            language = languagesAvailables[i].split("_");
+            language = language[1].split(".");
+            $("#languagesAvailables").append("<option id='language" + language[0] + "' class='languageOption' data-value='" + languagesAvailables[i] + "'>" + 
+                                                language[0] + 
+                                             "</option>");
         }
     }
 }

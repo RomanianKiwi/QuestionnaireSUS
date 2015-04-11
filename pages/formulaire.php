@@ -22,15 +22,32 @@
                 //we get the hash code of the questionnaire and the user's mail in the current url
                 var sysCode = getUrlParameter('c');
                 var mailCode = getUrlParameter('m');
-
+                
+                 
                 //we get all datas of this questionnaire
                 dataSystem = getNoteLastVersionAndNomSysteme(sysCode, mailCode);
-                
+
+                if(dataSystem.length != 0) {
+                    //we check the expiration date of the questionnaire
+                    checkExpirationDate(dataSystem);    
+                }
+
                 //custom the title of this page
                 $("#titleSUS").append(" "+dataSystem[1]);
+
+                //generation of the languages availables
+                generateLanguageList(listFilesXML());
+
                 
-                //we check the expiration date of the questionnaire
-                checkExpirationDate(dataSystem);
+                //called when the user click on the button Start
+                $("#startQuestionnaire").click(function(){
+                   var urlFile = $(".languageOption:selected").attr("data-value");
+                   
+                   if(urlFile != null){
+                       loadXMLDoc("../questionnaires/" + urlFile);
+                       hideLanguagesOptionAndStartButton();
+                   }
+                });
                 
                 //called when the user submit his answers
                 $("#questSUS").submit(function(e){
@@ -41,8 +58,9 @@
                 });		
             });
             
-            function hideButtonLanguage(){
+            function hideLanguagesOptionAndStartButton(){
                 $("#buttonContainer").hide();
+                $("#startQuestionnaire").hide();
             }
             
             function endQuestionnaire(){
@@ -62,10 +80,18 @@
             </div>
             <div id="buttonContainer" class="row" style="margin-top:18%; text-align: center;">
                 <h3>Welcome, choose your language</h3>
+                <select id="languagesAvailables">
+                    <option disabled selected></option>
+                </select>
+                <!--
                 <button class='btn btn-default' type='button' onclick="loadXMLDoc('../questionnaires/quest_fr.xml'),hideButtonLanguage()">French</button>
                 <button class='btn btn-default' type='button' onclick="loadXMLDoc('../questionnaires/quest_en.xml'),hideButtonLanguage()">English</button>
                 <button class='btn btn-default' type='button' onclick="loadXMLDoc('../questionnaires/quest_es.xml'),hideButtonLanguage()">Spanish</button>
                 <button class='btn btn-default' type='button' onclick="loadXMLDoc('../questionnaires/quest_de.xml'),hideButtonLanguage()">German</button>
+                -->
+            </div>
+            <div class="row" style="margin-top:1%; text-align: center;">
+                <button id="startQuestionnaire" class="btn btn-success" type="button">Start</button>
             </div>
         </div>
     </body>

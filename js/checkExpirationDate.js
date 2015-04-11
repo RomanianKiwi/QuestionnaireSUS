@@ -20,7 +20,7 @@
         
         if (currentYear > yearExpiration || currentMonth > monthExpiration || currentDay > dayExpiration) {
             $("#titleSUS").hide();
-            hideButtonLanguage();
+            hideLanguagesOptionAndStartButton();
             $("#questSUS").hide();
             $("#contentSUS").append("<h2 style='margin-top: 25%; text-align: center; color: red;'>Ooops ! Wrong way ! :(</h2>" +
                                     "<p style='text-align: center;'>Sorry, this questionnaire has expired ! Expiration Date : " + expirationDate + "</p>");           

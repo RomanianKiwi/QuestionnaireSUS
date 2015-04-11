@@ -3,9 +3,9 @@
 	<system>system</system>
 	<answers>
 		<answer>Strongly agree</answer>
-		<answer>Plutôt d'accord</answer>
-		<answer>Partiellement d'accord</answer>
-		<answer>Un peu d'accord</answer>
+		<answer>Rather agree</answer>
+		<answer>Partially agree</answer>
+		<answer>A little agree</answer>
 		<answer>Strongly disagree</answer>
 	</answers>
 	<questions>
