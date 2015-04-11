@@ -32,20 +32,23 @@ if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION
 <html>
     <head>
 
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta charset="utf-8">
         <link rel="stylesheet" href="../css/bootstrap.css">
-		<script src="../js/jquery-2.1.3.js"></script>
-		<script src="../js/bootstrap.js"></script>	
+        <script src="../js/jquery-2.1.3.js"></script>
+        <script src="../js/bootstrap.js"></script>	
 
         <!-- plugin Bootstrap DatePicker -->
         <link href="../css/datepicker.css" rel="stylesheet">
         <script src="../js/bootstrap-datepicker.js"></script>
         <script src="../js/dateFRtoEN.js"></script>
         <script src="../js/createXMLString.js"></script>
+        <script src="../js/ajoutLangue.js"></script>
 
         <script type="text/javascript">
 
             $(document).ready(function () {
+
+                $(".alert").hide();
 
                 var statutUtil = "<?php echo $_SESSION['statut']; ?>";
 
@@ -72,31 +75,29 @@ if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION
                 $('#formAjout').on('submit', function (e) {
                     var tabRep = new Array();
                     var tabQuest = new Array();
-                    
+
                     for (var i = 1; i < 6; i++) {
-                        var idRep = "#reponse"+i;
+                        var idRep = "#reponse" + i;
                         var r = $(idRep).val();
-                        //var r = $("#nomSysteme").val();
-                        //console.log(r);
                         tabRep.push(r);
                     }
-                    
+
                     for (var i = 1; i < 11; i++) {
-                        var idQuest = "#question"+i;
+                        var idQuest = "#question" + i;
                         var q = $(idQuest).val();
-                        //var r = $("#nomSysteme").val();
-                        //console.log(q);
                         tabQuest.push(q);
                     }
                     console.log($("#nomSysteme").val());
                     console.log(tabRep);
                     console.log(tabQuest);
-                    
+
                     var chaineXML = createXMLString($("#nomSysteme").val(), tabRep, tabQuest);
-                    
+
                     console.log(chaineXML);
-                    
-                    //ajoutQuestionnaire($("#nomQuestionaire").val(), DateFrtoEn(date), idUtil);
+                    console.log($("#nameLangue").val());
+
+                    ajoutLangue($("#nameLangue").val(), chaineXML);
+                    return false;
                 });
                 $(function () {
                     $("#datepicker").datepicker({
@@ -108,16 +109,6 @@ if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION
                 if (statutUtil != "Administrateur") {
                     $("#AjoutAd").hide();
                 }
-
-
-                //ajoutQuestionnaire("GPS", "2015-03-15",2);
-
-                /*
-                 T'as juste à faire appel à la fonction ajoutAdmin(nom, mdp);
-                 Et en paramètre tu mets l'identifiant et le mot de passe que l'admin que tu récupèreras dans 
-                 tes formulaires (avec les $.text() ).
-                 Et voilà
-                 */
             });
 
         </script>
@@ -137,44 +128,58 @@ if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION
 
         <?php include("menu.php"); ?>
 
-        <form id="formAjout" class="form-horizontal" role="form">
-            <div class="form-group">
-                <label for="nomSysteme" class="col-sm-3 control-label">Mot Système</label>
-                <div class="col-sm-4">
-                    <input id="nomSysteme" type="text" class="form-control" placeholder="Traduction du mot système dans la nouvelle langue" required>
+        <div class="container">
+            <form id="formAjout" class="form-horizontal" role="form">
+
+                <div id="alertSuccess" class="alert alert-success" role="alert"></div>
+
+                <div id="alertFail" class="alert alert-danger" role="alert">Erreur ajout de langue</div>
+
+                <div class="form-group">
+                    <label for="nameLangue" class="col-sm-3 control-label">Nouvelle langue :</label>
+                    <div class="col-sm-4">
+                        <input id="nameLangue" type="text" class="form-control" placeholder="Exemple : Chinois, Anglais, Fran�ais, etc." required>
+                    </div>
                 </div>
-            </div>
-			
-			<hr></hr>
+                <hr>
 
-			<div class="form-group">
-                <label class="col-sm-3 control-label">Réponses :</label>
-            </div>
-
-            <div id="reponses">
-            </div>
-			
-			<hr></hr>
-			
-			<div class="form-group">
-                <label class="col-sm-3 control-label">Questions :</label>
-            </div>
-
-            <div id="questions">
-            </div>
-			
-			<hr></hr>
-
-            <div class="form-group">
-                <div class="col-sm-offset-3 col-sm-10">
-                    <button id="ajouter" type="submit" class="btn btn-primary">Ajouter</button>
-
+                <div class="form-group">
+                    <label for="nomSysteme" class="col-sm-3 control-label">Mot Système</label>
+                    <div class="col-sm-4">
+                        <input id="nomSysteme" type="text" class="form-control" placeholder="Traduction du mot système dans la nouvelle langue" required>
+                    </div>
                 </div>
-            </div>
+
+                <hr></hr>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Réponses :</label>
+                </div>
+
+                <div id="reponses">
+                </div>
+
+                <hr></hr>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Questions :</label>
+                </div>
+
+                <div id="questions">
+                </div>
+
+                <hr></hr>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-10">
+                        <button id="ajouter" type="submit" class="btn btn-primary">Ajouter</button>
+
+                    </div>
+                </div>
 
 
-        </form>
-
+            </form>
+        </div>
     </body>
 
 </html>
