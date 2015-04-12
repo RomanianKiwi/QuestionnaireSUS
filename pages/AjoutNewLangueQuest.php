@@ -46,6 +46,7 @@ if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION
         <script src="../js/createXMLString.js"></script>
         <script src="../js/ajoutLangue.js"></script>
         <script src="../js/listFilesXml.js"></script>
+        <script src="../js/afficherListFilesXML.js"></script>
 
         <script type="text/javascript">
 
