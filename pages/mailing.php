@@ -112,7 +112,7 @@
 						$reponse4->closeCursor();
 						if ($testBool == "false") {
 						//etape 1 : inserer utilisateur dans la table utilisateurs si il n'existe pas déjà :
-							$etape1 = "INSERT INTO utilisateurs VALUES ('" . $mailHascher . "' , '" . $destinataires_array[$i] . "', NULL, NULL);";
+							$etape1 = "INSERT INTO utilisateurs VALUES ('" . $mailHascher . "' , '" . $destinataires_array[$i] . "');";
 						} else
 							$etape1 = "";
 						//etape 2 : inserer dans gerer le code hashé et le code du carnet en cours :
