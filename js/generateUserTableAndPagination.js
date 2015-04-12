@@ -18,11 +18,11 @@
                                                                     '<nav>' +
                                                                             '<ul id="paginationUser' + nameSystem + 'Version' + numVersion + '" class="pagination"></ul>' +
                                                                     '</nav>' + 
-                                                                    '<p>Score version : <span id="score' + nameSystem + 'Version' + numVersion + '"></span></p>');
+                                                                    '<p>Score version : <span id="score' + nameSystem + 'Version' + numVersion + '" class="score' + nameSystem + '"></span></p>');
         $("#selectAll" + nameSystem + "Version" + numVersion).on("change", function(){
             selectAllUserOfSystemVersion(nameSystem, numVersion);
             updateScoreWhenCheckboxesAreChanged(nameSystem, numVersion);
-            affichageGraphiques(iduser);
+            updateChartWhenVersionScoreChange(nameSystem);
         });
     }
 
@@ -43,7 +43,7 @@
 
         $(".checkbox" + nameSystem + "Version" + numVersion).on("change", function(){
             updateScoreWhenCheckboxesAreChanged(nameSystem, numVersion);
-            affichageGraphiques(iduser);
+            updateChartWhenVersionScoreChange(nameSystem);
         });
     }
 

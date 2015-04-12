@@ -11,12 +11,18 @@
                 if (data.length == 0)
                     $('#contenu').append("<p>Aucun questionnaire remplie</p>");
                 else {
+                    var systems = new Array();
+                    var indexSystemsArray = 0;
                     var nomSysteme = "";
                     var cpt=0;
-
+                    
                     for (var i = 0; i < data.length; i++) {
+                            
                             if(nomSysteme != data[i].Nom)
                             {
+                                systems[indexSystemsArray] = data[i].Nom;
+                                indexSystemsArray++;
+                                
                                 $('#contenu').append('<div class="panel-group" id="accordion'+cpt+'">' +
                                                         '<div class="panel panel-default">'+
                                                             '<div class="panel-heading">' +
@@ -61,6 +67,7 @@
                             $(".isUser" + data[i].Nom + "Version" + data[i].NumVersion).hide();
                             $("." + data[i].Nom + "Version" + data[i].NumVersion + "user1").show();
                     }
+
                     for (var i = 0; i < cpt; i++){
                         $('#body'+i).append('<form>' +
                                                 '<label for="ajouV'+i+'">Version: \n\<input id="ajoutV'+i+'" type="number" min=2 name="ajoutV'+i+'" required></label>' +
@@ -68,7 +75,7 @@
                                                 '<button type="submit" class="btn btn-primary ajouter" onClick=ajouterVersion('+i+','+iduser+'); >Ajouter Version</button>' +
                                             '</form>' + 
                                             '<h3 class="col-xs-offset-5">Graphique des résultats</h3>' +
-                                            '<div id="chartContainer'+i+'" class="col-xs-offset-3"></div>');
+                                            '<div id="chartContainer' + systems[i] + '" class="col-xs-offset-3"></div>');
                     }
                 }
             }
@@ -127,9 +134,37 @@
                     for (var j = 0; j < tab_systemes.length; j++)
                     {
                             scoreVersions = getScoreVersions(tab_systemes[j], tab_systemes_version[j].length);
-                            generateChart(j,tab_systemes[j],tab_systemes_version[j],scoreVersions);
+                            generateChart(tab_systemes[j],tab_systemes_version[j],scoreVersions);
                     }
                 }
             }		
         });
+    }
+    
+    function getScoresVersionsSystem(nameSystem){
+        var scoresVersions = new Array();
+        
+        $(".score" + nameSystem).each(function(i){
+            scoresVersions[i] = parseFloat($(this).text());
+        });
+        
+        return scoresVersions;
+    }
+    
+    function getVersionsSystem(nameSystem){
+        var scoresVersions = getScoresVersionsSystem(nameSystem);
+        var versionsSystem = new Array();
+        
+        for(var i = 0; i < scoresVersions.length; i++){
+            versionsSystem[i] = i + "";
+        }
+        
+        return versionsSystem;
+    }
+    
+    function updateChartWhenVersionScoreChange(nameSystem){
+        var scoresVersions = getScoresVersionsSystem(nameSystem);
+        var versionsSystem = getVersionsSystem(nameSystem);
+        
+        generateChart(nameSystem, versionsSystem, scoresVersions);
     }
