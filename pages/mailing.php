@@ -29,16 +29,23 @@
 		$donnees = $reponse->fetch(PDO::FETCH_ASSOC);
 		//Partie Envoi de mail.
 		if ($donnees['UserName'] != "" && $donnees['PassWord'] != "" && $_SESSION['login'] != "" && $donnees['Statut'] != "") {
-			ini_set('SMTP', 'smtp.free.fr');
-			ini_set('sendmail_from', 'equipetix@gmail.com');
-			if (isset($_POST) && isset($_POST['objet']) && isset($_POST['choixQuestionnaire']) && isset($_POST['message']) && (isset($_POST['autresDestinataires']) || isset($_POST['adresses']))) {
-				if (!empty($_POST['objet']) && !empty($_POST['choixQuestionnaire']) && !empty($_POST['message']) && (!empty($_POST['autresDestinataires']) || (sizeof($_POST['adresses'])!=1))) {			
+			
+			if (isset($_POST) && isset($_POST['expediteur']) && isset($_POST['objet']) && isset($_POST['choixQuestionnaire']) && isset($_POST['message']) && (isset($_POST['autresDestinataires']) || isset($_POST['adresses']))) {
+				if (!empty($_POST['expediteur']) && !empty($_POST['objet']) && !empty($_POST['choixQuestionnaire']) && !empty($_POST['message']) && (!empty($_POST['autresDestinataires']) || (sizeof($_POST['adresses'])!=1))) {			
+					
 					$boolmail=true;
+					$expediteur = $_POST['expediteur'];
+					
+					/** Lignes à supprimer sur le serveur **/
+					ini_set('SMTP', 'smtp.free.fr');
+					ini_set('sendmail_from', $expediteur);
+					/****/
 					
 					// Création de l'email.
+					
 					$passage_ligne = "\r\n";
 					$sujet = $_POST['objet'];
-					$message_txt = $_POST['message'] . ' voici le lien sur le questionnaire: ';
+					$message_txt = $_POST['message'] . $passage_ligne . ' voici le lien sur le questionnaire: ';
 					$urlIni = "http://localhost/QuestionnaireSUS/pages/formulaire.php";
 
 					function hashMail($Email) {
@@ -48,8 +55,8 @@
 					}
 
 					$boundary = "-----=" . md5(rand());
-					$header = "From: \"equipetix\"<equipetix@gmail.com>" . $passage_ligne;
-					$header.= "Reply-to: \"equipetix\" <equipetix@gmail.com>" . $passage_ligne;
+					$header = "From: \"questionnaireSUS\"<" . $_POST['expediteur'] . ">" . $passage_ligne;
+					$header.= "Reply-to: \"questionnaireSUS\" <" . $_POST['expediteur'] . ">" . $passage_ligne;
 					$header.= "MIME-Version: 1.0" . $passage_ligne;
 					$header.= "Content-Type: multipart/mixed;" . $passage_ligne . " boundary=\"" . $boundary . "\"" . $passage_ligne;
 					
@@ -241,6 +248,14 @@
 			<h1>Invitation de participants</h1>
 			<div class="row">
 				<form id="formMail" class="form-horizontal" role="form" action="mailing.php" method="post">
+					<div class="row">
+						<div class="form-group">
+							<label for="expediteur" class="col-sm-3 control-label">Votre Adresse mail: </label>
+							<div class="col-sm-4">
+								<input id="expediteur" type="email" name="expediteur" class="form-control" placeholder="Votre email" required>
+							</div>
+						</div>
+					</div>
 					<div class="row">
 						<div class="form-group">
 							<label for="objet" class="col-sm-3 control-label">Objet: </label>
