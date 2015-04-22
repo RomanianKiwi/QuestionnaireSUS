@@ -72,6 +72,8 @@
                         $('#body'+i).append('<form>' +
                                                 '<label for="ajouV'+i+'">Version: \n\<input id="ajoutV'+i+'" type="number" min=2 name="ajoutV'+i+'" required></label>' +
                                                 '<label for="ajoutV'+i+'date">Date d\'expiration: <input id="ajoutV'+i+'date" type="text" placeholder="format aaaa-mm-jj" name="ajoutV'+i+'date" required></label>' +
+												'<label for="ajoutV'+i+'SMbox">Ajouter un questionnaire Survey Monkey: <input class="SMbox" id="ajoutV'+i+'SMbox" type="checkbox" name="ajoutV'+i+'SMbox" value="'+i+'"/></label>' +
+												'<div class="codeSM2 code'+i+'"><label for="ajoutV'+i+'SMcode">Code HTML Survey Monkey: <textarea id="ajoutV'+i+'SMcode" name="ajoutV'+i+'SMcode" placeholder="Indiquez le code HTML généré par Survey Monkey."></textarea></label></div>' +
                                                 '<button type="submit" class="btn btn-primary ajouter" onClick=ajouterVersion('+i+','+iduser+'); >Ajouter Version</button>' +
                                             '</form>' + 
                                             '<h3 class="col-xs-offset-5">Graphique des résultats</h3>' +

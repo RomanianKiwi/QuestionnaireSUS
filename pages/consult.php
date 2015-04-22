@@ -53,6 +53,7 @@
 
             $(document).ready(function () {
 				
+				$(".codeSM").hide();
 				var statutUtil =  "<?php echo $_SESSION['statut']; ?>" ;
 				if(statutUtil != "Administrateur"){
 					$(".AjoutAd").hide();
@@ -66,7 +67,32 @@
 				$(".ajouter").click(function (e) {
 					e.preventDefault();
 				});
+				$(".codeSM2").hide();
 				
+				$('input[id="systemeSM"]').change(function() {
+					if($('input[id="systemeSM"]').prop( "checked" )){
+						$(".codeSM").show();
+						$('textarea[id="systemeCode"]').prop('required',true);
+					}
+					else{
+						$(".codeSM").hide();
+						$('textarea[id="systemeCode"]').val("");
+						$('textarea[id="systemeCode"]').prop('required',false);
+					}
+				});
+				
+				$('input[class="SMbox"]').change(function() {
+					var idbox = $(this).val();
+					if($('input[id="ajoutV'+idbox+'SMbox"]').prop( "checked" )){
+						$(".code"+idbox).show();
+						$('textarea[id="ajoutV'+idbox+'SMcode"]').prop('required',true);
+					}
+					else{
+						$(".code"+idbox).hide();
+						$('textarea[id="ajoutV'+idbox+'SMcode"]').val("");
+						$('textarea[id="ajoutV'+idbox+'SMcode"]').prop('required',false);
+					}
+				});
             });		
         </script>
 		
@@ -86,6 +112,12 @@
                     </div>
                     <div class="form-group">
                         <label for="systemeDate">Date d'expiration <input id="systemeDate" type="text" placeholder="format aaaa-mm-jj" name="systemeDate" required></label>
+                    </div>
+					<div class="form-group">
+							<label for="systemeSM">Ajouter un questionnaire Survey Monkey <input id="systemeSM" type="checkbox" name="systemeSM" value="survey"/></label>
+                    </div>
+					<div class="form-group codeSM">
+							<label for="systemeCode">Code HTML généré par Survey Monkey <textarea id="systemeCode" name="systemeCode" class="form-control" rows="4" placeholder="Indiquez le code HTML généré par Survey Monkey."></textarea></label>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-1">
