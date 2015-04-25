@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Lun 06 Avril 2015 à 11:02
+-- Généré le :  Sam 25 Avril 2015 à 12:36
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `administrateur` (
   `PassWord` varchar(20) NOT NULL,
   `Statut` varchar(256) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Contenu de la table `administrateur`
@@ -41,7 +41,8 @@ CREATE TABLE IF NOT EXISTS `administrateur` (
 INSERT INTO `administrateur` (`ID`, `UserName`, `PassWord`, `Statut`) VALUES
 (1, 'Admin1', 'test', 'Administrateur'),
 (2, 'Eval1', 'test', 'Evaluateur'),
-(3, 'Eval2', 'test', 'Evaluateur');
+(3, 'Eval2', 'test', 'Evaluateur'),
+(4, 'Eval3', 'test', 'Evaluateur');
 
 -- --------------------------------------------------------
 
@@ -110,8 +111,8 @@ CREATE TABLE IF NOT EXISTS `participer` (
 --
 
 INSERT INTO `participer` (`statut_Invitation`, `NumVersion`, `InviteCode`, `IdQuest`, `Reponses`, `Score`) VALUES
-(0, 7, '63367819150588506824860404288842822646', 2, NULL, NULL),
-(0, 7, '89854776697302320204482004426400426268', 2, NULL, NULL);
+(0, 6, '63367819150588506824860404288842822646', 2, NULL, NULL),
+(1, 6, '89854776697302320204482004426400426268', 2, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -126,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `questionnaire` (
   `ID` int(11) NOT NULL,
   PRIMARY KEY (`IdQuest`),
   KEY `FK_Questionnaire_ID` (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Contenu de la table `questionnaire`
@@ -188,6 +189,7 @@ CREATE TABLE IF NOT EXISTS `versionquestionnaire` (
   `NumVersion` int(11) NOT NULL,
   `DateExpiration` date DEFAULT NULL,
   `IdQuest` int(11) NOT NULL,
+  `urlFormulaire` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`NumVersion`,`IdQuest`),
   KEY `FK_VersionQuestionnaire_IdQuest` (`IdQuest`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -196,18 +198,19 @@ CREATE TABLE IF NOT EXISTS `versionquestionnaire` (
 -- Contenu de la table `versionquestionnaire`
 --
 
-INSERT INTO `versionquestionnaire` (`NumVersion`, `DateExpiration`, `IdQuest`) VALUES
-(1, '2015-04-20', 1),
-(1, '2015-04-15', 2),
-(2, '2015-04-25', 1),
-(2, '2015-04-25', 2),
-(3, '2015-05-02', 1),
-(3, '2015-05-02', 2),
-(4, '2015-06-08', 1),
-(4, '2015-05-15', 2),
-(5, '2015-06-08', 2),
-(6, '2015-06-10', 2),
-(7, '2015-06-13', 2);
+INSERT INTO `versionquestionnaire` (`NumVersion`, `DateExpiration`, `IdQuest`, `urlFormulaire`) VALUES
+(1, '2015-04-20', 1, NULL),
+(1, '2015-04-15', 2, NULL),
+(2, '2015-04-25', 1, NULL),
+(2, '2015-04-25', 2, NULL),
+(3, '2015-05-02', 1, NULL),
+(3, '2015-05-02', 2, NULL),
+(4, '2015-06-08', 1, NULL),
+(4, '2015-05-15', 2, NULL),
+(5, '2015-06-08', 1, 'https://www.google.fr/'),
+(5, '2015-06-08', 2, NULL),
+(6, '2015-04-14', 2, 'https://www.google.fr/'),
+(7, '2015-04-30', 2, NULL);
 
 --
 -- Contraintes pour les tables exportées
