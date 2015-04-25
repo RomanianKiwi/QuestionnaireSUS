@@ -18,6 +18,7 @@
         <script type="text/javascript">
             $(document).ready(function(){                
                 var dataSystem = new Array();
+                var urlSurveyMonkey;
 
                 //we get the hash code of the questionnaire and the user's mail in the current url
                 var sysCode = getUrlParameter('c');
@@ -31,14 +32,13 @@
                     //we check the expiration date of the questionnaire
                     checkExpirationDate(dataSystem);    
                 }
-
+                
                 //custom the title of this page
                 $("#titleSUS").append(" "+dataSystem[1]);
 
                 //generation of the languages availables
                 generateLanguageList(listFilesXML());
-
-                
+             
                 //called when the user click on the button Start
                 $("#startQuestionnaire").click(function(){
                    var urlFile = $(".languageOption:selected").attr("data-value");
@@ -61,6 +61,7 @@
             function hideLanguagesOptionAndStartButton(){
                 $("#buttonContainer").hide();
                 $("#startQuestionnaire").hide();
+                $("#surveyExplications").hide();
             }
             
             function endQuestionnaire(){
@@ -71,7 +72,7 @@
         </script>
     </head>
     <body>
-        <div class="container">
+        <div id="mainContent" class="container">
             <div class="row">
                 <h1 id="titleSUS" style="text-align: center;">Questionnaire SUS of</h1>
             </div>
@@ -90,9 +91,11 @@
                 <button class='btn btn-default' type='button' onclick="loadXMLDoc('../questionnaires/quest_de.xml'),hideButtonLanguage()">German</button>
                 -->
             </div>
-            <div class="row" style="margin-top:1%; text-align: center;">
-                <button id="startQuestionnaire" class="btn btn-success" type="button">Start</button>
+            <div id="surveyExplications" class="row" style="margin-top:1%; text-align: center;">
+                <p>When you will click on the button Start, you will be redirect towards a SurveyMonkey form.<br/>
+                   It will allow us to better analyze the results of the survey. Thank you for your participation !</p>
             </div>
+            <div id="startContent" class="row" style="margin-top:1%; text-align: center;"></div>
         </div>
     </body>
 </html>

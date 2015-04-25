@@ -23,7 +23,18 @@
             hideLanguagesOptionAndStartButton();
             $("#questSUS").hide();
             $("#contentSUS").append("<h2 style='margin-top: 25%; text-align: center; color: red;'>Ooops ! Wrong way ! :(</h2>" +
-                                    "<p style='text-align: center;'>Sorry, this questionnaire has expired ! Expiration Date : " + expirationDate + "</p>");           
+                                    "<p style='text-align: center;'>Sorry, this questionnaire has expired ! Expiration Date : " + expirationDate + "</p>");         
+        }
+        else {
+            //creation of button start
+            var str = '<button id="startQuestionnaire" class="btn btn-success" type="button"';
+
+            if(dataSystem[4] != null) {
+                str += ' onclick="window.open(href=\'' + dataSystem[4] + '\');return false;"';
+            }
+            str += '>Start</button>';
+
+            $("#startContent").append(str);
         }
     }
     

@@ -21,7 +21,7 @@
                         }
                         else {
                             //we insert the datas into the array
-                            tabData.push(data.IdQuest, data.Nom, data.NumVersion, data.DateExpiration, data.SommeNote, data.NbReponses);
+                            tabData.push(data.IdQuest, data.Nom, data.NumVersion, data.DateExpiration, data.urlFormulaire);
                         }
                     },
                     error : function(result, status, err){
