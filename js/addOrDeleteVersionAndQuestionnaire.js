@@ -13,7 +13,7 @@
 			var output = d.getFullYear() + '-' +
 						(month < 10 ? '0' : '') + month + '-' +
 						(day < 10 ? '0' : '') + day;
-			ajoutQuestionnaire($("#nomQuestionaire").val(), output, idUtil, $("#ajoutVersion").val(), $("#systemeDate").val(), iduser);
+			ajoutQuestionnaire($("#nomQuestionaire").val(), output, idUtil, $("#ajoutVersion").val(), $("#systemeDate").val(), iduser, codeSM);
 		}
     }
 
@@ -32,7 +32,7 @@
 				type: "POST",
 				url: "ajoutVersion.php",
 				async: false,
-				data: {NumVersion: numV, IdQuest: idQuestionnaire, DateExpiration: "'" +date+ "'"},
+				data: {NumVersion: numV, IdQuest: idQuestionnaire, DateExpiration: "'" +date+ "'", CodeSM: "'" + codeSM + "'"},
 				success: function (result)
 				{
 					location.reload()
@@ -57,11 +57,11 @@
         });
     }
     
-    function ajoutQuestionnaire(nom, dateCreation, idAmin, NumVersion, DateExpiration, iduser) {
+    function ajoutQuestionnaire(nom, dateCreation, idAmin, NumVersion, DateExpiration, iduser, codeSM) {
         $.ajax({
             type: "POST",
             url: "requeteAjoutQuestionnaire.php",
-            data: {NomQuest: nom, Date: "'" + dateCreation + "'", ID: "'" + idAmin + "'", NV: "'" + NumVersion + "'", DE: "'" + DateExpiration + "'"},
+            data: {NomQuest: nom, Date: "'" + dateCreation + "'", ID: "'" + idAmin + "'", NV: "'" + NumVersion + "'", DE: "'" + DateExpiration + "'", CodeSM: "'" + codeSM + "'"},
             async: false,
             success: function (result)
             {

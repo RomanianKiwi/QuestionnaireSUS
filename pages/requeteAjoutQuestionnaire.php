@@ -1,4 +1,3 @@
-
 <?php
 
 try {
@@ -11,6 +10,7 @@ $dateC = $_POST['Date'];
 $ident = $_POST['ID'];
 $dateExp = $_POST['DE'];
 $numVersion = $_POST['NV'];
+$CodeSM = $_POST['CodeSM'];
 
 function hashMail($nomH) {
     $test = hash('md5', $nomH);
@@ -27,5 +27,11 @@ $etape2 = "INSERT INTO syshash VALUES (" . $name2 . "," . $nomHascher . ",'0');"
 $bdd->exec($etape1 . $etape2);
 $req = $bdd->query("SELECT IdQuest FROM questionnaire ORDER BY IdQuest DESC LIMIT 1;");
 $donnees = $req->fetch();
+
+if($CodeSM == "''")
+	$bdd->exec("INSERT INTO versionquestionnaire VALUES (" . $numVersion . "," . $dateExp . ",".$donnees["IdQuest"].", NULL);");
+else
+	$bdd->exec("INSERT INTO versionquestionnaire VALUES (" . $numVersion . "," . $dateExp . ",".$donnees["IdQuest"]."," . $CodeSM . ");");
+
 $bdd->exec("INSERT INTO versionquestionnaire VALUES (" . $numVersion . "," . $dateExp . ",".$donnees["IdQuest"].");");
 ?>

@@ -9,8 +9,12 @@ try {
 $numVer = $_POST['NumVersion'];
 $expDate = $_POST['DateExpiration'];
 $IdQuest = $_POST['IdQuest'];
+$CodeSM = $_POST['CodeSM'];
 
+if($CodeSM == "''")
+	$requete = "INSERT INTO versionquestionnaire VALUES ('" . $numVer . "' , " . $expDate . ",'" . $IdQuest . "', NULL);";
+else
+	$requete = "INSERT INTO versionquestionnaire VALUES ('" . $numVer . "' , " . $expDate . ",'" . $IdQuest . "', " . $CodeSM . ");";
 
-$requete = "INSERT INTO versionquestionnaire VALUES ('" . $numVer . "' , " . $expDate . ",'" . $IdQuest . "');";
 $bdd->exec($requete);
 ?>
