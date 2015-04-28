@@ -12,17 +12,13 @@
 		
 		<script type="text/javascript">
 			$(document).ready(function() {
-				
 				$('.alert').hide();
             });
-			
-
         </script>
 		 <style>
 
         body {
             background-color: #F7F7F9;
-			padding-top: 100px;
         }
 
         #wrapper {
@@ -33,16 +29,23 @@
 
         form {
             border: 2px solid lightgrey;
-            padding-top: 50px;
+            padding-top: 2%;
             padding-bottom: 20px;
 			padding-left: 40px;
 			
         }
+		
+		#logo {
+			padding-bottom: 5%;
+		}
     </style>
 
 	</head>
 	
 	<body>
+		<div id="logo">
+			<center><img src="../images/logo.png" alt="logoSUS" width=300/></center>
+		</div>
 		<div class="container" id="wrapper">
 
 

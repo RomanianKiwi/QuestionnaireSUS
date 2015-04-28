@@ -70,6 +70,7 @@
 		<nav class="navbar navbar-default" role="navigation">
 	<div class="container">
 		<div class="navbar-header">
+			<img src="images/logo.png" alt="logoSUS" width=80/>
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-menu">
 			<span class="sr-only">Toggle navigation</span>
 			<span class="icon-bar"></span>
