@@ -15,9 +15,11 @@
         <script src="../js/updateScoreQuestionnaire.js"></script>
         <script src="../js/checkExpirationDate.js"></script>
         <script src="../js/listFilesXml.js"></script>
+        <script src="../js/checkStatutInvitationOfUser.js"></script>
         <script type="text/javascript">
             $(document).ready(function(){                
                 var dataSystem = new Array();
+                var statut;
                 var urlSurveyMonkey;
 
                 //we get the hash code of the questionnaire and the user's mail in the current url
@@ -30,7 +32,17 @@
 
                 if(dataSystem.length != 0) {
                     //we check the expiration date of the questionnaire
-                    checkExpirationDate(dataSystem);    
+                    checkExpirationDate(dataSystem);
+                    //we check if the user has already answer to the questionnaire
+                    statut = getStatutInvitationUser(dataSystem[0],dataSystem[2],dataSystem[5]);
+                    
+                    if (statut == 1) {
+                            $("#titleSUS").hide();
+                            hideLanguagesOptionAndStartButton();
+                            $("#questSUS").hide();
+                            $("#contentSUS").append("<h2 style='margin-top: 25%; text-align: center; color: red;'>Ooops ! Wrong way ! :(</h2>" +
+                                                    "<p style='text-align: center;'>It seems you have already completed the questionnaire or the URL is incorrect.</p>");                        
+                    }
                 }
                 
                 //custom the title of this page
@@ -84,12 +96,6 @@
                 <select id="languagesAvailables">
                     <option disabled selected></option>
                 </select>
-                <!--
-                <button class='btn btn-default' type='button' onclick="loadXMLDoc('../questionnaires/quest_fr.xml'),hideButtonLanguage()">French</button>
-                <button class='btn btn-default' type='button' onclick="loadXMLDoc('../questionnaires/quest_en.xml'),hideButtonLanguage()">English</button>
-                <button class='btn btn-default' type='button' onclick="loadXMLDoc('../questionnaires/quest_es.xml'),hideButtonLanguage()">Spanish</button>
-                <button class='btn btn-default' type='button' onclick="loadXMLDoc('../questionnaires/quest_de.xml'),hideButtonLanguage()">German</button>
-                -->
             </div>
             <div id="surveyExplications" class="row" style="margin-top:1%; text-align: center;">
                 <p>When you will click on the button Start, you will be redirect towards a SurveyMonkey form.<br/>

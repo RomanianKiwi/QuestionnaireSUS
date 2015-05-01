@@ -11,7 +11,7 @@
                     dataType: 'json',
                     success: function (data)
                     {
-                        //console.log(data);
+                        console.log(data);
                         if (data.InviteCode == null || data.NumVersion == null){
                             $("#titleSUS").hide();
                             hideLanguagesOptionAndStartButton();
@@ -21,7 +21,7 @@
                         }
                         else {
                             //we insert the datas into the array
-                            tabData.push(data.IdQuest, data.Nom, data.NumVersion, data.DateExpiration, data.urlFormulaire);
+                            tabData.push(data.IdQuest, data.Nom, data.NumVersion, data.DateExpiration, data.urlFormulaire, data.InviteCode);
                         }
                     },
                     error : function(result, status, err){
