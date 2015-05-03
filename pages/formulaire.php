@@ -2,10 +2,12 @@
 <html>
     <head>
         <title>Questionnaire SUS</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
         <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" />
         <link rel="stylesheet" type="text/css" href="../css/formulaire.css" />
+        <link href='http://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
         <script src="../js/jquery-2.1.3.js"></script>
         <script src="../js/bootstrap.js"></script>
         <script src="../js/fonctionsUtiles.js"></script>
@@ -16,11 +18,16 @@
         <script src="../js/checkExpirationDate.js"></script>
         <script src="../js/listFilesXml.js"></script>
         <script src="../js/checkStatutInvitationOfUser.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/FitText.js/1.1/jquery.fittext.min.js"></script>
         <script type="text/javascript">
             $(document).ready(function(){                
                 var dataSystem = new Array();
                 var statut;
                 var urlSurveyMonkey;
+
+
+                //we make the h1 header's text responsive
+                $("h1").fitText(2,{'minFontSize':22, 'maxFontSize':30});
 
                 //we get the hash code of the questionnaire and the user's mail in the current url
                 var sysCode = getUrlParameter('c');
@@ -64,7 +71,7 @@
                 //called when the user submit his answers
                 $("#questSUS").submit(function(e){
                     e.preventDefault();
-		    updateScoreSystem(computeScoreSUS(),dataSystem);
+		            updateScoreSystem(computeScoreSUS(),dataSystem);
                     setResultsUser(dataSystem,getAnswersToString(),computeScoreSUS());
                     endQuestionnaire();
                 });		
@@ -82,26 +89,43 @@
                                                     "<p style='text-align: center;'>Thanks you for your participation.</p>");
             }
         </script>
+
+        <style type="text/css">
+        .page-header, h2{
+            font-family: 'Lobster', cursive;
+        }
+
+        body {
+            font-family: 'Slabo 27px', serif;
+        }
+        </style>
+
     </head>
     <body>
-        <div id="mainContent" class="container">
-            <div class="row">
-                <h1 id="titleSUS" style="text-align: center;">Questionnaire SUS of</h1>
+        <div class="page-header text-center">
+                <h1 id="titleSUS">SUS Questionnaire for </h1>
             </div>
+        <div id="mainContent" class="container">
+            
             <div id="contentSUS" class="row" style="margin-top:2%;">
                 <form id="questSUS"></form>
             </div>
-            <div id="buttonContainer" class="row" style="margin-top:18%; text-align: center;">
+            <div id="buttonContainer" class="row text-center" style="margin-top:10%;">
                 <h3>Welcome, choose your language</h3>
-                <select id="languagesAvailables">
-                    <option disabled selected></option>
-                </select>
+                <div class="col-xs-4 col-md-4" style="float:none; margin:0 auto;">
+                    <select class="form-control" id="languagesAvailables">
+                        <option disabled selected></option>
+                    </select>
+                </div>
             </div>
-            <div id="surveyExplications" class="row" style="margin-top:1%; text-align: center;">
-                <p>When you will click on the button Start, you will be redirect towards a SurveyMonkey form.<br/>
-                   It will allow us to better analyze the results of the survey. Thank you for your participation !</p>
+            <div id="surveyExplications" class="row" style="margin-top:7%; text-align: center;">
+                <div class="container">
+                    <p>When you click on the Start button, you might be redirected towards a SurveyMonkey form.<br/>
+                   Please note that the information is only meant to help us better analyze the results of the Questionnaire.<br/> 
+                   Thank you for your participation!</p>
+                </div>
             </div>
-            <div id="startContent" class="row" style="margin-top:1%; text-align: center;"></div>
+            <div id="startContent" class="container" style="margin-top:1%; text-align: center;"></div>
         </div>
     </body>
 </html>

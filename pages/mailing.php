@@ -2,10 +2,14 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
         <title>Invitation de participants</title>
         <link rel="stylesheet" href="../css/bootstrap.css">
+        <link href='http://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
 		<script src="../js/jquery-2.1.3.js"></script>
-		<script src="../js/bootstrap.js"></script>	
+		<script src="../js/bootstrap.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/FitText.js/1.1/jquery.fittext.min.js"></script>	
     </head>
 
 	<?php
@@ -13,10 +17,10 @@
 	session_start();
 	if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION['statut']) && isset($_SESSION['ID'])) {
 		try {
-			$bdd = new PDO('mysql:host=localhost;dbname=projet;charset=utf8', 'root', '');
-		} catch (Exception $e) {
-			die('Erreur : ' . $e->getMessage());
-		}
+        $bdd = new PDO('mysql:host=localhost;dbname=cl24-project;charset=utf8', 'cl24-project', 'teamTIX');
+    } catch (Exception $e) {
+        die('Erreur : ' . $e->getMessage());
+    }
 		$log = $_SESSION['login'];
 		$mpass = $_SESSION['password'];
 		$statut = $_SESSION['statut'];
@@ -46,7 +50,7 @@
 					$passage_ligne = "\r\n";
 					$sujet = $_POST['objet'];
 					$message_txt = $_POST['message'] . $passage_ligne . ' voici le lien sur le questionnaire: ';
-					$urlIni = "http://localhost/QuestionnaireSUS/pages/formulaire.php";
+					$urlIni = "http://79.170.44.101/krkdev.com/QuestionnaireSUS/pages/formulaire.php";
 
 					function hashMail($Email) {
 						$test = hash('md5', $Email);
@@ -97,6 +101,11 @@
 					}
 					
 					//envoi de mail destinataires autres
+					try {
+        				$bdd2 = new PDO('mysql:host=localhost;dbname=cl24-project;charset=utf8', 'cl24-project', 'teamTIX');
+    				} catch (Exception $e) {
+        				die('Erreur : ' . $e->getMessage());
+    				}
 					$destinataires_sup = $_POST['autresDestinataires'];
 					if ($destinataires_sup != "") {
 						$destinataires_array = explode("\n", $destinataires_sup);
@@ -111,7 +120,7 @@
 						$message = $message_head . $passage_ligne . $message_txt . $message_url . $passage_ligne . $passage_ligne . "--" . $boundary . $passage_ligne;
 						// fin du message
 						$testBool = "false";
-						$reponse4 = $bdd->query('SELECT * FROM utilisateurs');
+						$reponse4 = $bdd2->query('SELECT * FROM utilisateurs');
 						while ($donnees4 = $reponse4->fetch()) {
 							if ($mailHascher == $donnees4['InviteCode'])
 								$testBool = "true";
@@ -124,9 +133,15 @@
 							$etape1 = "";
 						//etape 2 : inserer dans gerer le code hashé et le code du carnet en cours :
 						$etape2 = "INSERT INTO gerer VALUES ('0', '" . $mailHascher . "');";
-						$bdd->exec($etape1 . $etape2);
+						$bdd2->exec($etape1 . $etape2);
+
+						try {
+        					$bdd3 = new PDO('mysql:host=localhost;dbname=cl24-project;charset=utf8', 'cl24-project', 'teamTIX');
+    					} catch (Exception $e) {
+        					die('Erreur : ' . $e->getMessage());
+    					}
 						$participation2 = "INSERT INTO participer VALUES ('0','" . $lastV . "','" . $mailHascher . "','" . $numQ . "',NULL, NULL);";
-						$bdd->exec($participation2);
+						$bdd3->exec($participation2);
 						if (mail($destinataires_array[$i], $sujet, $message, $header)) {
 							
 						} else {
@@ -148,6 +163,8 @@
 	?>	
     <script type="text/javascript">
         $(document).ready(function () {
+        	$("h2").fitText(2,{'minFontSize':25, 'maxFontSize':30});
+
             var statutUtil = "<?php echo $_SESSION['statut']; ?>";
             if (statutUtil != "Administrateur") {
                 $(".AjoutAd").hide();
@@ -236,44 +253,49 @@
             }
         }
     </script>
-    <style>
-        h1{
-            text-align: center;
+
+    <style type="text/css">
+        .page-header, h2{
+            font-family: 'Lobster', cursive;
         }
-    </style>
+
+        body {
+            font-family: 'Slabo 27px', serif;
+        }
+        </style>
 </head>
 	<body>
-	<?php include("menu.php"); ?>
+		<?php include("menu.php"); ?>
+	<div class="container">
 		<div class="container">
-			<h1>Invitation de participants</h1>
+			<div class="page-header text-center">
+                	<h2>Invitation de participants</h2>
+            	</div>
 			<div class="row">
 				<form id="formMail" class="form-horizontal" role="form" action="mailing.php" method="post">
-					<div class="row">
-						<div class="form-group">
+					<div class="form-group">
 							<label for="expediteur" class="col-sm-3 control-label">Votre Adresse mail: </label>
 							<div class="col-sm-4">
 								<input id="expediteur" type="email" name="expediteur" class="form-control" placeholder="Votre email" required>
 							</div>
-						</div>
 					</div>
-					<div class="row">
-						<div class="form-group">
+
+					<div class="form-group">
 							<label for="objet" class="col-sm-3 control-label">Objet: </label>
 							<div class="col-sm-4">
 								<input id="objet" type="text" name="objet" class="form-control" placeholder="Objet de votre message" required>
 							</div>
-						</div>
 					</div>
-					<div class="row">
-						<div class="form-group">
+
+					<div class="form-group">
 							<label for="choixQuestionnaire" class="col-sm-3 control-label">Choix Questionnaire: </label>
 							<div class="col-sm-4">
 								<select id="choixQuestionnaire" name="choixQuestionnaire" class="form-control" required>
 								</select>
 							</div>
-						</div>
 					</div>
-					<div id="carnet" class="row">
+
+					<div id="carnet" class="container">
 						<div class="form-group">
 							<label for="choixCarnet" class="col-sm-3 control-label">Choix Carnet d'adresse: </label>
 							<div class="col-sm-4">
@@ -283,7 +305,8 @@
 							</div>
 						</div>
 					</div>
-					<div id="mails" class="row">
+
+					<div id="mails" class="container">
 						<div class="form-group">
 							<div class="col-sm-offset-3 col-sm-4">
 								<div class="checkbox" id="vide">
@@ -292,28 +315,25 @@
 							</div>
 						</div>
 					</div>
-					<div class="row">
-						<div class="form-group">
+
+					<div class="form-group">
 							<label for="autresDestinataires" class="col-sm-3 control-label">Autres destinataires: </label>
 							<div class="col-sm-4">
 								<textarea id="autreDestinataires" name="autresDestinataires" class="form-control" rows="4" placeholder="Indiquez les destinataires sur une ligne diff&eacute;rente."></textarea>
 							</div>
-						</div>
 					</div>
-					<div class="row">
-						<div class="form-group">
+
+					<div class="form-group">
 							<label for="message" class="col-sm-3 control-label">Message: </label>
 							<div class="col-sm-4">
 								<textarea id="message" name="message" class="form-control" rows="4" placeholder="Votre message ici" required></textarea>
 							</div>
-						</div>
 					</div>
-					<div class="row">
-						<div class="form-group">
+
+					<div class="form-group">
 							<div class="col-sm-offset-3 col-sm-10">
 								<button id="envoyer" type="submit" class="btn btn-primary">Envoyer</button>
 							</div>
-						</div>
 					</div>
 				</form>
 				<div id="succes" class="alert alert-success">Invitations envoy&eacute;es.</div>
@@ -321,5 +341,6 @@
 				<div id="echec" class="alert alert-danger">Erreur dans l'envoi d'invitations.</div>
 			</div>
 		</div>
+	</div>
 	</body>
 </html>

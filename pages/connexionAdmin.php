@@ -4,8 +4,10 @@
 	
 		<title>Accueil Administrateur</title>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
         <link rel="stylesheet" href="../css/bootstrap.css">
+        <link href='http://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
 		<script src="../js/jquery-2.1.3.js"></script>
 		<script src="../js/bootstrap.js"></script>	
         <script src="../js/fonctionsUtiles.js"></script>
@@ -21,35 +23,45 @@
             background-color: #F7F7F9;
         }
 
-        #wrapper {
-            position: absolute;
-            top: 25%;
-            width: 100%;
+        #logo {
+        	background-color: white;
+        	margin-bottom: 0 !important;
         }
 
-        form {
-            border: 2px solid lightgrey;
-            padding-top: 2%;
-            padding-bottom: 20px;
-			padding-left: 40px;
-			
+        #logo img {
+        	max-height: 100px;
+        	margin: 0 auto;
+
         }
-		
-		#logo {
-			padding-bottom: 5%;
-		}
+
+        #emptydiv {
+        	width:100%;
+        	background-color:#626262;
+        	height:30px;
+        	margin-top:0;
+        	margin-bottom:40px;
+        }
+
+        .page-header, h2{
+            font-family: 'Lobster', cursive;
+        }
+
+        body {
+            font-family: 'Slabo 27px', serif;
+        }
+
     </style>
 
 	</head>
 	
 	<body>
-		<div id="logo">
-			<center><img src="../images/logo.png" alt="logoSUS" width=300/></center>
+		<div class="navbar" id="logo">
+			<img class="img-responsive" src="../images/logo.png" alt="logoSUS"/>
 		</div>
-		<div class="container" id="wrapper">
+		<div class="container" id="emptydiv">
+		</div>
+		<div class="container">
 
-
-			
 				<form id="formAjout" class="form-horizontal" role="form" method="post" action="creationSession.php">
 					<div class="form-group" >
 						<div class="col-sm-8">
@@ -66,7 +78,7 @@
 						<div class="col-sm-8">
 							<div class="input-group">
 
-							  <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span>    </span>    
+							  <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>    
 							  <input id ="mdp" name="password" type="password" class="form-control" placeholder="Mot de passe">
 							</div>
 						</div>

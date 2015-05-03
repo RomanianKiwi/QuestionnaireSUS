@@ -3,7 +3,7 @@
 session_start();
 if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION['statut']) && isset($_SESSION['ID'])) {
     try {
-        $bdd = new PDO('mysql:host=localhost;dbname=projet;charset=utf8', 'root', '');
+        $bdd = new PDO('mysql:host=localhost;dbname=cl24-project;charset=utf8', 'cl24-project', 'teamTIX');
     } catch (Exception $e) {
         die('Erreur : ' . $e->getMessage());
     }
@@ -35,8 +35,10 @@ if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
         <link rel="stylesheet" href="../css/bootstrap.css">
+        <link href='http://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
 		<script src="../js/jquery-2.1.3.js"></script>
 		<script src="../js/bootstrap.js"></script>	
         <script type="text/javascript">
@@ -79,21 +81,25 @@ if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION
             li:hover {
                 background-color: #D8D8D8;
             }
+            body {
+            font-family: 'Slabo 27px', serif;
+        }
         </style>
     </head>
     <body>
 <?php include("menu.php"); ?>
         
-        <form id="formAjout" class="form-horizontal" role="form">
+        <div class="container">
+            <form id="formAjout" class="form-horizontal" role="form">
             <div class="form-group">
-                <label for="nom" class="col-sm-3 control-label">Nom</label>
+                <label for="nom" class="col-sm-3 control-label">Identifiant</label>
                 <div class="col-sm-4">
                     <input id="nom" type="text" class="form-control" placeholder="Nom" required>
                 </div>
             </div>
             
             <div class="form-group">
-                <label id="mdp" class="col-sm-3 control-label">mot de passe</label>
+                <label id="mdp" class="col-sm-3 control-label">Mot de passe</label>
                 <div class="col-sm-4">
                     <input id="motdepasse" type="password" class="form-control" placeholder="Mot de passe">
                 </div>
@@ -113,5 +119,6 @@ if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION
                 </div>
             </div>
         </form>
+        </div>
     </body>
 </html>

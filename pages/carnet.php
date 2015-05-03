@@ -2,14 +2,11 @@
 // On démarre la session (ceci est indispensable dans toutes les pages de notre section membre)
 	session_start();
 	if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION['statut']) && isset($_SESSION['ID'])) {
-			try
-			{
-				$bdd = new PDO('mysql:host=localhost;dbname=projet;charset=utf8', 'root', '');
-			}
-			catch (Exception $e)
-			{
-					die('Erreur : ' . $e->getMessage());
-			}
+			try {
+        $bdd = new PDO('mysql:host=localhost;dbname=cl24-project;charset=utf8', 'cl24-project', 'teamTIX');
+    } catch (Exception $e) {
+        die('Erreur : ' . $e->getMessage());
+    }
 			$log = $_SESSION['login'];
 			$mpass = $_SESSION['password'];
 			$statut=$_SESSION['statut'];
@@ -35,13 +32,18 @@
 	<head>
 	
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 		<title>Gestion carnet d'adresse</title>
 		<link rel="stylesheet" href="../css/bootstrap.css">
+		<link href='http://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
 		<script src="../js/jquery-2.1.3.js"></script>
 		<script src="../js/bootstrap.js"></script>	
-		<script src="../js/fonctionsUtiles.js"></script>		
+		<script src="../js/fonctionsUtiles.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/FitText.js/1.1/jquery.fittext.min.js"></script>		
 	</head>
+
+
 	
 	<style>	
 	h1,h2{
@@ -55,6 +57,14 @@
 	form{
 		margin-bottom:20px;
 	}
+
+	.page-header, h2{
+            font-family: 'Lobster', cursive;
+        }
+
+    body {
+        font-family: 'Slabo 27px', serif;
+        }
 	
 	</style>
 	
@@ -79,6 +89,9 @@
 					var carnetid = res[1];
 					supprimerUtilisateurCarnet(carnetid,invCode);
 				});
+				
+				//
+				$("h2").fitText(2,{'minFontSize':25, 'maxFontSize':30});
 			});
 			
 			
@@ -232,17 +245,21 @@
 	
 	<body>
 		<?php include("menu.php"); ?>
-		<h1>Gestion carnet d'adresse</h1>
+		<div class="page-header text-center container">
+            <h2 id="titleHeader">Gestion carnet d'adresse</h2>
+        </div>
 		<div id="contenu" class="container">
 			<div id="contenuAjout" class="container">
-				<h2>Ajouter un carnet:</h2>
-				<form id="ajoutC" class="form-inline" role="form">
-				<div class="form-group">
-					<label for="nouveauCarnet">Nom du carnet: </label>
-					<input type="text" id="nouveauCarnet" name="nouveauCarnet" placeholder="Titre du nouveau carnet" required/>
+				<h3>Ajouter un carnet:</h3>
+				<div class="container">
+					<form id="ajoutC" class="form-inline" role="form">
+						<div class="form-group">
+							<label for="nouveauCarnet">Nom du carnet: </label>
+							<input class="form-control" type="text" id="nouveauCarnet" name="nouveauCarnet" placeholder="Titre du nouveau carnet" required/>
+						</div>
+						<button type="submit" onClick=ajouterCarnet(); class="btn btn-primary btn-sm">Ajouter ce carnet</button>
+					</form>
 				</div>
-					<button type="submit" onClick=ajouterCarnet(); class="btn btn-primary btn-sm">Ajouter ce carnet</button>
-				</form>
 			</div>
 			<div id="contenuCarnet" class="container">
 			</div>

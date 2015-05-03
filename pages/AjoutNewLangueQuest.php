@@ -2,8 +2,9 @@
 // On démarre la session (ceci est indispensable dans toutes les pages de notre section membre)
 session_start();
 if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION['statut']) && isset($_SESSION['ID'])) {
+
     try {
-        $bdd = new PDO('mysql:host=localhost;dbname=projet;charset=utf8', 'root', '');
+        $bdd = new PDO('mysql:host=localhost;dbname=cl24-project;charset=utf8', 'cl24-project', 'teamTIX');
     } catch (Exception $e) {
         die('Erreur : ' . $e->getMessage());
     }
@@ -32,8 +33,9 @@ if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION
 <html>
     <head>
 
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
         <title>Ajout Langue</title>
-        <meta charset="utf-8">
         <link rel="stylesheet" href="../css/bootstrap.css">
         <script src="../js/jquery-2.1.3.js"></script>
         <script src="../js/bootstrap.js"></script>	
@@ -41,6 +43,7 @@ if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION
         <!-- plugin Bootstrap DatePicker -->
         <link href="../css/datepicker.css" rel="stylesheet">
         <link rel="stylesheet" href="../css/style.css" />
+        <link href='http://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
         <script src="../js/bootstrap-datepicker.js"></script>
         <script src="../js/dateFRtoEN.js"></script>
         <script src="../js/createXMLString.js"></script>
@@ -151,6 +154,10 @@ if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION
             li:hover {
                 background-color: #D8D8D8;
             }
+
+            body {
+            font-family: 'Slabo 27px', serif;
+        }
         </style>
     </head>
 
@@ -167,7 +174,7 @@ if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION
 
                 <div id="listeFilesXML" class="form-group">
                     <div class="row">
-                        <div class="col-md-12"><span class="glyphicon glyphicon-folder-open" style="color:rgb(150, 150, 55)" aria-hidden="true"></span>&thinsp;&thinsp;&thinsp;&thinsp;Fichiers des langues des questionnaires pr&eacute;sentes :</div>
+                        <div class="col-md-12"><span class="glyphicon glyphicon-folder-open" style="color:rgb(150, 150, 55)" aria-hidden="true"></span>&thinsp;&thinsp;&thinsp;&thinsp; Liste des fichiers de langues pr&eacute;sents :</div>
                     </div>
                 </div>
 
@@ -176,7 +183,7 @@ if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION
                 <div class="form-group">
                     <label for="nameLangue" class="col-sm-3 control-label">Nouvelle langue :</label>
                     <div class="col-sm-4">
-                        <input id="nameLangue" type="text" class="form-control" placeholder="Exemple : English, China, etc." required>
+                        <input id="nameLangue" type="text" class="form-control" placeholder="Exemple : English, Chinese, etc." required>
                     </div>
                 </div>
                 <hr>
