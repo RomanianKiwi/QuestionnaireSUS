@@ -7,7 +7,7 @@
     function generateChart (nameSystem, versions, results) {
 
         $('#chartContainer' + nameSystem + '').highcharts({
-            hart: {
+            chart: {
                 type: 'spline',
             },
             title: {
