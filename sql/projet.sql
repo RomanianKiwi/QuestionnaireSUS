@@ -39,10 +39,7 @@ CREATE TABLE IF NOT EXISTS `administrateur` (
 --
 
 INSERT INTO `administrateur` (`ID`, `UserName`, `PassWord`, `Statut`) VALUES
-(1, 'Admin1', 'test', 'Administrateur'),
-(2, 'Eval1', 'test', 'Evaluateur'),
-(3, 'Eval2', 'test', 'Evaluateur'),
-(4, 'Eval3', 'test', 'Evaluateur');
+(1, 'Admin1', '0000', 'Administrateur'),
 
 -- --------------------------------------------------------
 
@@ -58,13 +55,6 @@ CREATE TABLE IF NOT EXISTS `carnetadresse` (
   KEY `FK_CarnetAdresse_ID` (`ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
---
--- Contenu de la table `carnetadresse`
---
-
-INSERT INTO `carnetadresse` (`IdCarnet`, `NomCarnet`, `ID`) VALUES
-(1, 'Reseaux Sociaux', 2),
-(2, 'Carnet Temporaire', 2);
 
 -- --------------------------------------------------------
 
@@ -79,14 +69,6 @@ CREATE TABLE IF NOT EXISTS `gerer` (
   KEY `FK_Gerer_InviteCode` (`InviteCode`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Contenu de la table `gerer`
---
-
-INSERT INTO `gerer` (`IdCarnet`, `InviteCode`) VALUES
-(1, '63367819150588506824860404288842822646'),
-(1, '89854776697302320204482004426400426268'),
-(2, '89854776697302320204482004426400426268');
 
 -- --------------------------------------------------------
 
@@ -106,14 +88,6 @@ CREATE TABLE IF NOT EXISTS `participer` (
   KEY `FK_Participer_InviteCode` (`InviteCode`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Contenu de la table `participer`
---
-
-INSERT INTO `participer` (`statut_Invitation`, `NumVersion`, `InviteCode`, `IdQuest`, `Reponses`, `Score`) VALUES
-(0, 6, '63367819150588506824860404288842822646', 2, NULL, NULL),
-(1, 6, '89854776697302320204482004426400426268', 2, NULL, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -129,14 +103,6 @@ CREATE TABLE IF NOT EXISTS `questionnaire` (
   KEY `FK_Questionnaire_ID` (`ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
---
--- Contenu de la table `questionnaire`
---
-
-INSERT INTO `questionnaire` (`IdQuest`, `Nom`, `DateCreation`, `ID`) VALUES
-(1, 'Twitter', '2015-04-01', 2),
-(2, 'Facebook', '2015-04-01', 2);
-
 -- --------------------------------------------------------
 
 --
@@ -150,13 +116,6 @@ CREATE TABLE IF NOT EXISTS `syshash` (
   PRIMARY KEY (`SysName`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Contenu de la table `syshash`
---
-
-INSERT INTO `syshash` (`SysName`, `HashCode`, `Active`) VALUES
-('Facebook', '287555991562433206886428640488088806246', 0),
-('Twitter', '48608916384192418606822400648886420408', 0);
 
 -- --------------------------------------------------------
 
@@ -170,14 +129,6 @@ CREATE TABLE IF NOT EXISTS `utilisateurs` (
   PRIMARY KEY (`InviteCode`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Contenu de la table `utilisateurs`
---
-
-INSERT INTO `utilisateurs` (`InviteCode`, `Email`) VALUES
-('119563580860034384888882442862428042848', 'flavien@gmail.com'),
-('63367819150588506824860404288842822646', 'equipetix@gmail.com'),
-('89854776697302320204482004426400426268', 'bocchi31@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -193,24 +144,6 @@ CREATE TABLE IF NOT EXISTS `versionquestionnaire` (
   PRIMARY KEY (`NumVersion`,`IdQuest`),
   KEY `FK_VersionQuestionnaire_IdQuest` (`IdQuest`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `versionquestionnaire`
---
-
-INSERT INTO `versionquestionnaire` (`NumVersion`, `DateExpiration`, `IdQuest`, `urlFormulaire`) VALUES
-(1, '2015-04-20', 1, NULL),
-(1, '2015-04-15', 2, NULL),
-(2, '2015-04-25', 1, NULL),
-(2, '2015-04-25', 2, NULL),
-(3, '2015-05-02', 1, NULL),
-(3, '2015-05-02', 2, NULL),
-(4, '2015-06-08', 1, NULL),
-(4, '2015-05-15', 2, NULL),
-(5, '2015-06-08', 1, 'https://www.google.fr/'),
-(5, '2015-06-08', 2, NULL),
-(6, '2015-04-14', 2, 'https://www.google.fr/'),
-(7, '2015-04-30', 2, NULL);
 
 --
 -- Contraintes pour les tables exportées

@@ -55,6 +55,9 @@
 					function hashMail($Email) {
 						$test = hash('md5', $Email);
 						$retval = base_convert($test, 16, 10);
+						if(strpos($Email, '@')) {
+							$retval .= md5(uniqid(rand(), true));
+						}
 						return $retval;
 					}
 
