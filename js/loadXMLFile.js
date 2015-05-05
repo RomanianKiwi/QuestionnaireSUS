@@ -28,7 +28,7 @@
                 questions = xmlhttp.responseXML.documentElement.getElementsByTagName("question");
 		answers = xmlhttp.responseXML.documentElement.getElementsByTagName("answer");
                 system = xmlhttp.responseXML.documentElement.getElementsByTagName("system")[0].firstChild.nodeValue;
-                $("#questSUS").append("<table class='table table-bordered table-hover table-striped'>" +
+                $("#questSUS").append("<table class='table table-bordered table-hover table-striped table-condensed'>" +
                                         "<thead>" +
                                             "<th>Questions</th>" +
                                             "<th>" + answers[0].firstChild.nodeValue + "</th>" +
@@ -78,7 +78,7 @@
                         $("#tableSUS").append(formGroup);
                 }
                 $(".answerSUS").on('change', verifyAllQuestionsAreChecked);
-		$("#questSUS").append("<div style='text-align: center;'><button type='submit' disabled='true' class='btn btn-lg btn-default'>Submit</button></div>");
+		$("#questSUS").append("<div  class='container' style='text-align: center;'><button type='submit' disabled='true' class='btn btn-lg btn-default'>Submit</button></div>");
             }   
         }
 

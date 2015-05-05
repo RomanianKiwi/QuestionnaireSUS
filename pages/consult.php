@@ -141,7 +141,7 @@
             </div>
             <div class="row">
                 <h2>Mes enquêtes</h2>
-                <div class="container" id="contenu"></div>
+                <div class="container col-md-12 col-lg-12" id="contenu"></div>
             </div>
         </div>
     </body>

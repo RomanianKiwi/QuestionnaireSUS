@@ -1,4 +1,4 @@
-    function ajouterEnquete(idUtil, iduser) {
+function ajouterEnquete(idUtil, iduser) {
         if($("#nomQuestionaire").val() != "" && $("#ajoutVersion").val() != "" && $("#systemeDate").val() != "") {
 			var d = new Date();
 			

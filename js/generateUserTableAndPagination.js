@@ -1,5 +1,5 @@
     function generateTableAndPagination(iduser, nameSystem, numVersion){
-        $("#list" + nameSystem + "Version" + numVersion).prepend('<div>' +
+        $("#list" + nameSystem + "Version" + numVersion).prepend('<div class="table-responsive">' +
                                                                     '<table class="table table-striped table-bordered table-hover">' +
                                                                                     '<thead>' +
                                                                                             '<tr>' +

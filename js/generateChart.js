@@ -5,14 +5,10 @@
      *                  system
      */
     function generateChart (nameSystem, versions, results) {
+
         $('#chartContainer' + nameSystem + '').highcharts({
-            chart: {
+            hart: {
                 type: 'spline',
-                reflow: false,
-                width: 600
-            },
-            credits: {
-                enabled: false
             },
             title: {
                 text: 'Score SUS de ' + nameSystem + ' au fil de ses versions'

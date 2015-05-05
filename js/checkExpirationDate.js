@@ -17,7 +17,7 @@
             var str = '<button id="startQuestionnaire" class="btn btn-success" type="button"';
 
             if(dataSystem[4] != null) {
-                str += ' onclick="window.open(href=\'' + dataSystem[4] + '\');return false;"';
+                str += ' onclick="window.open(url=\''+ dataSystem[4] + '\');return false;"';
             }
             str += '>Start</button>';
 

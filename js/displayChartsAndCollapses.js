@@ -32,7 +32,7 @@
                                                             '</div>' +
                                                             '<div id="collapse'+cpt+'" class="panel-collapse collapse">' +
                                                                 '<div id="body'+cpt+'" name='+data[i].IdQuest+' class="panel-body">' +
-                                                                    '<h3 class="col-xs-offset-5">Liste des versions</h3>' +
+                                                                    '<h3 class="text-center">Liste des versions</h3>' +
                                                                 '</div>' +
                                                             '</div>' +
                                                         '</div>' +
@@ -70,14 +70,14 @@
 
                     for (var i = 0; i < cpt; i++){
                         $('#body'+i).append('<form>' +
-                                                '<label for="ajouV'+i+'">Version: \n\<input id="ajoutV'+i+'" type="number" min=2 name="ajoutV'+i+'" required></label>' +
-                                                '<label for="ajoutV'+i+'date">Date d\'expiration: <input id="ajoutV'+i+'date" type="text" placeholder="format aaaa-mm-jj" name="ajoutV'+i+'date" required></label>' +
+                                                '<label for="ajouV'+i+'">Version: \n\<input class="form-control" id="ajoutV'+i+'" type="number" min=2 name="ajoutV'+i+'" required></label>' +
+                                                '<label for="ajoutV'+i+'date">Date d\'expiration: <input class="form-control" id="ajoutV'+i+'date" type="text" placeholder="format aaaa-mm-jj" name="ajoutV'+i+'date" required></label>' +
 												'<label for="ajoutV'+i+'SMbox">Ajouter un questionnaire Survey Monkey: <input class="SMbox" id="ajoutV'+i+'SMbox" type="checkbox" name="ajoutV'+i+'SMbox" value="'+i+'"/></label>' +
 												'<div class="codeSM2 code'+i+'"><label for="ajoutV'+i+'SMcode">Code HTML Survey Monkey: <textarea id="ajoutV'+i+'SMcode" name="ajoutV'+i+'SMcode" placeholder="Indiquez le code HTML généré par Survey Monkey."></textarea></label></div>' +
                                                 '<button type="submit" class="btn btn-primary ajouter" onClick=ajouterVersion('+i+','+iduser+'); >Ajouter Version</button>' +
                                             '</form>' + 
-                                            '<h3 class="col-xs-offset-5">Graphique des résultats</h3>' +
-                                            '<div id="chartContainer' + systems[i] + '" class="col-xs-offset-3"></div>');
+                                            '<h3 class="text-center">Graphique des résultats</h3>' +
+                                            '<div id="chartContainer' + systems[i] + '" class="panel-group"></div>');
                     }
                 }
             }
